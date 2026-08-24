@@ -43,7 +43,7 @@ O'Reilly/Safari subscription if you have one before buying new.
 | Phases | What | Duration |
 |---|---|---|
 | 00–03 | Foundations, market mechanics, data pipeline, strategy theory | 5–7 weeks |
-| 04 | Build the mean-reversion system (the core coding project) | 3–4 weeks |
+| 04 | Build the mean-reversion system (the core build project) | 3–4 weeks |
 | 05 | Statistical validation (walk-forward, Monte Carlo) | 2–3 weeks |
 | 06 | Risk & position sizing | 1 week |
 | 07 | Paper trading | **3 months minimum, wall-clock** — this can't be rushed, the market has to generate enough sample trades |
