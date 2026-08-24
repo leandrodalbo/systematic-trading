@@ -13,7 +13,19 @@ noise. This is the phase most self-taught traders skip — don't skip it.
 ## Read
 
 - *Evidence-Based Technical Analysis* — David Aronson —
-  [find it on Amazon](https://www.amazon.com/s?k=Evidence-Based+Technical+Analysis+David+Aronson)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Evidence-Based+Technical+Analysis+David+Aronson)
+
+## Reading order (~1 hr/day)
+
+1. **Aronson, front to back.** ~559 pages ÷ ~15 pages/hour (dense, worth
+   slowing down for) ≈ **37 days** — the biggest single block in this
+   curriculum. If you need to prioritize, the statistical-methodology
+   chapters in the back half (data-mining bias, out-of-sample testing) are
+   more directly useful to this phase than the earlier chapters debunking
+   subjective chart-reading — but the whole book is worth it eventually.
+
+**Phase 05 reading: ~37 days.** Consider overlapping this with the
+Phase 04 build work rather than reading it all before starting.
 
 ## Steps
 

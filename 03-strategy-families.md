@@ -18,9 +18,21 @@ when it stops working.
   Howard Bandy. Read for the strategy-design logic and validation approach
   only — the code examples are in AmiBroker's AFL, which you won't be
   using. Reimplement every formula yourself in Phase 04. —
-  [find it on Amazon](https://www.amazon.com/s?k=Mean+Reversion+Trading+Systems+Howard+Bandy)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Mean+Reversion+Trading+Systems+Howard+Bandy)
 - *Algorithmic Trading: Winning Strategies and Their Rationale* — Ernest Chan —
-  [find it on Amazon](https://www.amazon.com/s?k=Algorithmic+Trading+Ernest+Chan+Winning+Strategies)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Algorithmic+Trading+Ernest+Chan+Winning+Strategies)
+
+## Reading order (~1 hr/day)
+
+1. **Bandy first** — it's the direct spec for the final project. ~342 pages
+   ÷ ~20 pages/hour ≈ **17 days**. Read front to back; the later chapters
+   with named example systems are the most directly reusable for Phase 04.
+2. **Chan's _Algorithmic Trading_ second**, for the momentum/pairs contrast.
+   ~224 pages ÷ ~20 pages/hour ≈ **11 days**.
+
+**Phase 03 reading: ~28 days.** This is the densest reading block before
+the final project — worth taking notes as you go rather than re-reading
+later.
 
 ## Steps
 

@@ -11,9 +11,21 @@
 ## Read
 
 - *Naked Statistics* — Charles Wheelan (fast, non-technical, start here) —
-  [find it on Amazon](https://www.amazon.com/s?k=Naked+Statistics+Charles+Wheelan)
-- Stats appendix of *Quantitative Trading* — Ernest Chan —
-  [find it on Amazon](https://www.amazon.com/s?k=Quantitative+Trading+Ernest+Chan)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan)
+- Stats appendix of *Quantitative Trading* — Ernest Chan (just the
+  appendix, not the whole book yet — you'll read the rest in Phase 01) —
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Quantitative+Trading+Ernest+Chan)
+
+## Reading order (~1 hr/day)
+
+Page counts are for common paperback editions — yours may vary slightly.
+
+1. **_Naked Statistics_ — read front to back.** ~256 pages ÷ ~30 pages/hour
+   ≈ **9 days**.
+2. **_Quantitative Trading_ — appendix only.** ~20–30 pages ≈ **1–2 days**.
+   Skip everything else for now; chapters 1–3 come in Phase 01.
+
+**Phase 00 reading: ~10–11 days.**
 
 ## Steps
 

@@ -17,7 +17,15 @@
 - *Advances in Financial Machine Learning* — Marcos López de Prado (once
   the fundamentals from Phases 00–06 are solid, not before — it assumes a
   lot) —
-  [find it on Amazon](https://www.amazon.com/s?k=Advances+in+Financial+Machine+Learning+Lopez+de+Prado)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Advances+in+Financial+Machine+Learning+Lopez+de+Prado)
+
+## Reading order (~1 hr/day)
+
+1. **López de Prado, front to back**, but only after Phases 00–06 are
+   solid — it assumes you already have the statistics and backtesting
+   grounding. ~400 pages ÷ ~15 pages/hour (dense, code-heavy) ≈ **27 days**.
+
+**Phase 09 reading: ~27 days.**
 
 ## Steps
 

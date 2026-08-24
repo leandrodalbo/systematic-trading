@@ -13,7 +13,14 @@ stock and crypto venues.
 ## Read
 
 - Chapters 1–3 of *Quantitative Trading* — Ernest Chan —
-  [find it on Amazon](https://www.amazon.com/s?k=Quantitative+Trading+Ernest+Chan)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Quantitative+Trading+Ernest+Chan)
+
+## Reading order (~1 hr/day)
+
+1. **_Quantitative Trading_, chapters 1–3 only** (you already have this book
+   from Phase 00). ~80 pages ÷ ~20 pages/hour ≈ **4 days**.
+
+**Phase 01 reading: ~4 days.**
 
 ## Free tools
 

@@ -57,3 +57,8 @@ strategies, surviving a drawdown, refining risk rules) before "professional"
 stops feeling like a stretch. Phase 05 is the phase most self-taught traders
 skip, and skipping it is the single biggest reason systems that look great in
 backtest lose money live.
+
+Each phase file now has a **Reading order (~1 hr/day)** section with page
+counts and a day estimate per book. Total across the whole curriculum: **~124
+days of 1 hr/day reading (~4 months)** — that time overlaps with the build
+and validation work above, it doesn't add to it.

@@ -14,7 +14,17 @@ for you.
 ## Read
 
 - *Systematic Trading* — Robert Carver (position sizing chapters especially) —
-  [find it on Amazon](https://www.amazon.com/s?k=Systematic+Trading+Robert+Carver)
+  [find it on Amazon](https://www.amazon.co.uk/s?k=Systematic+Trading+Robert+Carver)
+
+## Reading order (~1 hr/day)
+
+1. **Carver, front to back** — it builds from framework to position-sizing
+   rules, so early chapters set up terms the sizing chapters rely on. ~344
+   pages ÷ ~20 pages/hour ≈ **17 days**. If pressed for time, the
+   position-sizing and risk chapters in the second half of the book matter
+   most for this phase specifically.
+
+**Phase 06 reading: ~17 days.**
 
 ## Steps
 
