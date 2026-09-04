@@ -11,6 +11,7 @@
 ## Read
 
 - *Naked Statistics* — Charles Wheelan (fast, non-technical, start here) —
+  **in progress** —
   [find it on Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan)
 - Stats appendix of *Quantitative Trading* — Ernest Chan (just the
   appendix, not the whole book yet — you'll read the rest in Phase 01) —
