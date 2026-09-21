@@ -11,7 +11,7 @@
 ## Read
 
 - *Naked Statistics* — Charles Wheelan (fast, non-technical, start here) —
-  **in progress** —
+  **finished** —
   [find it on Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan)
 - Stats appendix of *Quantitative Trading* — Ernest Chan (just the
   appendix, not the whole book yet — you'll read the rest in Phase 01) —
@@ -39,8 +39,16 @@ Page counts are for common paperback editions — yours may vary slightly.
 
 ## Milestone
 
-- [ ] You can explain, in one paragraph, why a strategy's backtest Sharpe
+- [x] You can explain, in one paragraph, why a strategy's backtest Sharpe
       ratio can be misleading.
+
+  > A good backtest Sharpe ratio can trick you because it mixes luck with
+  > real skill, and with only a little data, luck looks a lot like skill.
+  > If you try many versions of a strategy and keep the best-looking one,
+  > it only looks good by chance, not because it actually works. And if
+  > you only look at strategies or stocks that survived to today, you're
+  > only looking at the winners, which makes everything look better than
+  > it really was.
 
 ## Parallel track: manual investing (optional, runs alongside everything)
 
