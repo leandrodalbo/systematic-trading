@@ -1,34 +1,31 @@
 # Phase 02 — Programming & Data Pipeline
 
-**Goal:** get a clean, repeatable way to pull price data and hold it
-somewhere queryable.
+**Goal:** get a clean, repeatable way to pull price data and hold it somewhere queryable.
+
+Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
 
 ## Learn
 
 - OHLCV data shape, resampling, handling gaps/splits/dividends
-- `pandas` if going Python; `ta4j` if staying in Java
-- Storing history locally (Parquet / SQLite / Postgres) so you're not
-  re-fetching on every run
+- Stocks trade on weekdays only, crypto every day — the two series won't line up day by day
+- Calling a REST API from Kotlin + Spring Boot: auth headers, pagination, rate limits
+- Storing history locally (one CSV per ticker) so you're not re-fetching on every run
 
 ## Free tools
 
-- `yfinance` — free stock data (Python)
-- `ccxt` + Binance API — free crypto data, has a testnet
-- `ta4j` — Java-native technical analysis + backtesting library, if you'd
-  rather stay in the JVM ecosystem
+- Alpaca Market Data API — free stock and crypto bars with the same keys as your paper account. Endpoints and gotchas: [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
+- Kotlin + Spring Boot (`RestClient`) — no SDK needed, it's plain REST
 
 ## Steps
 
-1. Pick a stack: Python (`pandas` + `yfinance`/`ccxt`) or Java (`ta4j`).
-2. Write a script that pulls daily OHLCV for one stock and one crypto pair.
-3. Store it locally (Parquet or SQLite is enough for now — no need for a
-   full Postgres setup yet).
-4. Write a small function to resample daily → weekly, to confirm you
-   understand the data shape.
+1. Create Alpaca paper API keys. Keep them in environment variables or a git-ignored `.env` — never in code.
+2. Build a Kotlin/Spring job that pulls daily bars for one stock (stocks: `feed=sip`, `adjustment=all`) and one crypto pair.
+3. Save each ticker as a CSV in `data/stocks/` or `data/crypto/` (layout in the architecture note).
+4. Load the CSVs back and resample daily → weekly, to confirm you understand the data shape.
+5. Check how far back Alpaca's crypto history goes. Phase 04 needs 5+ years — if it's short, note it (Kraken CSVs are the fallback).
 
 ## Milestone
 
-- [ ] A script that pulls 2+ years of daily OHLCV for one stock and one
-      crypto pair and stores it locally.
+- [ ] A Kotlin job that pulls 2+ years of daily OHLCV for one stock and one crypto pair and stores it as CSV.
 
 **Next:** [03-strategy-families.md](03-strategy-families.md)

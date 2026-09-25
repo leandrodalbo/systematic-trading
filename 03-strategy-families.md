@@ -22,6 +22,10 @@ when it stops working.
 - *Algorithmic Trading: Winning Strategies and Their Rationale* — Ernest Chan —
   [find it on Amazon](https://www.amazon.co.uk/s?k=Algorithmic+Trading+Ernest+Chan+Winning+Strategies)
 
+## Free tools
+
+- Python notebook (`pandas`) reading the Phase 02 CSVs — plot a z-score or RSI(2) on your own data to see the ideas in action. This is the start of the strategy code you'll build properly in Phase 04.
+
 ## Reading order (~1 hr/day)
 
 1. **Bandy first** — it's the direct spec for the final project. ~342 pages

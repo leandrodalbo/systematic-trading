@@ -2,7 +2,10 @@
 
 A self-directed curriculum from statistics foundations to a validated
 mean-reversion swing-trading system, covering stocks and crypto, built with
-free tools only (Python and/or Java/`ta4j`, no paid platform licences).
+free tools only (no paid platform licences). Python for the strategy
+(signals, backtest), Kotlin + Spring Boot for data and orders, Alpaca for
+stocks and crypto — see
+[foundations/architecture.md](foundations/architecture.md).
 
 Final project: **Mean Reversion Trading System** (concept from Howard Bandy's
 book of the same name — read for the ideas, reimplement the logic yourself
@@ -16,8 +19,8 @@ next to it (search, not a specific listing, so you can pick paperback/
 Kindle/used yourself) — also worth checking your local library or an
 O'Reilly/Safari subscription if you have one before buying new.
 
-- [00-foundations.md](00-foundations.md)
-- [01-market-mechanics.md](01-market-mechanics.md)
+- [00-foundations.md](00-foundations.md) — done
+- [01-market-mechanics.md](01-market-mechanics.md) — done
 - [02-programming-data-pipeline.md](02-programming-data-pipeline.md)
 - [03-strategy-families.md](03-strategy-families.md)
 - [04-build-the-system.md](04-build-the-system.md) — the final project
@@ -27,6 +30,7 @@ O'Reilly/Safari subscription if you have one before buying new.
 - [08-infrastructure.md](08-infrastructure.md)
 - [09-specialize.md](09-specialize.md)
 - [signals.md](signals.md) — how you'll know it's actually working
+- [foundations/](foundations/) — notes and cheat sheets written along the way
 
 ## Two directions this field can go
 

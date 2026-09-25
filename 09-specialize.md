@@ -13,6 +13,12 @@
   system and a second strategy family) — same validation discipline from
   Phase 05 applies, an ML model that "backtests great" is the classic way
   self-taught traders fool themselves
+- An AI news-catalyst service — reads news for a ticker and flags
+  catalysts (earnings, lawsuits, launches). Separate service, same
+  validation rules as any other signal
+  ([foundations/architecture.md](foundations/architecture.md))
+- Adding Kraken as a second crypto venue (more coins, deeper order book) —
+  notes in [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
 - If pivoting toward a quant-dev role: brush up stochastic calculus and
   interview-style probability puzzles
 

@@ -1,4 +1,4 @@
-# Claude Code Instructions: Matchinsights
+# Claude Code Instructions: Systematic Trading
 
 ## Development method: TDCG
 
@@ -20,20 +20,27 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 - Generate tests first. Wait for approval. Then generate the implementation.
 - If a test fails, fix the implementation or the spec. Never change the test to make it pass.
 - One behavior per cycle. If the prompt grows, split the cycle.
-- Style changes (layout, colors) do not need a full cycle. Confirm with the user and apply.
-- Always check an existing similar component before generating anything.
+- Docs and notes changes do not need a full cycle. Confirm with the user and apply.
+- Always check existing similar code before generating anything.
 
 ## Project
 
-Multi-repo platform for football data.
+Self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only.
 
-- `match-insights-mobile` — React Native app
-- `match-insights-ui` — Web frontend
-- `match-insights-ui-core` — Shared SVG builders and core logic
-- `match-insights` — API (Spring Boot / Kotlin)
-- `match-insights-sse` — Live events service
-- `match-insights-infra` — Terraform
+- `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
+- `foundations/` — notes and cheat sheets. Architecture: `foundations/architecture.md`.
+- `implementations/python-apis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
+- `implementations/qtrade` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
+- `data/` — one CSV per ticker in `data/stocks/` and `data/crypto/`.
+- Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
-Active plan: `roadmap/plans/repo_audit_cleanup/repo_audit_cleanup.md` — human-implemented, one-task-at-a-time codebase cleanup across all repos. Supersedes the now-closed `football_project_ready` set. `roadmap/plans/fast-track/knockout_bracket_tree.md` completed 2026-07-20.
-Roadmap: `roadmap/README.md`
-Method reference: `TDCG.md`
+Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.
+
+Roadmap: `README.md`
+Method reference: `TDCG/README.md`
+
+## Writing notes
+
+- Plain, friendly English. Short. Readable at a glance.
+- Short tables are fine for quick comparisons. No long text inside table cells.
+- The user writes the learning exercises; help and review, don't do them unless asked.

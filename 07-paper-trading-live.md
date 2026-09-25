@@ -16,17 +16,22 @@ needs to generate enough sample trades to mean anything.
 
 ## Free tools
 
-- Alpaca paper trading (stocks, free)
-- Binance testnet (crypto, free)
+- Alpaca paper trading (stocks and crypto, free). It doesn't simulate
+  slippage, market impact or fees — expect live to be a bit worse than
+  paper. Details:
+  [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
 
 ## Steps
 
-1. Wire your Phase 04 signal logic up to Alpaca's and/or Binance's paper/
-   testnet APIs.
-2. Run it live (paper) for at least 3 months. Don't touch the parameters
+1. Turn the Phase 04 Python signal code into a small service (e.g.
+   FastAPI) that answers "what should I trade today?" — the same code the
+   backtest used, not a copy.
+2. In the Spring Boot app: call that service each day, check the risk
+   limits from Phase 06, and send the orders to Alpaca's paper trading API.
+3. Run it live (paper) for at least 3 months. Don't touch the parameters
    mid-run — that defeats the point.
-3. Journal every trade: entry reason, exit reason, what actually happened.
-4. At the end of the period, compare paper results against backtest
+4. Journal every trade: entry reason, exit reason, what actually happened.
+5. At the end of the period, compare paper results against backtest
    expectations (win rate, average win/loss, drawdown). Investigate any
    large gap.
 

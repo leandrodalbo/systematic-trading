@@ -19,8 +19,9 @@ can run in parallel with Phase 07.
 
 ## Steps
 
-1. Move the Phase 07 paper-trading script from "run by hand" to a scheduled
-   job (cron, Lambda on a schedule, or similar).
+1. Move the Phase 07 paper-trading app from "run by hand" to a scheduled
+   job (Spring `@Scheduled`, cron, or similar). Deploy the Python signal
+   service next to it.
 2. Add logging for every run: data fetched, signals generated, orders
    placed, errors.
 3. Add alerting for failure states (data feed down, order rejected,

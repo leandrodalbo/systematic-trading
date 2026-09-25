@@ -15,6 +15,12 @@ noise. This is the phase most self-taught traders skip — don't skip it.
 - *Evidence-Based Technical Analysis* — David Aronson —
   [find it on Amazon](https://www.amazon.co.uk/s?k=Evidence-Based+Technical+Analysis+David+Aronson)
 
+## Free tools
+
+- Python, all of it: the Phase 04 backtest runs the walk-forward
+  (re-tune, test, roll forward), and `numpy`/`scipy` do the Monte Carlo on
+  the trade list and the significance tests
+
 ## Reading order (~1 hr/day)
 
 1. **Aronson, front to back.** ~559 pages ÷ ~15 pages/hour (dense, worth

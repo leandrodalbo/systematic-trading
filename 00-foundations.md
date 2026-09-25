@@ -1,5 +1,7 @@
 # Phase 00 — Foundations
 
+**Status: completed.**
+
 **Goal:** get just enough math to read a strategy's statistics honestly.
 
 ## Learn
@@ -13,9 +15,11 @@
 - *Naked Statistics* — Charles Wheelan (fast, non-technical, start here) —
   **finished** —
   [find it on Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan)
-- Stats appendix of *Quantitative Trading* — Ernest Chan (just the
-  appendix, not the whole book yet — you'll read the rest in Phase 01) —
-  [find it on Amazon](https://www.amazon.co.uk/s?k=Quantitative+Trading+Ernest+Chan)
+
+*Quantitative Trading* — Ernest Chan has no separate stats appendix (its
+appendix is a MATLAB primer); the relevant statistical content
+(Sharpe ratio, backtesting significance) is in Chapter 3, covered in
+Phase 01 along with Chapters 1–2.
 
 ## Reading order (~1 hr/day)
 
@@ -23,19 +27,22 @@ Page counts are for common paperback editions — yours may vary slightly.
 
 1. **_Naked Statistics_ — read front to back.** ~256 pages ÷ ~30 pages/hour
    ≈ **9 days**.
-2. **_Quantitative Trading_ — appendix only.** ~20–30 pages ≈ **1–2 days**.
-   Skip everything else for now; chapters 1–3 come in Phase 01.
 
-**Phase 00 reading: ~10–11 days.**
+**Phase 00 reading: ~9 days.**
 
 ## Steps
 
 1. Read *Naked Statistics* end to end.
-2. Work through the stats appendix in Chan's book with pen and paper —
-   recompute a couple of the example stats by hand.
-3. Write a short note (a few sentences) in your own words: what does
+2. Write a short note (a few sentences) in your own words: what does
    "statistically significant" actually mean, and why doesn't it mean "will
    keep working"?
+
+Statistical significance means a result probably wasn't just random luck,
+based on the past data you tested it on. It does not mean the pattern will
+keep happening — it says nothing about overfitting, regime change, or
+whether the effect is even big enough to matter. So "statistically
+significant" answers "was this likely chance?", not "will this keep
+working?"
 
 ## Milestone
 
