@@ -1,3 +1,6 @@
 # Secrets — never commit API keys
 .env
 *.env
+
+# Personal social-media drafts — local only
+posts/

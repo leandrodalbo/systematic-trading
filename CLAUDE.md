@@ -29,14 +29,15 @@ Self-directed curriculum from statistics to a validated mean-reversion swing-tra
 
 - `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
 - `foundations/` — notes and cheat sheets. Architecture: `foundations/architecture.md`.
-- `implementations/python-apis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
-- `implementations/qtrade` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
+- `implementations/data-analysis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
+- `implementations/trade-plumbing` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
 - `data/` — one CSV per ticker in `data/stocks/` and `data/crypto/`.
 - Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
 Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.
 
 Roadmap: `README.md`
+Social posts (LinkedIn/X): follow `posts/GUIDE.md`; drafts go in `posts/`.
 Method reference: `TDCG/README.md`
 
 ## Writing notes
