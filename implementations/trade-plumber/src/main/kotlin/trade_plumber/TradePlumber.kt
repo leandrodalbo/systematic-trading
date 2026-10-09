@@ -1,11 +1,13 @@
 package trade_plumber
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class TradePlumberApplication
+@ConfigurationPropertiesScan
+class TradePlumber
 
 fun main(args: Array<String>) {
-	runApplication<TradePlumberApplication>(*args)
+    runApplication<TradePlumber>(*args)
 }

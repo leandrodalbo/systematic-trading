@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: trade-plumber
+
+alpaca:
+  keyId: ${APCA_API_KEY_ID:}
+  secretKey: ${APCA_API_SECRET_KEY:}
+  dataUrl: https://data.alpaca.markets
+
+storage:
+  baseDir: ${XDG_DATA_HOME:${user.home}/.local/share}/trade-plumber
+

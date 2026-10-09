@@ -40,6 +40,10 @@ Roadmap: `README.md`
 Social posts (LinkedIn/X): follow `posts/GUIDE.md`; drafts go in `posts/`.
 Method reference: `TDCG/README.md`
 
+## Code style (mandatory)
+
+- Kotlin: define constant values (query params, paths, headers, fixed values) as `const val` in a `companion object`. No inline string literals for them.
+
 ## Writing notes
 
 - Plain, friendly English. Short. Readable at a glance.
