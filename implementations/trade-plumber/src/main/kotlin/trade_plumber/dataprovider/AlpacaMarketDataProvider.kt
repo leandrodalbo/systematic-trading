@@ -1,10 +1,13 @@
 package trade_plumber.dataprovider
 
 import com.fasterxml.jackson.annotation.JsonProperty
+import org.springframework.web.client.ResourceAccessException
 import org.springframework.web.client.RestClient
+import org.springframework.web.client.RestClientResponseException
 import org.springframework.web.client.body
 import org.springframework.web.util.UriBuilder
 import trade_plumber.error.AlpacaApiFailedException
+import trade_plumber.error.ErrorMessage
 import trade_plumber.model.AssetClass
 import trade_plumber.model.Bar
 import trade_plumber.model.BarsPage
@@ -22,7 +25,25 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
         to: Instant,
         pageToken: String?,
     ): BarsPage {
-        val response = restClient.get()
+        val response = runCatching { fetch(symbol, assetClass, timeframe, from, to, pageToken) }
+            .getOrElse { throw apiFailureException(it, symbol) }
+            ?: throw AlpacaApiFailedException(symbol, ErrorMessage.ALPACA_EMPTY_RESPONSE)
+
+        return BarsPage(
+            bars = response.bars[symbol].orEmpty().map { it.toModelBar() },
+            nextPageToken = response.nextPageToken,
+        )
+    }
+
+    private fun fetch(
+        symbol: String,
+        assetClass: AssetClass,
+        timeframe: Timeframe,
+        from: Instant,
+        to: Instant,
+        pageToken: String?,
+    ): BarsResponse? =
+        restClient.get()
             .uri { uri ->
                 uri.path(pathForAsset(assetClass))
                     .queryParam(SYMBOLS_PARAM, symbol)
@@ -36,12 +57,15 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
             }
             .retrieve()
             .body<BarsResponse>()
-            ?: throw AlpacaApiFailedException(symbol)
 
-        return BarsPage(
-            bars = response.bars[symbol].orEmpty().map { it.toModelBar() },
-            nextPageToken = response.nextPageToken,
-        )
+    private fun apiFailureException(ex: Throwable, symbol: String): Throwable = when (ex) {
+        is RestClientResponseException ->
+            AlpacaApiFailedException(symbol, ErrorMessage.ALPACA_HTTP_ERROR, ex.statusCode.value(), ex)
+
+        is ResourceAccessException ->
+            AlpacaApiFailedException(symbol, ErrorMessage.ALPACA_UNREACHABLE, cause = ex)
+
+        else -> ex
     }
 
     private fun UriBuilder.addStockOnlyParams(assetClass: AssetClass): UriBuilder =
@@ -69,7 +93,8 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
 
     private data class BarsResponse(
         val bars: Map<String, List<AlpacaBar>> = emptyMap(),
-        @JsonProperty(NEXT_PAGE_TOKEN) val nextPageToken: String? = null,
+        @JsonProperty(NEXT_PAGE_TOKEN)
+        val nextPageToken: String? = null,
     )
 
     private data class AlpacaBar(
