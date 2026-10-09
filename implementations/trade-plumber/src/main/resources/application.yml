@@ -1,1 +1,9 @@
-spring.application.name=trade-plumber
+spring:
+  application:
+    name: trade-plumber
+
+alpaca:
+  keyId: ${APCA_API_KEY_ID:}
+  secretKey: ${APCA_API_SECRET_KEY:}
+  dataUrl: https://data.alpaca.markets
+

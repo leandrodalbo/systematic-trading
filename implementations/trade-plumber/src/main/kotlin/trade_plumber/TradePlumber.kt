@@ -6,8 +6,8 @@ import org.springframework.boot.runApplication
 
 @SpringBootApplication
 @ConfigurationPropertiesScan
-class TradePlumberApplication
+class TradePlumber
 
 fun main(args: Array<String>) {
-	runApplication<TradePlumberApplication>(*args)
+    runApplication<TradePlumber>(*args)
 }
