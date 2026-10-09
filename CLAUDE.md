@@ -30,7 +30,7 @@ Self-directed curriculum from statistics to a validated mean-reversion swing-tra
 - `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
 - `foundations/` — notes and cheat sheets. Architecture: `foundations/architecture.md`.
 - `implementations/data-analysis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
-- `implementations/trade-plumbing` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
+- `implementations/trade-plumber` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
 - `data/` — one CSV per ticker in `data/stocks/` and `data/crypto/`.
 - Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
