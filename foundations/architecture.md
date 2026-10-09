@@ -34,5 +34,4 @@ data/
 ## Later
 
 - **Kraken crypto history** — if Alpaca's crypto history is too short (Phase 04 needs 5+ years): download Kraken's OHLCVT CSVs, convert them to our format, and replace the whole file for that ticker. Details in [alpaca-kraken-api-notes.md](alpaca-kraken-api-notes.md).
-- **AI news service** — separate service that reads news for a ticker and returns catalysts (earnings, lawsuits, launches…). Spring calls it; results saved as files next to the price data (e.g. `data/news/`).
 - **Bigger data** — if CSVs get slow or messy, move to SQLite or Postgres. Same idea, different storage.
