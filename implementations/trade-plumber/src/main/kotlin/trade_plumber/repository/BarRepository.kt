@@ -5,13 +5,17 @@ import trade_plumber.model.AssetClass
 import trade_plumber.model.Bar
 import trade_plumber.model.Timeframe
 import trade_plumber.props.StorageProperties
+import java.io.Writer
 import java.math.BigDecimal
 import java.nio.file.Path
+import java.nio.file.StandardCopyOption
 import java.time.Instant
+import kotlin.io.path.bufferedWriter
 import kotlin.io.path.createDirectories
+import kotlin.io.path.deleteIfExists
 import kotlin.io.path.exists
+import kotlin.io.path.moveTo
 import kotlin.io.path.readLines
-import kotlin.io.path.writeText
 
 @Repository
 class BarRepository(private val properties: StorageProperties) {
@@ -26,13 +30,24 @@ class BarRepository(private val properties: StorageProperties) {
             ?.let(::toBar)
     }
 
-    fun write(symbol: String, assetClass: AssetClass, timeframe: Timeframe, bars: List<Bar>) {
+    fun write(symbol: String, assetClass: AssetClass, timeframe: Timeframe, bars: Sequence<Bar>) {
         val file = fileFor(symbol, assetClass, timeframe)
         file.parent.createDirectories()
-        file.writeText(buildString {
-            append(HEADER).append(NEW_LINE)
-            bars.forEach { append(toRow(it)).append(NEW_LINE) }
-        })
+        writeAtomically(file) { out ->
+            out.append(HEADER).append(NEW_LINE)
+            bars.forEach { out.append(toRow(it)).append(NEW_LINE) }
+        }
+    }
+
+    private fun writeAtomically(file: Path, writeContent: (Writer) -> Unit) {
+        val temp = file.resolveSibling("${file.fileName}$TEMP_EXTENSION")
+        try {
+            temp.bufferedWriter().use(writeContent)
+            temp.moveTo(file, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
+        } catch (ex: Exception) {
+            temp.deleteIfExists()
+            throw ex
+        }
     }
 
     private fun fileFor(symbol: String, assetClass: AssetClass, timeframe: Timeframe): Path =
@@ -70,6 +85,7 @@ class BarRepository(private val properties: StorageProperties) {
         const val STOCKS_FOLDER = "stocks"
         const val CRYPTO_FOLDER = "crypto"
         const val CSV_EXTENSION = ".csv"
+        const val TEMP_EXTENSION = ".tmp"
         const val NAME_SEPARATOR = "_"
         const val SYMBOL_SEPARATOR = "/"
         const val FILE_SYMBOL_SEPARATOR = "-"

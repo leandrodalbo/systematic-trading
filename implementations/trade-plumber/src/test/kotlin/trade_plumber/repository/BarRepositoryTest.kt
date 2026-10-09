@@ -7,12 +7,16 @@ import trade_plumber.model.AssetClass
 import trade_plumber.model.Bar
 import trade_plumber.model.Timeframe
 import trade_plumber.props.StorageProperties
+import java.io.IOException
 import java.math.BigDecimal
 import java.nio.file.Path
 import java.time.Instant
+import kotlin.io.path.createDirectory
 import kotlin.io.path.exists
 import kotlin.io.path.readText
 import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
@@ -37,21 +41,21 @@ class BarRepositoryTest {
 
     @Test
     fun `write creates missing folders and the stock file`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1))
 
         assertTrue(baseDir.resolve("stocks/AAPL_DAY.csv").exists())
     }
 
     @Test
     fun `crypto symbol slash becomes a dash in the file name`() {
-        repository.write(CRYPTO_SYMBOL, AssetClass.CRYPTO, Timeframe.HOURS4, listOf(BAR_1))
+        repository.write(CRYPTO_SYMBOL, AssetClass.CRYPTO, Timeframe.HOURS4, sequenceOf(BAR_1))
 
         assertTrue(baseDir.resolve("crypto/BTC-USD_HOURS4.csv").exists())
     }
 
     @Test
     fun `write stores a header and one row per bar`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1, BAR_2))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
 
         val expected = """
             time,open,high,low,close,volume
@@ -66,7 +70,7 @@ class BarRepositoryTest {
     fun `numbers in scientific notation are written as plain decimals`() {
         val bar = BAR_1.copy(volume = BigDecimal("8.24887E+7"))
 
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(bar))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(bar))
 
         val lastLine = baseDir.resolve("stocks/AAPL_DAY.csv").readText().trimEnd().lines().last()
         assertEquals("2024-01-02T05:00:00Z,187.15,188.44,183.885,185.64,82488700", lastLine)
@@ -74,23 +78,63 @@ class BarRepositoryTest {
 
     @Test
     fun `last bar returns the newest bar written`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1, BAR_2))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
 
         assertEquals(BAR_2, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
     }
 
     @Test
     fun `write overwrites an existing file`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1, BAR_2))
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1))
 
         assertEquals(BAR_1, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
     }
 
     @Test
+    fun `write leaves no temp file behind`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+
+        assertFalse(baseDir.resolve("stocks/AAPL_DAY.csv.tmp").exists())
+    }
+
+    @Test
+    fun `failed write keeps the original file and throws`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+        val file = baseDir.resolve("stocks/AAPL_DAY.csv")
+        val original = file.readText()
+        baseDir.resolve("stocks/AAPL_DAY.csv.tmp").createDirectory()
+
+        assertFailsWith<IOException> {
+            repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1))
+        }
+
+        assertEquals(original, file.readText())
+    }
+
+    @Test
+    fun `failure while streaming bars removes the temp file and keeps the original`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+        val file = baseDir.resolve("stocks/AAPL_DAY.csv")
+        val original = file.readText()
+        val failingMidStream = sequence {
+            yield(BAR_1)
+            throw IllegalStateException(STREAM_FAILURE)
+        }
+
+        val ex = assertFailsWith<IllegalStateException> {
+            repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, failingMidStream)
+        }
+
+        assertEquals(STREAM_FAILURE, ex.message)
+        assertEquals(original, file.readText())
+        assertFalse(baseDir.resolve("stocks/AAPL_DAY.csv.tmp").exists())
+    }
+
+    @Test
     fun `files are kept apart by symbol, asset class and timeframe`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, listOf(BAR_1))
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.WEEK, listOf(BAR_2))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1))
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.WEEK, sequenceOf(BAR_2))
 
         assertEquals(BAR_1, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
         assertEquals(BAR_2, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.WEEK))
@@ -99,7 +143,7 @@ class BarRepositoryTest {
 
     @Test
     fun `writing no bars leaves a header only file and no last bar`() {
-        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, emptyList())
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, emptySequence())
 
         assertEquals("time,open,high,low,close,volume\n", baseDir.resolve("stocks/AAPL_DAY.csv").readText())
         assertNull(repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
@@ -109,6 +153,7 @@ class BarRepositoryTest {
         const val DATA_DIR = "data"
         const val STOCK_SYMBOL = "AAPL"
         const val CRYPTO_SYMBOL = "BTC/USD"
+        const val STREAM_FAILURE = "alpaca failed on page 2"
 
         val BAR_1 = Bar(
             time = Instant.parse("2024-01-02T05:00:00Z"),
