@@ -7,3 +7,6 @@ alpaca:
   secretKey: ${APCA_API_SECRET_KEY:}
   dataUrl: https://data.alpaca.markets
 
+storage:
+  baseDir: ${XDG_DATA_HOME:${user.home}/.local/share}/trade-plumber
+
