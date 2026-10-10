@@ -39,7 +39,7 @@ class BarRepository(private val properties: StorageProperties) {
         file.parent.createDirectories()
         writeAtomically(file) { out ->
             out.appendLine(HEADER)
-            bars.forEach { out.appendLine(toRow(it)) }
+            out.appendInOrder(bars)
         }
     }
 
@@ -52,20 +52,37 @@ class BarRepository(private val properties: StorageProperties) {
 
         writeAtomically(file) { out ->
             out.appendLine(HEADER)
-            file.bufferedReader().use { reader -> copyAllButLastRow(reader, out) }
-            newBars.forEach { out.appendLine(toRow(it)) }
+            val lastKeptTime = file.bufferedReader().use { reader -> copyAllButLastRow(reader, out) }
+            out.appendInOrder(newBars.asSequence(), after = lastKeptTime)
         }
     }
 
-    private fun copyAllButLastRow(reader: BufferedReader, out: Writer) {
+    private fun copyAllButLastRow(reader: BufferedReader, out: Writer): Instant? {
+        var lastKept: String? = null
         var heldBack: String? = null
         reader.lineSequence()
             .drop(HEADER_LINES)
             .filter { it.isNotBlank() }
             .forEach { row ->
-                heldBack?.let { out.appendLine(it) }
+                heldBack?.let {
+                    out.appendLine(it)
+                    lastKept = it
+                }
                 heldBack = row
             }
+        return lastKept?.let { toBar(it).time }
+    }
+
+    private fun Writer.appendInOrder(bars: Sequence<Bar>, after: Instant? = null) =
+        inAscendingOrder(bars, after).forEach { appendLine(toRow(it)) }
+
+    private fun inAscendingOrder(bars: Sequence<Bar>, after: Instant? = null): Sequence<Bar> = sequence {
+        var previous = after
+        bars.forEach { bar ->
+            previous?.let { require(bar.time > it) { ORDER_ERROR.format(bar.time, it) } }
+            yield(bar)
+            previous = bar.time
+        }
     }
 
     private fun writeAtomically(file: Path, writeContent: (Writer) -> Unit) {
@@ -127,6 +144,7 @@ class BarRepository(private val properties: StorageProperties) {
         const val HEADER = "time,open,high,low,close,volume"
         const val HEADER_LINES = 1
         const val COLUMN_SEPARATOR = ","
+        const val ORDER_ERROR = "bar %s is not after %s"
 
         const val TIME_COLUMN = 0
         const val OPEN_COLUMN = 1
