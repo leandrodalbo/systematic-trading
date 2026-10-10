@@ -10,3 +10,7 @@ alpaca:
 storage:
   baseDir: ${XDG_DATA_HOME:${user.home}/.local/share}/trade-plumber
 
+market-data:
+  stockHistoryStart: 2016-01-01T00:00:00Z
+  cryptoHistoryStart: 2021-01-01T00:00:00Z
+
