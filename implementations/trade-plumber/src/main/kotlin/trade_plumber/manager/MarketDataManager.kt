@@ -1,5 +1,6 @@
 package trade_plumber.manager
 
+import org.springframework.core.retry.RetryOperations
 import org.springframework.stereotype.Service
 import trade_plumber.dataprovider.MarketDataProvider
 import trade_plumber.model.AssetClass
@@ -9,6 +10,7 @@ import trade_plumber.props.MarketDataProperties
 import trade_plumber.repository.BarRepository
 import java.time.Clock
 import java.time.Instant
+import java.util.function.Supplier
 
 @Service
 class MarketDataManager(
@@ -16,6 +18,7 @@ class MarketDataManager(
     private val repository: BarRepository,
     private val properties: MarketDataProperties,
     private val clock: Clock,
+    private val retry: RetryOperations,
 ) {
 
     fun update(symbol: String, assetClass: AssetClass, timeframe: Timeframe) {
@@ -42,7 +45,6 @@ class MarketDataManager(
         }
     }
 
-
     private fun isSameBarStart(fetched: Bar, stored: Bar) =
         fetched.time == stored.time && fetched.open.compareTo(stored.open) == 0
 
@@ -51,7 +53,7 @@ class MarketDataManager(
         return sequence {
             var pageToken: String? = null
             do {
-                val page = provider.barsPage(symbol, assetClass, timeframe, from, to, pageToken)
+                val page = retry.invoke(Supplier { provider.barsPage(symbol, assetClass, timeframe, from, to, pageToken) })
                 yieldAll(page.bars)
                 pageToken = page.nextPageToken
             } while (pageToken != null)
