@@ -5,17 +5,20 @@ import trade_plumber.model.AssetClass
 import trade_plumber.model.Bar
 import trade_plumber.model.Timeframe
 import trade_plumber.props.StorageProperties
+import java.io.BufferedReader
 import java.io.Writer
 import java.math.BigDecimal
+import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 import java.time.Instant
+import kotlin.io.path.bufferedReader
 import kotlin.io.path.bufferedWriter
 import kotlin.io.path.createDirectories
 import kotlin.io.path.deleteIfExists
 import kotlin.io.path.exists
 import kotlin.io.path.moveTo
-import kotlin.io.path.readLines
+import kotlin.io.path.useLines
 
 @Repository
 class BarRepository(private val properties: StorageProperties) {
@@ -24,36 +27,67 @@ class BarRepository(private val properties: StorageProperties) {
         val file = fileFor(symbol, assetClass, timeframe)
         if (!file.exists()) return null
 
-        return file.readLines()
-            .drop(HEADER_LINES)
-            .lastOrNull { it.isNotBlank() }
-            ?.let(::toBar)
+        return file.useLines { lines ->
+            lines.drop(HEADER_LINES)
+                .lastOrNull { it.isNotBlank() }
+                ?.let(::toBar)
+        }
     }
 
     fun write(symbol: String, assetClass: AssetClass, timeframe: Timeframe, bars: Sequence<Bar>) {
         val file = fileFor(symbol, assetClass, timeframe)
         file.parent.createDirectories()
         writeAtomically(file) { out ->
-            out.append(HEADER).append(NEW_LINE)
-            bars.forEach { out.append(toRow(it)).append(NEW_LINE) }
+            out.appendLine(HEADER)
+            bars.forEach { out.appendLine(toRow(it)) }
         }
+    }
+
+    fun replaceLastAndAppend(symbol: String, assetClass: AssetClass, timeframe: Timeframe, bars: Sequence<Bar>) {
+        val newBars = bars.iterator()
+        if (!newBars.hasNext()) return
+
+        val file = fileFor(symbol, assetClass, timeframe)
+        if (!file.exists()) throw NoSuchFileException(file.toString())
+
+        writeAtomically(file) { out ->
+            out.appendLine(HEADER)
+            file.bufferedReader().use { reader -> copyAllButLastRow(reader, out) }
+            newBars.forEach { out.appendLine(toRow(it)) }
+        }
+    }
+
+    private fun copyAllButLastRow(reader: BufferedReader, out: Writer) {
+        var heldBack: String? = null
+        reader.lineSequence()
+            .drop(HEADER_LINES)
+            .filter { it.isNotBlank() }
+            .forEach { row ->
+                heldBack?.let { out.appendLine(it) }
+                heldBack = row
+            }
     }
 
     private fun writeAtomically(file: Path, writeContent: (Writer) -> Unit) {
         val temp = file.resolveSibling("${file.fileName}$TEMP_EXTENSION")
-        try {
+        runCatching {
             temp.bufferedWriter().use(writeContent)
             temp.moveTo(file, StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING)
-        } catch (ex: Exception) {
+        }.onFailure {
             temp.deleteIfExists()
-            throw ex
+            throw it
         }
     }
 
     private fun fileFor(symbol: String, assetClass: AssetClass, timeframe: Timeframe): Path =
         properties.baseDir
             .resolve(folderFor(assetClass))
-            .resolve("${symbol.replace(SYMBOL_SEPARATOR, FILE_SYMBOL_SEPARATOR)}$NAME_SEPARATOR${timeframe.name}$CSV_EXTENSION")
+            .resolve(fileNameFor(symbol, timeframe))
+
+    private fun fileNameFor(symbol: String, timeframe: Timeframe): String {
+        val fileSymbol = symbol.replace(SYMBOL_SEPARATOR, FILE_SYMBOL_SEPARATOR)
+        return "$fileSymbol$NAME_SEPARATOR${timeframe.name}$CSV_EXTENSION"
+    }
 
     private fun folderFor(assetClass: AssetClass) = when (assetClass) {
         AssetClass.STOCK -> STOCKS_FOLDER
@@ -93,7 +127,6 @@ class BarRepository(private val properties: StorageProperties) {
         const val HEADER = "time,open,high,low,close,volume"
         const val HEADER_LINES = 1
         const val COLUMN_SEPARATOR = ","
-        const val NEW_LINE = "\n"
 
         const val TIME_COLUMN = 0
         const val OPEN_COLUMN = 1

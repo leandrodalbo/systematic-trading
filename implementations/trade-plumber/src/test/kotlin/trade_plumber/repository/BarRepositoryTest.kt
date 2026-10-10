@@ -9,6 +9,7 @@ import trade_plumber.model.Timeframe
 import trade_plumber.props.StorageProperties
 import java.io.IOException
 import java.math.BigDecimal
+import java.nio.file.NoSuchFileException
 import java.nio.file.Path
 import java.time.Instant
 import kotlin.io.path.createDirectory
@@ -149,6 +150,111 @@ class BarRepositoryTest {
         assertNull(repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
     }
 
+    @Test
+    fun `replace last and append swaps the last row and adds the new bars`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+
+        repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_2_REVISED, BAR_3))
+
+        val expected = """
+            time,open,high,low,close,volume
+            2024-01-02T05:00:00Z,187.15,188.44,183.885,185.64,82488700
+            2024-01-03T05:00:00Z,184.22,185.88,183.43,184.30,58500000
+            2024-01-04T05:00:00Z,182.15,183.09,180.88,181.91,71983600
+        """.trimIndent() + "\n"
+
+        assertEquals(expected, baseDir.resolve("stocks/AAPL_DAY.csv").readText())
+    }
+
+    @Test
+    fun `last bar returns the newest bar after replace last and append`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+
+        repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_2_REVISED, BAR_3))
+
+        assertEquals(BAR_3, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
+    }
+
+    @Test
+    fun `replace last and append on a single row file replaces that row`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_2))
+
+        repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_2_REVISED))
+
+        val expected = """
+            time,open,high,low,close,volume
+            2024-01-03T05:00:00Z,184.22,185.88,183.43,184.30,58500000
+        """.trimIndent() + "\n"
+
+        assertEquals(expected, baseDir.resolve("stocks/AAPL_DAY.csv").readText())
+    }
+
+    @Test
+    fun `replace last and append with no bars leaves the file unchanged`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+        val file = baseDir.resolve("stocks/AAPL_DAY.csv")
+        val original = file.readText()
+
+        repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, emptySequence())
+
+        assertEquals(original, file.readText())
+    }
+
+    @Test
+    fun `replace last and append on a header only file appends the bars`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, emptySequence())
+
+        repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+
+        val expected = """
+            time,open,high,low,close,volume
+            2024-01-02T05:00:00Z,187.15,188.44,183.885,185.64,82488700
+            2024-01-03T05:00:00Z,184.22,185.88,183.43,184.25,58414500.5
+        """.trimIndent() + "\n"
+
+        assertEquals(expected, baseDir.resolve("stocks/AAPL_DAY.csv").readText())
+    }
+
+    @Test
+    fun `replace last and append throws when there is no file and creates nothing`() {
+        assertFailsWith<NoSuchFileException> {
+            repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1))
+        }
+
+        assertFalse(baseDir.resolve("stocks/AAPL_DAY.csv").exists())
+        assertFalse(baseDir.resolve("stocks/AAPL_DAY.csv.tmp").exists())
+    }
+
+    @Test
+    fun `replace last and append iterates the bars only once`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+
+        repository.replaceLastAndAppend(
+            STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_2_REVISED, BAR_3).constrainOnce(),
+        )
+
+        assertEquals(BAR_3, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
+    }
+
+    @Test
+    fun `failure while streaming replace last and append keeps the original and removes the temp file`() {
+        repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, sequenceOf(BAR_1, BAR_2))
+        val file = baseDir.resolve("stocks/AAPL_DAY.csv")
+        val original = file.readText()
+        val failingMidStream = sequence {
+            yield(BAR_2_REVISED)
+            throw IllegalStateException(STREAM_FAILURE)
+        }
+
+        val ex = assertFailsWith<IllegalStateException> {
+            repository.replaceLastAndAppend(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, failingMidStream)
+        }
+
+        assertEquals(STREAM_FAILURE, ex.message)
+        assertEquals(original, file.readText())
+        assertFalse(baseDir.resolve("stocks/AAPL_DAY.csv.tmp").exists())
+    }
+
     private companion object {
         const val DATA_DIR = "data"
         const val STOCK_SYMBOL = "AAPL"
@@ -170,6 +276,18 @@ class BarRepositoryTest {
             low = BigDecimal("183.43"),
             close = BigDecimal("184.25"),
             volume = BigDecimal("58414500.5"),
+        )
+        val BAR_2_REVISED = BAR_2.copy(
+            close = BigDecimal("184.30"),
+            volume = BigDecimal("58500000"),
+        )
+        val BAR_3 = Bar(
+            time = Instant.parse("2024-01-04T05:00:00Z"),
+            open = BigDecimal("182.15"),
+            high = BigDecimal("183.09"),
+            low = BigDecimal("180.88"),
+            close = BigDecimal("181.91"),
+            volume = BigDecimal("71983600"),
         )
     }
 }
