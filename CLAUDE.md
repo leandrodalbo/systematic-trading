@@ -22,6 +22,7 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 - One behavior per cycle. If the prompt grows, split the cycle.
 - Docs and notes changes do not need a full cycle. Confirm with the user and apply.
 - Always check existing similar code before generating anything.
+- The user makes all commits. At COMMIT, suggest the files and a message; never run `git commit` or `git push`.
 
 ## Project
 
@@ -43,6 +44,8 @@ Method reference: `TDCG/README.md`
 ## Code style (mandatory)
 
 - Kotlin: define constant values (query params, paths, headers, fixed values) as `const val` in a `companion object`. No inline string literals for them.
+- Kotlin tests: use MockK (`mockk`, `every`, `verify`) for test doubles. No hand-written fakes.
+- Kotlin: use `runCatching { }.onFailure { }` instead of try/catch. It catches every `Throwable`, so always rethrow (`throw it`) unless swallowing is truly intended.
 
 ## Writing notes
 
