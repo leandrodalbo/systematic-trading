@@ -5,16 +5,16 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.io.TempDir
 import trade_plumber.dataprovider.MarketDataProvider
 import trade_plumber.error.AlpacaApiFailedException
-import trade_plumber.error.ErrorMessage
 import trade_plumber.model.AssetClass
 import trade_plumber.model.BarsPage
 import trade_plumber.model.Timeframe
 import trade_plumber.props.MarketDataProperties
 import trade_plumber.props.StorageProperties
 import trade_plumber.repository.BarRepository
-import trade_plumber.repository.TestBars.BAR_1
-import trade_plumber.repository.TestBars.BAR_2
-import trade_plumber.repository.TestBars.BAR_3
+import trade_plumber.testutils.FakeMarketDataProvider
+import trade_plumber.testutils.TestBars.BAR_1
+import trade_plumber.testutils.TestBars.BAR_2
+import trade_plumber.testutils.TestBars.BAR_3
 import java.nio.file.Path
 import java.time.Clock
 import java.time.Instant
@@ -41,7 +41,7 @@ class MarketDataManagerTest {
 
     @Test
     fun `update with no file writes the bars from every page in order`() {
-        managerWith(FakeProvider(PAGE_1, PAGE_2)).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
+        managerWith(FakeMarketDataProvider(PAGE_1, PAGE_2)).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
 
         val expected = """
             time,open,high,low,close,volume
@@ -55,7 +55,7 @@ class MarketDataManagerTest {
 
     @Test
     fun `update passes each page token to the next request and stops after the last page`() {
-        val provider = FakeProvider(PAGE_1, PAGE_2)
+        val provider = FakeMarketDataProvider(PAGE_1, PAGE_2)
 
         managerWith(provider).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
 
@@ -64,7 +64,7 @@ class MarketDataManagerTest {
 
     @Test
     fun `update requests stocks from the stock history start up to now`() {
-        val provider = FakeProvider(PAGE_1, PAGE_2)
+        val provider = FakeMarketDataProvider(PAGE_1, PAGE_2)
 
         managerWith(provider).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
 
@@ -74,7 +74,7 @@ class MarketDataManagerTest {
 
     @Test
     fun `update requests crypto from the crypto history start`() {
-        val provider = FakeProvider(PAGE_1, PAGE_2)
+        val provider = FakeMarketDataProvider(PAGE_1, PAGE_2)
 
         managerWith(provider).update(CRYPTO_SYMBOL, AssetClass.CRYPTO, Timeframe.DAY)
 
@@ -85,14 +85,14 @@ class MarketDataManagerTest {
     fun `update treats a header only file as no data and writes the full history`() {
         repository.write(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY, emptySequence())
 
-        managerWith(FakeProvider(PAGE_1, PAGE_2)).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
+        managerWith(FakeMarketDataProvider(PAGE_1, PAGE_2)).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
 
         assertEquals(BAR_3, repository.lastBar(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY))
     }
 
     @Test
     fun `update with a provider failure on page 2 throws and creates no file`() {
-        val provider = FakeProvider(PAGE_1, PAGE_2, failOnCall = 2)
+        val provider = FakeMarketDataProvider(PAGE_1, PAGE_2, failOnCall = 2)
 
         assertFailsWith<AlpacaApiFailedException> {
             managerWith(provider).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
@@ -103,7 +103,7 @@ class MarketDataManagerTest {
 
     @Test
     fun `update with no bars from the provider writes a header only file`() {
-        managerWith(FakeProvider(BarsPage(emptyList(), null))).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
+        managerWith(FakeMarketDataProvider(BarsPage(emptyList(), null))).update(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY)
 
         assertEquals("time,open,high,low,close,volume\n", stockFile().readText())
     }
@@ -116,27 +116,6 @@ class MarketDataManagerTest {
     )
 
     private fun stockFile() = baseDir.resolve("stocks/AAPL_DAY.csv")
-
-    private data class Call(val from: Instant, val to: Instant, val pageToken: String?)
-
-    /** Returns the scripted pages in order and records every request. */
-    private class FakeProvider(vararg pages: BarsPage, private val failOnCall: Int? = null) : MarketDataProvider {
-        private val pages = pages.toList()
-        val calls = mutableListOf<Call>()
-
-        override fun barsPage(
-            symbol: String,
-            assetClass: AssetClass,
-            timeframe: Timeframe,
-            from: Instant,
-            to: Instant,
-            pageToken: String?,
-        ): BarsPage {
-            calls += Call(from, to, pageToken)
-            if (calls.size == failOnCall) throw AlpacaApiFailedException(symbol, ErrorMessage.ALPACA_UNREACHABLE)
-            return pages[calls.size - 1]
-        }
-    }
 
     private companion object {
         const val DATA_DIR = "data"

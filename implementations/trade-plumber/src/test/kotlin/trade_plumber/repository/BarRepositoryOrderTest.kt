@@ -6,10 +6,10 @@ import org.junit.jupiter.api.io.TempDir
 import trade_plumber.model.AssetClass
 import trade_plumber.model.Timeframe
 import trade_plumber.props.StorageProperties
-import trade_plumber.repository.TestBars.BAR_1
-import trade_plumber.repository.TestBars.BAR_2
-import trade_plumber.repository.TestBars.BAR_2_REVISED
-import trade_plumber.repository.TestBars.BAR_3
+import trade_plumber.testutils.TestBars.BAR_1
+import trade_plumber.testutils.TestBars.BAR_2
+import trade_plumber.testutils.TestBars.BAR_2_REVISED
+import trade_plumber.testutils.TestBars.BAR_3
 import java.math.BigDecimal
 import java.nio.file.Path
 import kotlin.io.path.exists

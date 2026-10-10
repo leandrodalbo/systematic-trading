@@ -1,4 +1,4 @@
-package trade_plumber.repository
+package trade_plumber.testutils
 
 import trade_plumber.model.Bar
 import java.math.BigDecimal

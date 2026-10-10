@@ -19,14 +19,32 @@ class MarketDataManager(
 ) {
 
     fun update(symbol: String, assetClass: AssetClass, timeframe: Timeframe) {
-        when (repository.lastBar(symbol, assetClass, timeframe)) {
-            null -> {
-                val bars = barsFrom(symbol, assetClass, timeframe, historyStartFor(assetClass))
-                repository.write(symbol, assetClass, timeframe, bars)
-            }
-            else -> TODO(RESUME_NOT_IMPLEMENTED)
+        when (val lastStored = repository.lastBar(symbol, assetClass, timeframe)) {
+            null -> writeFullHistory(symbol, assetClass, timeframe)
+            else -> resumeFrom(lastStored, symbol, assetClass, timeframe)
         }
     }
+
+    private fun writeFullHistory(symbol: String, assetClass: AssetClass, timeframe: Timeframe) {
+        val bars = barsFrom(symbol, assetClass, timeframe, historyStartFor(assetClass))
+        repository.write(symbol, assetClass, timeframe, bars)
+    }
+
+    private fun resumeFrom(lastStored: Bar, symbol: String, assetClass: AssetClass, timeframe: Timeframe) {
+        val fetched = barsFrom(symbol, assetClass, timeframe, lastStored.time).iterator()
+        if (!fetched.hasNext()) return
+
+        val first = fetched.next()
+        if (isSameBarStart(first, lastStored)) {
+            repository.replaceLastAndAppend(symbol, assetClass, timeframe, sequenceOf(first) + fetched.asSequence())
+        } else {
+            writeFullHistory(symbol, assetClass, timeframe)
+        }
+    }
+
+
+    private fun isSameBarStart(fetched: Bar, stored: Bar) =
+        fetched.time == stored.time && fetched.open.compareTo(stored.open) == 0
 
     private fun barsFrom(symbol: String, assetClass: AssetClass, timeframe: Timeframe, from: Instant): Sequence<Bar> {
         val to = clock.instant()
@@ -43,9 +61,5 @@ class MarketDataManager(
     private fun historyStartFor(assetClass: AssetClass) = when (assetClass) {
         AssetClass.STOCK -> properties.stockHistoryStart
         AssetClass.CRYPTO -> properties.cryptoHistoryStart
-    }
-
-    private companion object {
-        const val RESUME_NOT_IMPLEMENTED = "cycle 4b: resume from the last stored bar"
     }
 }
