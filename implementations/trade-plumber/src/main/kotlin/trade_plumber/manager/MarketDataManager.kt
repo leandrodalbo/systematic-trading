@@ -3,6 +3,7 @@ package trade_plumber.manager
 import org.springframework.core.retry.RetryOperations
 import org.springframework.stereotype.Service
 import trade_plumber.dataprovider.MarketDataProvider
+import trade_plumber.error.UpdateInProgressException
 import trade_plumber.model.AssetClass
 import trade_plumber.model.Bar
 import trade_plumber.model.Timeframe
@@ -10,6 +11,7 @@ import trade_plumber.props.MarketDataProperties
 import trade_plumber.repository.BarRepository
 import java.time.Clock
 import java.time.Instant
+import java.util.concurrent.Semaphore
 import java.util.function.Supplier
 
 @Service
@@ -21,10 +23,17 @@ class MarketDataManager(
     private val retry: RetryOperations,
 ) {
 
+    private val writingSemaphore = Semaphore(1)
+
     fun update(symbol: String, assetClass: AssetClass, timeframe: Timeframe) {
-        when (val lastStored = repository.lastBar(symbol, assetClass, timeframe)) {
-            null -> writeFullHistory(symbol, assetClass, timeframe)
-            else -> resumeFrom(lastStored, symbol, assetClass, timeframe)
+        if (!writingSemaphore.tryAcquire()) throw UpdateInProgressException()
+        try {
+            when (val lastStored = repository.lastBar(symbol, assetClass, timeframe)) {
+                null -> writeFullHistory(symbol, assetClass, timeframe)
+                else -> resumeFrom(lastStored, symbol, assetClass, timeframe)
+            }
+        } finally {
+            writingSemaphore.release()
         }
     }
 
