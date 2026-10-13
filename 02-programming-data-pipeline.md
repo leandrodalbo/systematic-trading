@@ -2,7 +2,7 @@
 
 **Goal:** get a clean, repeatable way to pull price data and hold it somewhere queryable.
 
-**Status: in progress.** Next: commit 4c, then single writer (cycle 4d), SPECIFY.
+**Status: in progress.** Next: `POST /market-data/updates` (cycle 5a), SPECIFY.
 
 Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
 
@@ -36,11 +36,10 @@ Done:
 - `replaceLastAndAppend` keeps every row but the last and appends new bars. Empty input leaves the file alone.
 - Both writes reject bars that aren't strictly ascending; the original file stays untouched.
 - `MarketDataManager` fetches pages lazily. No stored bars: full history from a start date per asset class (`market-data` props). Stored bars: resume from the last bar. If page 1's first bar has a different time or open (split, dividend, gap), rewrite the whole file.
-
-- **4c** Retries per page (3 retries, 1s doubling). Manager tests use MockK. *Done, not committed yet.*
+- Each page is retried on retryable Alpaca errors (3 retries, 1s doubling). Manager tests use MockK.
+- Single writer: one `Semaphore` around `update` for all symbols. A second call while one is running fails fast with `UpdateInProgressException` instead of waiting.
 
 Next:
-- **4d** Single writer. One lock around `update` for all symbols. A second call while one is running fails fast with `UpdateInProgressException` instead of waiting.
 - **5a** `POST /market-data/updates` with `symbol`, `assetClass`, `timeframe`. Layers: controller → service → `MarketDataManager`. Returns 204. Controller tests use `springmockk` (`@MockkBean`).
 - **5b** `@RestControllerAdvice`: Alpaca failure → 502, update in progress → 409, bad input → 400.
 - **5c** Real run (no cycle): paper keys, call the endpoint for one stock and one crypto pair, check the CSVs.
