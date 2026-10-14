@@ -84,16 +84,37 @@ class AlpacaMarketDataProviderTest {
     }
 
     @Test
-    fun `sends symbol, timeframe, start, end and limit`() {
+    fun `sends symbol, timeframe, start and limit`() {
         server.expect(requestTo(startsWith("$DATA_URL$STOCKS_PATH")))
             .andExpect(queryParam("symbols", "AAPL"))
             .andExpect(queryParam("timeframe", "1Day"))
             .andExpect(queryParam("start", "2024-01-01T00:00:00Z"))
-            .andExpect(queryParam("end", "2024-01-31T00:00:00Z"))
             .andExpect(queryParam("limit", "10000"))
             .andRespond(json(EMPTY_RESPONSE))
 
         stockPage()
+
+        server.verify()
+    }
+
+    @Test
+    fun `stock request ends 16 minutes before the requested end because recent sip data is blocked`() {
+        server.expect(requestTo(startsWith("$DATA_URL$STOCKS_PATH")))
+            .andExpect(queryParam("end", "2024-01-30T23:44:00Z"))
+            .andRespond(json(EMPTY_RESPONSE))
+
+        stockPage()
+
+        server.verify()
+    }
+
+    @Test
+    fun `crypto request ends at the requested end`() {
+        server.expect(requestTo(startsWith("$DATA_URL$CRYPTO_PATH")))
+            .andExpect(queryParam("end", "2024-01-31T00:00:00Z"))
+            .andRespond(json(EMPTY_RESPONSE))
+
+        cryptoPage()
 
         server.verify()
     }

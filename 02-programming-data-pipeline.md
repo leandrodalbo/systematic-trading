@@ -2,7 +2,7 @@
 
 **Goal:** get a clean, repeatable way to pull price data and hold it somewhere queryable.
 
-**Status: in progress.** Next: error mapping with `@RestControllerAdvice` (cycle 5b), SPECIFY.
+**Status: in progress.** Next: real run with paper keys (5c, no cycle).
 
 Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
 
@@ -39,13 +39,15 @@ Done:
 - Each page is retried on retryable Alpaca errors (3 retries, 1s doubling). Manager tests use MockK.
 - Single writer: one `Semaphore` around `update` for all symbols. A second call while one is running fails fast with `UpdateInProgressException` instead of waiting.
 - `POST /market-data/updates` with a JSON body (`symbol`, `assetClass`, `timeframe`) returns 204. Layers: controller → service → `MarketDataManager`. Controller tests use `springmockk` (`@MockkBean`).
+- Errors (`ApiExceptionHandler`, `@RestControllerAdvice`, `ProblemDetail` body): Alpaca failure → 502, update in progress → 409, unreadable body → 400, anything else → 500 "Unexpected error" (real message never leaks).
 
 Next:
-- **5b** `@RestControllerAdvice`: Alpaca failure → 502, update in progress → 409, bad input → 400.
 - **5c** Real run (no cycle): paper keys, call the endpoint for one stock and one crypto pair, check the CSVs.
 - **6** Python check (step 4, your exercise): first decide how Python finds the data folder (Kotlin writes to `~/.local/share/trade-plumber`). Then load one CSV in `implementations/data-analysis` and resample daily → weekly.
 
 Phase 02 is done when 5c and 6 are done. Then tick the milestone.
+
+Later (small, optional cycles): log unexpected errors in the 500 handler (right now they leave no trace); reject a blank `symbol` with 400 (needs `spring-boot-starter-validation`); move the 204 controller test onto the `postUpdate` helper.
 
 Rules:
 - Incremental updates, not full re-fetches.

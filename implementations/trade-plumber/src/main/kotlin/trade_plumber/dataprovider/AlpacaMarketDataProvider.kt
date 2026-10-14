@@ -14,6 +14,7 @@ import trade_plumber.model.BarsPage
 import trade_plumber.model.Timeframe
 import java.math.BigDecimal
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataProvider {
 
@@ -49,7 +50,7 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
                     .queryParam(SYMBOLS_PARAM, symbol)
                     .queryParam(TIMEFRAME_PARAM, toAlpacaTimeframe(timeframe))
                     .queryParam(START_PARAM, from.toString())
-                    .queryParam(END_PARAM, to.toString())
+                    .queryParam(END_PARAM, endFor(assetClass, to).toString())
                     .queryParam(LIMIT_PARAM, PAGE_LIMIT)
                     .addStockOnlyParams(assetClass)
                     .addPageToken(pageToken)
@@ -67,6 +68,9 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
 
         else -> ex
     }
+
+    private fun endFor(assetClass: AssetClass, to: Instant): Instant =
+        if (assetClass == AssetClass.STOCK) to.minus(SIP_DELAY_MINUTES, ChronoUnit.MINUTES) else to
 
     private fun UriBuilder.addStockOnlyParams(assetClass: AssetClass): UriBuilder =
         if (assetClass == AssetClass.STOCK)
@@ -124,6 +128,7 @@ class AlpacaMarketDataProvider(private val restClient: RestClient) : MarketDataP
         const val FEED_PARAM_VALUE = "sip"
         const val ADJUSTMENT_PARAM = "adjustment"
         const val ADJUSTMENT_PARAM_VALUE = "all"
+        const val SIP_DELAY_MINUTES = 16L
 
         const val TIMEFRAME_1_HOUR = "1Hour"
         const val TIMEFRAME_4_HOURS = "4Hour"
