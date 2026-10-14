@@ -32,13 +32,14 @@ Self-directed curriculum from statistics to a validated mean-reversion swing-tra
 - `foundations/` — notes and cheat sheets. Architecture: `foundations/architecture.md`.
 - `implementations/data-analysis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
 - `implementations/trade-plumber` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
-- `data/` — one CSV per ticker in `data/stocks/` and `data/crypto/`.
+- Price data: trade-plumber writes one CSV per ticker under `~/.local/share/trade-plumber` (`storage.baseDir`). There is no `data/` folder in the repo.
+- `streaming/` (git-ignored) — YouTube channel: OBS setup, video scripts, assets. `ytb-key` is secret.
 - Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
 Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.
 
 Roadmap: `README.md`
-Social posts (LinkedIn/X): follow `posts/GUIDE.md`; drafts go in `posts/`.
+Social posts (LinkedIn/X): follow `../POSTS-GUIDE.md`.
 Method reference: `TDCG/README.md`
 
 ## Code style (mandatory)

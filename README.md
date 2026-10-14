@@ -1,23 +1,12 @@
 # Systematic Trader
 
-A self-directed curriculum from statistics foundations to a validated
-mean-reversion swing-trading system, covering stocks and crypto, built with
-free tools only (no paid platform licences). Python for the strategy
-(signals, backtest), Kotlin + Spring Boot for data and orders, Alpaca for
-stocks and crypto — see
-[foundations/architecture.md](foundations/architecture.md).
+A self-directed curriculum from statistics to a validated mean-reversion swing-trading system for stocks and crypto, with free tools only. Python for the strategy (signals, backtest), Kotlin + Spring Boot for data and orders, Alpaca for both markets: see [foundations/architecture.md](foundations/architecture.md).
 
-Final project: **Mean Reversion Trading System** (concept from Howard Bandy's
-book of the same name — read for the ideas, reimplement the logic yourself
-rather than using his AmiBroker/AFL code).
+Final project: **Mean Reversion Trading System**, based on Howard Bandy's book of the same name. Read it for the ideas; reimplement the logic yourself instead of using his AmiBroker/AFL code.
 
 ## How to use this folder
 
-Each phase is its own file. Open the one you're on, work through it, check
-off the milestone, move to the next. Every book has an Amazon search link
-next to it (search, not a specific listing, so you can pick paperback/
-Kindle/used yourself) — also worth checking your local library or an
-O'Reilly/Safari subscription if you have one before buying new.
+One file per phase. Work through it, tick the milestone, move on. Each book has an Amazon search link (pick paperback/Kindle/used yourself); check the library or O'Reilly first.
 
 - [00-foundations.md](00-foundations.md) — done
 - [01-market-mechanics.md](01-market-mechanics.md) — done
@@ -29,40 +18,26 @@ O'Reilly/Safari subscription if you have one before buying new.
 - [07-paper-trading-live.md](07-paper-trading-live.md)
 - [08-infrastructure.md](08-infrastructure.md)
 - [09-specialize.md](09-specialize.md)
-- [signals.md](signals.md) — how you'll know it's actually working
-- [foundations/](foundations/) — notes and cheat sheets written along the way
+- [signals.md](signals.md) — how you'll know it's working
+- [foundations/](foundations/) — notes and cheat sheets
 
-## Two directions this field can go
+## Two directions
 
-- **Practitioner (this guide)** — build, validate, and run your own systems
-  against your own capital. Self-taught, engineering-led, no gatekeeper.
-  Realistic given a backend background and no finance degree.
-- **Quant researcher/developer** — hired into a fund or prop shop. Usually
-  wants a strong stochastic-calculus/stats background or a
-  competitive-programming pedigree for HFT roles. Not the focus here, though
-  Phases 00–05 overlap almost entirely with that path too.
+- **Practitioner (this guide):** build, validate and run your own systems with your own capital. Self-taught, engineering-led, realistic with a backend background and no finance degree.
+- **Quant researcher/developer:** hired by a fund or prop shop. Usually needs strong stochastic calculus/stats or competitive programming (for HFT). Not the focus, but Phases 00–05 overlap almost fully.
 
 ## Timeline (part-time, ~5–10 hrs/week)
 
 | Phases | What | Duration |
 |---|---|---|
 | 00–03 | Foundations, market mechanics, data pipeline, strategy theory | 5–7 weeks |
-| 04 | Build the mean-reversion system (the core build project) | 3–4 weeks |
+| 04 | Build the mean-reversion system | 3–4 weeks |
 | 05 | Statistical validation (walk-forward, Monte Carlo) | 2–3 weeks |
 | 06 | Risk & position sizing | 1 week |
-| 07 | Paper trading | **3 months minimum, wall-clock** — this can't be rushed, the market has to generate enough sample trades |
-| 08 | Infrastructure (runs in parallel with 07) | 1–2 weeks |
-| 09 | Specialize | open-ended, ongoing |
+| 07 | Paper trading | **3 months minimum, wall-clock** (the market must produce enough trades) |
+| 08 | Infrastructure (parallel with 07) | 1–2 weeks |
+| 09 | Specialize | ongoing |
 
-**Realistic total: 6–9 months** part-time to go from zero to a running,
-validated system with a real paper-trading track record. That gets you a
-working system, not mastery — expect another 1–2 years of iteration (adding
-strategies, surviving a drawdown, refining risk rules) before "professional"
-stops feeling like a stretch. Phase 05 is the phase most self-taught traders
-skip, and skipping it is the single biggest reason systems that look great in
-backtest lose money live.
+**Realistic total: 6–9 months** part-time to a running, validated system with a paper track record. That's a working system, not mastery: expect 1–2 more years of iteration (more strategies, surviving a drawdown, refining risk) before "professional" stops feeling like a stretch. Phase 05 is the one most self-taught traders skip, and skipping it is the main reason great backtests lose money live.
 
-Each phase file now has a **Reading order (~1 hr/day)** section with page
-counts and a day estimate per book. Total across the whole curriculum: **~124
-days of 1 hr/day reading (~4 months)** — that time overlaps with the build
-and validation work above, it doesn't add to it.
+Reading: each phase lists page counts and days at ~1 hr/day. **~124 days total (~4 months)**, overlapping the build and validation work, not added to it.

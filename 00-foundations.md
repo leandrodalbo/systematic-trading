@@ -2,40 +2,24 @@
 
 **Status: completed.**
 
-**Goal:** get just enough math to read a strategy's statistics honestly.
+**Goal:** just enough math to read a strategy's statistics honestly.
 
 ## Learn
 
 - Probability & distributions, mean/variance/standard deviation
 - Correlation vs. causation, stationarity, autocorrelation
-- Reading a time series: prices vs. returns, log returns
+- Prices vs. returns, log returns
 
 ## Read
 
-- *Naked Statistics* — Charles Wheelan (fast, non-technical, start here) —
-  **finished** —
-  [find it on Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan)
+- *Naked Statistics* — Charles Wheelan — **finished** — [Amazon](https://www.amazon.co.uk/s?k=Naked+Statistics+Charles+Wheelan). ~256 pages, ~30 pages/hr ≈ **9 days**.
 
-*Quantitative Trading* — Ernest Chan has no separate stats appendix (its
-appendix is a MATLAB primer); the relevant statistical content
-(Sharpe ratio, backtesting significance) is in Chapter 3, covered in
-Phase 01 along with Chapters 1–2.
-
-## Reading order (~1 hr/day)
-
-Page counts are for common paperback editions — yours may vary slightly.
-
-1. **_Naked Statistics_ — read front to back.** ~256 pages ÷ ~30 pages/hour
-   ≈ **9 days**.
-
-**Phase 00 reading: ~9 days.**
+Chan's *Quantitative Trading* has no stats appendix (it's a MATLAB primer). Its stats content (Sharpe, backtest significance) is in Chapter 3, covered in Phase 01.
 
 ## Steps
 
 1. Read *Naked Statistics* end to end.
-2. Write a short note (a few sentences) in your own words: what does
-   "statistically significant" actually mean, and why doesn't it mean "will
-   keep working"?
+2. In your own words: what does "statistically significant" mean, and why doesn't it mean "will keep working"?
 
 Statistical significance means a result probably wasn't just random luck,
 based on the past data you tested it on. It does not mean the pattern will
@@ -76,25 +60,12 @@ Survivorship bias: If you only test companies that survived, you ignore the fail
 
 In short: A great backtest can sometimes be luck, not skill.
 
-## Parallel track: manual investing (optional, runs alongside everything)
+## Parallel track: manual investing (optional)
 
-Separate from the systematic project — this is about learning to research and
-buy individual stocks by hand, with your own judgement, while the rest of the
-curriculum builds toward an automated system. Keep the capital for this
-completely separate from anything the systematic system will eventually
-trade.
+Separate from the systematic project: research and buy single stocks by hand. Keep this money fully separate from anything the system will trade.
 
-- **Broker: XTB** — FCA-regulated, free stock/ETF dealing under normal
-  volumes, easiest UK app to actually open and start using. Open an account
-  and get comfortable placing a real (small) manual trade.
-- **Read:** *Advanced Stocks Analysis – A Fundamentalist Approach* — Luciano
-  Storelli — [find it on Amazon](https://www.amazon.co.uk/dp/B0C5YQLBZ5) —
-  fundamental analysis (reading financial statements, valuation), not
-  systematic/quant — this is the manual-investing complement to the rest of
-  the curriculum, not a replacement for it.
-- **Steps:** open the XTB account, read the book, pick one or two companies
-  to research using what it teaches, buy a small position manually if you're
-  convinced. No automation, no backtest — the point is building the
-  fundamental-analysis muscle the systematic side doesn't teach.
+- **Broker: XTB** — FCA-regulated, free stock/ETF dealing at normal volumes, easiest UK app to start with.
+- **Read:** *Advanced Stocks Analysis – A Fundamentalist Approach* — Luciano Storelli — [Amazon](https://www.amazon.co.uk/dp/B0C5YQLBZ5). Fundamental analysis (financial statements, valuation), not quant.
+- **Steps:** open the account, read the book, research 1–2 companies, buy a small position if convinced. No automation, no backtest: the point is the fundamental-analysis skill the systematic side doesn't teach.
 
 **Next:** [01-market-mechanics.md](01-market-mechanics.md)

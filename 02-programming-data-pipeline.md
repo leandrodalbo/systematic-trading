@@ -2,7 +2,7 @@
 
 **Goal:** get a clean, repeatable way to pull price data and hold it somewhere queryable.
 
-**Status: in progress.** Next: `POST /market-data/updates` (cycle 5a), SPECIFY.
+**Status: in progress.** Next: error mapping with `@RestControllerAdvice` (cycle 5b), SPECIFY.
 
 Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
 
@@ -22,7 +22,7 @@ Stack and data layout: [foundations/architecture.md](foundations/architecture.md
 
 1. Create Alpaca paper API keys. Keep them in environment variables or a git-ignored `.env` — never in code.
 2. Build a Kotlin/Spring job that pulls daily bars for one stock (stocks: `feed=sip`, `adjustment=all`) and one crypto pair.
-3. Save each ticker as a CSV in `data/stocks/` or `data/crypto/` (layout in the architecture note).
+3. Save each ticker as a CSV under `~/.local/share/trade-plumber/stocks/` or `crypto/` (layout in the architecture note).
 4. Load the CSVs back and resample daily → weekly, to confirm you understand the data shape.
 5. Check how far back Alpaca's crypto history goes. Phase 04 needs 5+ years — if it's short, note it (Kraken CSVs are the fallback).
 
@@ -38,12 +38,12 @@ Done:
 - `MarketDataManager` fetches pages lazily. No stored bars: full history from a start date per asset class (`market-data` props). Stored bars: resume from the last bar. If page 1's first bar has a different time or open (split, dividend, gap), rewrite the whole file.
 - Each page is retried on retryable Alpaca errors (3 retries, 1s doubling). Manager tests use MockK.
 - Single writer: one `Semaphore` around `update` for all symbols. A second call while one is running fails fast with `UpdateInProgressException` instead of waiting.
+- `POST /market-data/updates` with a JSON body (`symbol`, `assetClass`, `timeframe`) returns 204. Layers: controller → service → `MarketDataManager`. Controller tests use `springmockk` (`@MockkBean`).
 
 Next:
-- **5a** `POST /market-data/updates` with `symbol`, `assetClass`, `timeframe`. Layers: controller → service → `MarketDataManager`. Returns 204. Controller tests use `springmockk` (`@MockkBean`).
 - **5b** `@RestControllerAdvice`: Alpaca failure → 502, update in progress → 409, bad input → 400.
 - **5c** Real run (no cycle): paper keys, call the endpoint for one stock and one crypto pair, check the CSVs.
-- **6** Python check (step 4, your exercise): first decide how Python finds the data folder (Kotlin writes to `~/.local/share/trade-plumber`, step 3 says `data/` in the repo). Then load one CSV in `implementations/data-analysis` and resample daily → weekly.
+- **6** Python check (step 4, your exercise): first decide how Python finds the data folder (Kotlin writes to `~/.local/share/trade-plumber`). Then load one CSV in `implementations/data-analysis` and resample daily → weekly.
 
 Phase 02 is done when 5c and 6 are done. Then tick the milestone.
 
