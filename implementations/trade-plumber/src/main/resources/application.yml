@@ -8,7 +8,7 @@ alpaca:
   dataUrl: https://data.alpaca.markets
 
 storage:
-  baseDir: ${XDG_DATA_HOME:${user.home}/.local/share}/trade-plumber
+  baseDir: ${TRADE_PLUMBER_DATA_DIR}
 
 market-data:
   stockHistoryStart: 2016-01-01T00:00:00Z

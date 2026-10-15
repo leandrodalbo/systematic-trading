@@ -1,0 +1,26 @@
+[project]
+name = "data-analysis"
+version = "0.1.0"
+description = "Strategy implementation: indicators, signals, backtests and stats"
+readme = "README.md"
+authors = [
+    { name = "leandrodalbo", email = "leandro.e.dal.bo@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "pandas>=3.0.6",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.0,<0.14.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = ["--import-mode=importlib"]
+

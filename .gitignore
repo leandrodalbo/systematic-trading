@@ -6,3 +6,8 @@
 posts/
 
 streaming
+
+# Python (implementations/data-analysis)
+.venv/
+__pycache__/
+.pytest_cache/
