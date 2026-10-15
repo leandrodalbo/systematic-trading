@@ -1,0 +1,6 @@
+DEFAULT_TIMEFRAME = "DAY"
+TIME_COLUMN = "time"
+DATE_INDEX = "date"
+NEW_YORK = "America/New_York"
+SYMBOL_SLASH = "/"
+FILE_SYMBOL_SEPARATOR = "-"

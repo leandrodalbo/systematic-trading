@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pytest
 
-from data_analysis.config import DATA_DIR_ENV, data_dir
-from data_analysis.errors import DataDirNotSetError
+from data_analysis.core.config import DATA_DIR_ENV, data_dir
+from data_analysis.core.errors import DataDirNotSetError
 
 
 def test_data_dir_returns_the_folder_from_the_env_var(monkeypatch, tmp_path):

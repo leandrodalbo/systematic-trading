@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from data_analysis.errors import DataDirNotSetError
+from data_analysis.core.errors import DataDirNotSetError
 
 DATA_DIR_ENV = "TRADE_PLUMBER_DATA_DIR"
 
