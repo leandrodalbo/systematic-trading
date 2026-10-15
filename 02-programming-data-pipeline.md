@@ -2,7 +2,7 @@
 
 **Goal:** get a clean, repeatable way to pull price data and hold it somewhere queryable.
 
-**Status: in progress.** Next: real run with paper keys (5c, no cycle).
+**Status: in progress.** Next: Python resample check (6, your exercise).
 
 Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
 
@@ -41,13 +41,17 @@ Done:
 - `POST /market-data/updates` with a JSON body (`symbol`, `assetClass`, `timeframe`) returns 204. Layers: controller → service → `MarketDataManager`. Controller tests use `springmockk` (`@MockkBean`).
 - Errors (`ApiExceptionHandler`, `@RestControllerAdvice`, `ProblemDetail` body): Alpaca failure → 502, update in progress → 409, unreadable body → 400, anything else → 500 "Unexpected error" (real message never leaks).
 
+- **5c real run (2026-10-14):** `AAPL_DAY.csv` 2,711 bars (2016-01-04 → today, split-adjusted: 2016 open $23.07) and `BTC-USD_DAY.csv` 2,113 bars (2021-01-01 → today). Run steps: `implementations/testing/using-trade-plumber.md`.
+  - Found a bug: the free plan blocks SIP data from the last 15 min, and stock requests ended at *now* → 403 → 502. Fix: stock requests end 16 min early (`SIP_DELAY_MINUTES`); crypto unchanged.
+  - Step 5 answered: crypto history covers our 2021-01-01 start (~5.8 years), enough for Phase 04. No Kraken needed yet.
+
 Next:
-- **5c** Real run (no cycle): paper keys, call the endpoint for one stock and one crypto pair, check the CSVs.
 - **6** Python check (step 4, your exercise): first decide how Python finds the data folder (Kotlin writes to `~/.local/share/trade-plumber`). Then load one CSV in `implementations/data-analysis` and resample daily → weekly.
+  - Heads-up: stock bar times are midnight New York in UTC (`05:00Z` in winter, `04:00Z` in summer), crypto bars are `00:00Z`. Convert to a plain date before resampling, or weeks can split wrongly.
 
-Phase 02 is done when 5c and 6 are done. Then tick the milestone.
+Phase 02 is done when 6 is done. Then tick the milestone.
 
-Later (small, optional cycles): log unexpected errors in the 500 handler (right now they leave no trace); reject a blank `symbol` with 400 (needs `spring-boot-starter-validation`); move the 204 controller test onto the `postUpdate` helper.
+Later (small, optional cycles): log unexpected errors in the 500 handler (right now they leave no trace, which made the 5c bug hard to see); reject a blank `symbol` with 400 (needs `spring-boot-starter-validation`); move the 204 controller test onto the `postUpdate` helper.
 
 Rules:
 - Incremental updates, not full re-fetches.
