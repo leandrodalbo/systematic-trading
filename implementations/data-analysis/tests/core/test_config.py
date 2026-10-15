@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import pytest
 
 from data_analysis.core.config import DATA_DIR_ENV, data_dir
@@ -10,12 +8,6 @@ def test_data_dir_returns_the_folder_from_the_env_var(monkeypatch, tmp_path):
     monkeypatch.setenv(DATA_DIR_ENV, str(tmp_path))
 
     assert data_dir() == tmp_path
-
-
-def test_data_dir_returns_a_path(monkeypatch, tmp_path):
-    monkeypatch.setenv(DATA_DIR_ENV, str(tmp_path))
-
-    assert isinstance(data_dir(), Path)
 
 
 def test_data_dir_fails_when_the_env_var_is_missing(monkeypatch):

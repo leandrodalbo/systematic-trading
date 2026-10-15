@@ -24,7 +24,7 @@ def write_csv(data_folder, folder, file_name, rows):
 def test_load_bars_returns_the_ohlcv_columns(data_folder):
     write_csv(data_folder, "stocks", "AAPL_DAY.csv", ["2016-01-04T05:00:00Z,23.07,23.69,22.94,23.69,287741356"])
 
-    bars = load_bars("AAPL", AssetClass.STOCKS)
+    bars = load_bars("AAPL", AssetClass.STOCK)
 
     assert list(bars.columns) == ["open", "high", "low", "close", "volume"]
     assert bars.iloc[0].to_dict() == {"open": 23.07, "high": 23.69, "low": 22.94, "close": 23.69, "volume": 287741356.0}
@@ -33,7 +33,7 @@ def test_load_bars_returns_the_ohlcv_columns(data_folder):
 def test_load_bars_columns_are_floats(data_folder):
     write_csv(data_folder, "stocks", "AAPL_DAY.csv", ["2016-01-04T05:00:00Z,23,24,22,23,287741356"])
 
-    bars = load_bars("AAPL", AssetClass.STOCKS)
+    bars = load_bars("AAPL", AssetClass.STOCK)
 
     assert all(dtype == "float64" for dtype in bars.dtypes)
 
@@ -54,7 +54,7 @@ def test_stock_dates_use_the_new_york_date_in_winter_and_summer(data_folder):
         "2016-07-01T04:00:00Z,1,1,1,1,1",
     ])
 
-    bars = load_bars("AAPL", AssetClass.STOCKS)
+    bars = load_bars("AAPL", AssetClass.STOCK)
 
     assert list(bars.index) == [pd.Timestamp("2016-01-04"), pd.Timestamp("2016-07-01")]
 
@@ -73,7 +73,7 @@ def test_crypto_dates_use_the_utc_date(data_folder):
 def test_load_bars_uses_the_given_timeframe_in_the_file_name(data_folder):
     write_csv(data_folder, "stocks", "AAPL_WEEK.csv", ["2016-01-04T05:00:00Z,1,1,1,1,1"])
 
-    bars = load_bars("AAPL", AssetClass.STOCKS, timeframe="WEEK")
+    bars = load_bars("AAPL", AssetClass.STOCK, timeframe="WEEK")
 
     assert len(bars) == 1
 

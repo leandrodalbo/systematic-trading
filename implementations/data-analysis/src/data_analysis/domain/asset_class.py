@@ -2,5 +2,5 @@ from enum import Enum
 
 
 class AssetClass(Enum):
-    STOCKS = "stocks"
+    STOCK = "stocks"
     CRYPTO = "crypto"

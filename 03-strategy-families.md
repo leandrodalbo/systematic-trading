@@ -2,6 +2,8 @@
 
 **Goal:** understand mean reversion well enough to explain why it works, and when it stops working.
 
+**Status: next.**
+
 ## Learn
 
 - Z-score of price vs. moving average, Bollinger Bands, RSI(2) reversion (Larry Connors)

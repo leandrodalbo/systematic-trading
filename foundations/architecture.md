@@ -17,7 +17,7 @@ Golden rule: the Python code we backtest is the **same code** that makes live si
 ## Data layout (as trade-plumber writes it)
 
 ```
-~/.local/share/trade-plumber/      # storage.baseDir ($XDG_DATA_HOME/trade-plumber)
+~/.local/share/trade-plumber/      # $TRADE_PLUMBER_DATA_DIR
   stocks/
     AAPL_DAY.csv
   crypto/
@@ -27,7 +27,8 @@ Golden rule: the Python code we backtest is the **same code** that makes live si
 - One CSV per ticker and timeframe: `<SYMBOL>_<TIMEFRAME>.csv`. `/` becomes `-` (`BTC/USD` → `BTC-USD`). Timeframes: `HOURS1, HOURS4, DAY, WEEK, MONTH`.
 - Header: `time,open,high,low,close,volume`. Time is a UTC ISO instant, oldest first. Stock prices split/dividend adjusted.
 - **One source per file.** Never mix Alpaca and Kraken bars.
-- Open question (Phase 02 step 6): how Python finds this folder.
+- **Both sides find the folder through one env var, `TRADE_PLUMBER_DATA_DIR`** (set in `~/.zshrc`). No defaults. Kotlin: `storage.baseDir`. Python: `data_analysis.core.config.data_dir()`.
+- Python reads a file with `load_bars(symbol, asset_class)`: a DataFrame indexed by plain date. Stocks use the New York date, crypto the UTC date.
 
 ## Later
 
