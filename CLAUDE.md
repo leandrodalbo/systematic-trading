@@ -41,7 +41,7 @@ Self-directed curriculum from statistics to a validated mean-reversion swing-tra
 Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.
 
 Roadmap: `README.md`
-Social posts (LinkedIn/X): follow `../POSTS-GUIDE.md`.
+Social posts (LinkedIn/X): follow `../fruit-of-hands/POSTS-GUIDE.md`.
 Method reference: `TDCG/README.md`
 
 ## Code style (mandatory)
