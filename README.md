@@ -1,6 +1,6 @@
 # Systematic Trader
 
-A self-directed curriculum from statistics to a validated mean-reversion swing-trading system for stocks and crypto, with free tools only. Python for the strategy (signals, backtest), Kotlin + Spring Boot for data and orders, Alpaca for both markets: see [foundations/architecture.md](foundations/architecture.md).
+A self-directed curriculum from statistics to a validated mean-reversion swing-trading system for stocks and crypto, with free tools only. Python for the strategy (signals, backtest), Kotlin + Spring Boot for data and orders, Alpaca for both markets: see [knowledge/architecture.md](knowledge/architecture.md).
 
 Final project: **Mean Reversion Trading System**, based on Howard Bandy's book of the same name. Read it for the ideas; reimplement the logic yourself instead of using his AmiBroker/AFL code.
 
@@ -19,7 +19,7 @@ One file per phase. Work through it, tick the milestone, move on. Each book has 
 - [08-infrastructure.md](08-infrastructure.md)
 - [09-specialize.md](09-specialize.md)
 - [signals.md](signals.md) — how you'll know it's working
-- [foundations/](foundations/) — notes and cheat sheets
+- [knowledge/](knowledge/) — notes and cheat sheets
 
 ## Two directions
 

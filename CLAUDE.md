@@ -30,12 +30,13 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 Self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only.
 
 - `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
-- `foundations/` — notes and cheat sheets. Architecture: `foundations/architecture.md`.
+- `knowledge/` — notes and cheat sheets. Architecture: `knowledge/architecture.md`.
 - `implementations/data-analysis` — Python: the strategy (indicators, signals, backtest, stats). Becomes a FastAPI signal service in Phase 07.
 - `implementations/trade-plumber` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
 - Price data: trade-plumber writes one CSV per ticker under `~/.local/share/trade-plumber` (`storage.baseDir`). There is no `data/` folder in the repo.
 - Data folder setting: `TRADE_PLUMBER_DATA_DIR` is the only variable for it, in Kotlin and Python alike. No fallbacks (no `XDG_DATA_HOME`, no defaults): if it's missing, fail with a clear error. Set in `~/.zshrc`.
-- `streaming/` (git-ignored) — YouTube channel: OBS setup, video scripts, assets. `ytb-key` is secret.
+- `STUDIO.md` — the research studio plan: content series, website, domain, weekly rhythm. This is the only active project (2026-11-20).
+- `under-his-wings/` (git-ignored) — old YouTube files, stopped 2026-11-20. `ytb-key` is secret.
 - Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
 Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.

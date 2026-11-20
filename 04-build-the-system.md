@@ -10,7 +10,7 @@
 
 ## Free tools
 
-- Python (`pandas`): indicators, signals, a hand-rolled bar-by-bar backtest loop. Hand-rolling teaches more than a framework the first time. Write the signal code so the backtest and the live service (Phase 07) call the same functions ([foundations/architecture.md](foundations/architecture.md)).
+- Python (`pandas`): indicators, signals, a hand-rolled bar-by-bar backtest loop. Hand-rolling teaches more than a framework the first time. Write the signal code so the backtest and the live service (Phase 07) call the same functions ([knowledge/architecture.md](knowledge/architecture.md)).
 - `matplotlib` for report charts.
 - `vectorbt` (optional, later): fast parameter sweeps once the hand-rolled version works.
 - QuantConnect / LEAN: see below.

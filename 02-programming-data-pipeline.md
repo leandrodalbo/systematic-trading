@@ -4,7 +4,7 @@
 
 **Status: completed 2026-10-15.**
 
-Stack and data layout: [foundations/architecture.md](foundations/architecture.md).
+Stack and data layout: [knowledge/architecture.md](knowledge/architecture.md).
 
 ## Learn
 
@@ -15,7 +15,7 @@ Stack and data layout: [foundations/architecture.md](foundations/architecture.md
 
 ## Free tools
 
-- Alpaca Market Data API — free stock and crypto bars with the same keys as your paper account. Endpoints and gotchas: [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
+- Alpaca Market Data API — free stock and crypto bars with the same keys as your paper account. Endpoints and gotchas: [knowledge/alpaca-kraken-api-notes.md](knowledge/alpaca-kraken-api-notes.md)
 - Kotlin + Spring Boot (`RestClient`) — no SDK needed, it's plain REST
 
 ## Steps

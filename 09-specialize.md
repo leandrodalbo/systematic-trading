@@ -7,7 +7,7 @@
 - A small portfolio of uncorrelated strategies instead of one system
 - Other asset classes or strategy families (momentum, pairs/cointegration)
 - ML as a third signal source (next to mean reversion and a second family). Same Phase 05 validation applies: an ML model that "backtests great" is the classic self-taught trap.
-- Kraken as a second crypto venue (more coins, deeper book): [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
+- Kraken as a second crypto venue (more coins, deeper book): [knowledge/alpaca-kraken-api-notes.md](knowledge/alpaca-kraken-api-notes.md)
 - If pivoting to quant-dev roles: stochastic calculus and interview probability puzzles
 
 ## Read

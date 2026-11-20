@@ -12,7 +12,7 @@
 
 ## Free tools
 
-- Alpaca paper trading (stocks and crypto, free). No slippage, market impact or fees simulated, so live will be a bit worse. Details: [foundations/alpaca-kraken-api-notes.md](foundations/alpaca-kraken-api-notes.md)
+- Alpaca paper trading (stocks and crypto, free). No slippage, market impact or fees simulated, so live will be a bit worse. Details: [knowledge/alpaca-kraken-api-notes.md](knowledge/alpaca-kraken-api-notes.md)
 
 ## Steps
 
