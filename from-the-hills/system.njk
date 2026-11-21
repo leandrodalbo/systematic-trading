@@ -1,0 +1,62 @@
+---
+layout: base.njk
+title: "System: Kotlin + Python for trading"
+description: "A backend view of a trading system: Spring Boot for data and orders, Python for research and signals, one set of files between them."
+---
+<h1>{{ title }}</h1>
+
+<p>I build the trading system next to the research. Two parts: trade-plumber (Kotlin + Spring Boot) fetches prices and will send the orders. data-analysis (Python) tests the ideas and decides the trades.</p>
+
+<svg role="img" aria-label="How the parts talk: Alpaca sends prices to trade-plumber (Kotlin). trade-plumber writes them to CSV files. data-analysis (Python) reads the CSV files. Later: data-analysis sends signals back to trade-plumber, and trade-plumber sends paper orders to Alpaca." viewBox="0 0 800 230" class="not-prose my-10 w-full" font-family="Inter, sans-serif" font-size="14">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" class="fill-muted" />
+    </marker>
+  </defs>
+
+  <g class="fill-panel stroke-muted" stroke-width="1">
+    <rect x="10" y="40" width="140" height="64" rx="8" />
+    <rect x="220" y="40" width="170" height="64" rx="8" class="stroke-up" />
+    <rect x="460" y="40" width="110" height="64" rx="8" />
+    <rect x="640" y="40" width="150" height="64" rx="8" class="stroke-up" />
+  </g>
+
+  <g class="fill-text" text-anchor="middle" font-weight="700">
+    <text x="80" y="70">Alpaca</text>
+    <text x="305" y="70">trade-plumber</text>
+    <text x="515" y="70">CSV files</text>
+    <text x="715" y="70">data-analysis</text>
+  </g>
+  <g class="fill-muted" text-anchor="middle" font-size="12">
+    <text x="80" y="90">broker</text>
+    <text x="305" y="90">Kotlin + Spring Boot</text>
+    <text x="515" y="90">one per ticker</text>
+    <text x="715" y="90">Python</text>
+  </g>
+
+  <g class="stroke-muted" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+    <path d="M150 62 H218" />
+    <path d="M390 62 H458" />
+    <path d="M570 62 H638" />
+  </g>
+  <g class="stroke-muted" stroke-width="1.5" stroke-dasharray="6 4" fill="none" marker-end="url(#arrow)">
+    <path d="M715 104 V170 H330 V106" />
+    <path d="M280 104 V200 H80 V106" />
+  </g>
+
+  <g class="fill-muted" text-anchor="middle" font-size="12">
+    <text x="184" y="30">prices</text>
+    <text x="424" y="30">writes</text>
+    <text x="604" y="30">reads</text>
+    <text x="520" y="162">signals (later)</text>
+    <text x="180" y="192">paper orders (later)</text>
+  </g>
+</svg>
+
+<h2>Build log</h2>
+
+<div class="not-prose grid gap-6 md:grid-cols-2">
+  {%- for post in collections.system | reverse %}
+  {% include "card.njk" %}
+  {%- endfor %}
+</div>

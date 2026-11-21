@@ -6,6 +6,7 @@
     { "text": "Home", "href": "/" },
     { "text": "Market", "href": "/market/" },
     { "text": "Notes", "href": "/notes/" },
+    { "text": "System", "href": "/system/" },
     { "text": "Concepts", "href": "/concepts/" }
   ]
 }

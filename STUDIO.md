@@ -81,6 +81,12 @@ Decided (user, 2026-11-21):
   one overview page (the parts, how data flows, Kotlin vs Python, "the code we backtest is the
   code that trades") + build entries, newest first, one folder each like notes. Home shows the
   latest note and the latest system entry.
+  System page (user, 2026-11-21): title "System: Kotlin + Python for trading", description "A
+  backend view of a trading system: Spring Boot for data and orders, Python for research and
+  signals, one set of files between them." Overview with a simple data-flow diagram (SVG, site
+  colours, text alternative). Entries: one folder each (`system/<name>/index.md`), picture
+  optional. First entry: "One system, two languages", description "Kotlin for the plumbing,
+  Python for the research. Each language picked as the right tool for its job."
 - Charts on the site use a dark version (site background and colours); knowledge notes keep the
   white ones (user, 2026-11-21).
 - One folder per note (user, 2026-11-21): `notes/<name>/index.md` with its charts next to it

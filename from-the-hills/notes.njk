@@ -5,14 +5,7 @@ description: "Short research notes: one question, one chart, what the data said.
 ---
 <h1>{{ title }}</h1>
 <div class="not-prose grid gap-6 md:grid-cols-2">
-  {%- for note in collections.notes | reverse %}
-  <article class="overflow-hidden rounded-lg bg-panel ring-1 ring-white/10">
-    <img src="{{ note.url }}{{ note.data.chart }}" alt="{{ note.data.chartAlt }}" width="{{ note.data.chartWidth }}" height="{{ note.data.chartHeight }}" loading="lazy">
-    <div class="p-5">
-      <p class="text-sm text-muted"><time datetime="{{ note.date | isoDay }}">{{ note.date | readableDay }}</time></p>
-      <h2 class="mt-1 text-lg font-bold"><a href="{{ note.url }}" class="hover:text-up">{{ note.data.title }}</a></h2>
-      <p class="mt-2 text-sm text-muted">{{ note.data.description }}</p>
-    </div>
-  </article>
+  {%- for post in collections.notes | reverse %}
+  {% include "card.njk" %}
   {%- endfor %}
 </div>

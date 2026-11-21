@@ -22,6 +22,7 @@ export const NAV_LINKS = Object.freeze([
   Object.freeze({ text: "Home", href: "/" }),
   Object.freeze({ text: "Market", href: "/market/" }),
   Object.freeze({ text: "Notes", href: "/notes/" }),
+  Object.freeze({ text: "System", href: "/system/" }),
   Object.freeze({ text: "Concepts", href: "/concepts/" }),
 ]);
 
@@ -34,6 +35,7 @@ export const NOTE_CHART_FILE = "chart.png";
 // Newest first.
 export const NOTES = Object.freeze([
   Object.freeze({
+    section: "notes",
     folder: "apple-pe",
     title: "Apple P/E, 2007–2026",
     description:
@@ -42,6 +44,7 @@ export const NOTES = Object.freeze([
     readableDay: "21 November 2026",
   }),
   Object.freeze({
+    section: "notes",
     folder: "spy-drops-vs-rises",
     title: "Drops vs rises in SPY, 1993–2026",
     description:
@@ -49,4 +52,32 @@ export const NOTES = Object.freeze([
     day: "2026-11-21",
     readableDay: "21 November 2026",
   }),
+]);
+
+export const SYSTEM_PAGE_PATH = "system/index.html";
+export const SYSTEM_PAGE_ADDRESS = "/system/";
+export const SYSTEM_PAGE_TITLE = `System: Kotlin + Python for trading${TITLE_ENDING}`;
+export const SYSTEM_PAGE_DESCRIPTION =
+  "A backend view of a trading system: Spring Boot for data and orders, Python for research and signals, one set of files between them.";
+
+// Newest first.
+export const SYSTEM_ENTRIES = Object.freeze([
+  Object.freeze({
+    section: "system",
+    folder: "one-system-two-languages",
+    title: "One system, two languages",
+    description:
+      "Kotlin for the plumbing, Python for the research. Each language picked as the right tool for its job.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+]);
+
+// Notes and system entries share one post layout, so one set of tests covers both.
+export const POSTS = Object.freeze([...NOTES, ...SYSTEM_ENTRIES]);
+
+// Each page that lists posts as cards, with its posts newest first.
+export const POST_LISTS = Object.freeze([
+  Object.freeze({ path: NOTES_PAGE_PATH, address: NOTES_PAGE_ADDRESS, posts: NOTES }),
+  Object.freeze({ path: SYSTEM_PAGE_PATH, address: SYSTEM_PAGE_ADDRESS, posts: SYSTEM_ENTRIES }),
 ]);

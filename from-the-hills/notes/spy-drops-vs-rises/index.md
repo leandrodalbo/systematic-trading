@@ -2,10 +2,10 @@
 title: Drops vs rises in SPY, 1993–2026
 description: "SPY above its 200-day average, 1993–2026: drops lasted 17 days, rises 56. Drops moved about twice as fast."
 date: 2026-11-21T13:30:00Z
-chart: chart.png
-chartWidth: 1170
-chartHeight: 572
-chartAlt: "Bar chart. SPY above its 200-day average: drops last 17 days at 0.49% a day, rises last 56 days at 0.26% a day."
+picture: chart.png
+pictureWidth: 1170
+pictureHeight: 572
+pictureAlt: "Bar chart. SPY above its 200-day average: drops last 17 days at 0.49% a day, rises last 56 days at 0.26% a day."
 ---
 
 ## The question

@@ -23,7 +23,7 @@ test("every page's header shows the site name", () => {
   }
 });
 
-test("every page has the desktop and mobile nav, each with the four links", () => {
+test("every page has the desktop and mobile nav, each with every section link", () => {
   for (const { path, page } of loadBuiltPages()) {
     const navs = page("header nav").toArray();
     assert.equal(navs.length, 2, `${path}: expected a desktop and a mobile nav in the header`);

@@ -2,10 +2,10 @@
 title: Apple P/E, 2007–2026
 description: "Apple, 2007–2026: after a high-P/E year, P/E fell the next year 6 times out of 9. After a low year, 3 out of 10."
 date: 2026-11-21T15:30:00Z
-chart: chart.png
-chartWidth: 1300
-chartHeight: 598
-chartAlt: "Bar chart of Apple's P/E by fiscal year, 2007 to 2026, with a median of 19.1. P/E was 12 to 19 from 2011 to 2019 and 25 to 38 since 2020."
+picture: chart.png
+pictureWidth: 1300
+pictureHeight: 598
+pictureAlt: "Bar chart of Apple's P/E by fiscal year, 2007 to 2026, with a median of 19.1. P/E was 12 to 19 from 2011 to 2019 and 25 to 38 since 2020."
 ---
 
 ## The question

@@ -10,16 +10,16 @@ export function builtFileExists(path) {
   return existsSync(join(BUILT_SITE, path));
 }
 
-export function notePagePath(note) {
-  return `notes/${note.folder}/index.html`;
+export function postPagePath(post) {
+  return `${post.section}/${post.folder}/index.html`;
 }
 
-export function noteAddress(note) {
-  return `/notes/${note.folder}/`;
+export function postAddress(post) {
+  return `/${post.section}/${post.folder}/`;
 }
 
 export function noteChartAddress(note) {
-  return `${noteAddress(note)}${NOTE_CHART_FILE}`;
+  return `${postAddress(note)}${NOTE_CHART_FILE}`;
 }
 
 export function addressOf(link, fromAddress) {
