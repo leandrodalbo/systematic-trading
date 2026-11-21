@@ -4,7 +4,7 @@
 
 - Book, chapter / pages:
 - One thing I learned:
-- Idea to test? (also add it to `ideas.md`):
+- Idea to test/Research?
 
 ## Market check
 

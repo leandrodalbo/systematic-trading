@@ -8,13 +8,13 @@ export const BUILT_HOME_PAGE = join(BUILT_SITE, HOME_PAGE_PATH);
 
 export const SITE_NAME = "Quant Research Studio";
 export const ONE_LINE_IDEA =
-  "Checking the markets every day, testing trading ideas on real data, and building the system that trades them.";
+  "Checking the markets every day, studying known trading methods, and using them to build a real trading system.";
 
 export const TITLE_ENDING = ` · ${SITE_NAME}`;
 export const HOME_HEADING = "Trading Enquiries & Market Research";
 export const HOME_TITLE = `${HOME_HEADING}${TITLE_ENDING}`;
 export const HOME_DESCRIPTION =
-  "Daily market numbers and trading ideas tested on real data. Research only, not financial advice.";
+  "Daily market numbers and known trading methods studied on real data. Research only, not financial advice.";
 export const MAX_TITLE_LENGTH = 60;
 export const MAX_DESCRIPTION_LENGTH = 160;
 

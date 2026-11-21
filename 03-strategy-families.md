@@ -2,7 +2,7 @@
 
 **Goal:** understand mean reversion well enough to explain why it works, and when it stops working.
 
-**Status: next.**
+**Status: in progress (started 2026-11-21).** Notes: [knowledge/mean-reversion-notes.md](knowledge/mean-reversion-notes.md).
 
 ## Learn
 
