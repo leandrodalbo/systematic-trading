@@ -11,3 +11,7 @@ streaming
 .venv/
 __pycache__/
 .pytest_cache/
+
+# Website (from-the-hills): npm downloads and the built site
+from-the-hills/node_modules/
+from-the-hills/_site/

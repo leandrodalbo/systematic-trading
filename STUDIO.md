@@ -60,77 +60,103 @@ A static site, the place where findings live (X posts link to it).
 - **Footer on every page:** "Education and research only. Not financial advice." (UK: don't
   tell people what to buy.)
 
+Decided (user, 2026-11-21):
+- Folder: `green-pastures/from-the-hills/` (Psalm 121:1).
+- Site name: **Quant Research Studio** (matches quantresearch.studio).
+- Tool: Eleventy 3 (npm), standard configuration: pages (markdown) in the site folder itself,
+  `_includes/` for layouts, `_data/` for data, output in `_site/` (git-ignored in
+  `green-pastures/.gitignore`, like `node_modules/`). No README in the site folder: every `.md`
+  there becomes a page; this section explains the site. `npm test` = build, then Node's built-in tests (`tests/*.test.js`) on the built
+  HTML. `package.json` is private and uses ES modules.
+- Look: the home page follows the Dal Bo consulting site
+  (`../still-waters/consulting/static-websites/dalboconsultancy/`).
+- Plain static HTML, no server; nothing that hides content from Google (no React app).
+- Built with the Claudio plugin (TDCG): open a Claude Code session **in
+  `green-pastures/from-the-hills/`** and run `/claudio:init` there. Claudio guards the folder the
+  session starts in, so never init from `firm-heart/` or `green-pastures/`.
+- Posts: X only.
+- **Market** section (`/market/`): today's check only, replaced every day, no history (hosting
+  stays small; the X posts are the record). One file holds anything the day needs: numbers, text,
+  one or more images, links. Each trading day: one X post, by hand, linking to it.
+- Later, once we know what we look for: a script that fills the Market file, and its link on the page.
+
 Needs:
 - The scripts must be public on GitHub (today `systematic-trading` is the repo; to check: is it
   public?).
-- A folder for the site, named from the Psalms (user picks).
 
 ## Domain
 
-Checked 2026-11-20 (whois/RDAP), looked free:
+**Picked: quantresearch.studio** (user, 2026-11-20). "Quant research" says what we do, ".studio"
+matches the research studio idea. Looked free on 2026-11-20 (whois/RDAP). Not bought yet; check
+the yearly renewal price before buying (new endings like .studio often cost more after year one).
 
-- **backtestlog.com** (recommended: plain, says what it is, .com is easy to trust)
-- backtestlog.dev
-- edgenotebook.dev
-- edgejournal.dev
-- quantnotebook.dev
+Other names checked the same day, looked free:
 
-Taken: edgelab.dev, marketlogbook.com, quantnotebook.com, edgeledger.com, nulledge.com.
+- tradingresearch.dev
+- tradingresearch.co.uk (UK)
+- tradingresearch.blog
+- tradingresearchlog.com
+- tradingresearchnotes.com
+- quantresearch.dev
+- backtestlog.com, edgenotebook.dev (no "research")
+
+Taken: tradingresearch.com, tradingresearch.io, tradingresearchlab.com, edgelab.dev,
+quantnotebook.com.
 Check again just before buying; free can change.
 
-## The daily routine (user, 2026-11-20)
+## What "research" means here
 
-Every day is the same loop: **read → check the market → find one interesting thing → script it
-if needed → publish it if it's worth it.** About 2–3 hours. One journal file per day:
-`journal/YYYY-MM-DD.md`, copied from [journal/TEMPLATE.md](journal/TEMPLATE.md).
+Research = **read, look at the market, ask a question, check it with data, keep what you learn.**
+Reading and doing run side by side. Reading never blocks the practical work: we don't wait to
+finish a book (or a phase) before we build, test or post (user, 2026-11-20).
 
-1. **Read (at least 1 hour, first).** The current book (now: Bandy; Storelli for fundamentals).
-   Notes go in `knowledge/`. Write any idea worth testing in [journal/ideas.md](journal/ideas.md).
-2. **Check the market (20–30 min).** The same checklist every day, so days can be compared:
+## A day (user, 2026-11-20)
+
+Two fixed parts, then one practical thing. One journal file per day: `journal/YYYY-MM-DD.md`,
+from [journal/TEMPLATE.md](journal/TEMPLATE.md).
+
+**Every day:**
+
+1. **Read (at least 1 hour).** The next chapter (or part of one) in the reading plan, in order
+   (Bandy now; Storelli for fundamentals). Notes in `knowledge/`. Some days, read more; that's fine.
+2. **Check the market (20–30 min).** Same checklist every day, so days can be compared:
    - SPY, QQQ, BTC: today's move, and where price sits vs its 20-day mean.
    - The watch list: anything unusual (big move, very oversold, very overbought).
-   - The calendar: earnings, Fed, big data releases today or tomorrow.
-   - Write 3–5 lines in the journal: what happened, numbers only, no guesses.
-3. **Find one interesting thing (15 min).** One question from today's check or reading. Worth it if
-   it's **surprising, testable, and useful to someone else**. Examples: "SPY fell 3 days in a row,
-   what usually happens next?", "Is BTC more oversold than SPY this week?". If nothing today,
-   write "nothing" and pick from `journal/ideas.md` instead.
-4. **Script it, if needed (0–60 min).** Only when the question needs data to answer, or the check
-   will repeat.
-   - One-off question → a script in `implementations/data-analysis/scripts/`.
-   - Something we'll reuse (an indicator, the daily check) → into the package, with a TDCG cycle.
-   - The script's output (number, chart) goes in the journal.
-5. **Publish, if it's worth it (15 min).** Not every day.
-   - Small finding → a short "note" on the website, with the chart and a link to the script on
-     GitHub.
-   - Big finding (a full rule test) → a "finding" page (the weekly "Does it work?").
-   - Post on X when something's published (max one post a day).
+   - The calendar: earnings, Fed, big data releases.
+   - 3–5 lines in the journal, numbers only, no guesses.
 
-## The weekly rhythm
+**Then: one practical thing, whatever the day gives.** Pick from the menu. No need to publish or
+implement every day.
 
-On top of the daily routine. Fits the two posts a week in `../fruit-of-hands/POSTS-GUIDE.md`.
+- **A post on X**, if something's interesting.
+- **A note on the website**, if it's worth keeping (chart + few lines + GitHub link).
+- **A script** in `implementations/data-analysis/scripts/`, to answer a question with data.
+- **An indicator or check in data-analysis**, using an existing Python library (pandas, a TA
+  library) instead of writing the maths by hand. TDCG cycle.
+- **A feature in trade-plumber** (more tickers, a scheduled fetch, an alert). TDCG cycle.
+- **An idea** for later, in [journal/ideas.md](journal/ideas.md).
+- **More reading**, if nothing practical comes up.
 
-- **Monday:** pick the week's question (from `journal/ideas.md`).
-- **Tuesday post:** "This week I'm testing…" (the question, why it matters).
-- **Wednesday:** run the test.
-- **Thursday post:** the verdict + chart + link to the finding.
-- **Friday:** write the finding page, publish the site.
+## The week
 
-## First four weeks
+One fixed thing: the daily market check post on X (`../fruit-of-hands/POSTS-GUIDE.md`,
+Template 4) on every trading day. A finding can be the day's post instead. Bigger tests ("Does it work?") happen when they're ready, not on a set day.
 
-- **Week 1:** pick domain and folder name. Finish Bandy notes for Phase 03. First test by hand
-  in a notebook: RSI(2) on SPY. First Tuesday/Thursday posts.
-- **Week 2:** daily check script v1 (watch list oversold count), from the CSVs trade-plumber
-  already saves. TDCG cycles.
-- **Week 3:** site live with: home, first finding, 3 concept cards.
-- **Week 4:** second finding (z-score rule), first "trap" post (look-ahead bias).
+## Practical things to start with (any order, no dates)
 
-Then keep going with the curriculum: Phase 04 build, Phase 05 validation (great content: "my
-backtest lied, here's how I caught it"), Phase 07 public paper trading.
+- Buy quantresearch.studio; pick the site folder name.
+- RSI(2) and z-score on SPY in a script, on the CSVs trade-plumber already saves.
+- The daily check as a script (so step 2 takes 5 minutes, not 30).
+- trade-plumber: fetch the watch list every day by itself.
+- Site v1: home, first note, 3 concept cards.
+- First "Does it work?": RSI(2) on SPY vs buy-and-hold.
+- First "trap" post: look-ahead bias.
+
+Later, as the curriculum goes on: Phase 04 build, Phase 05 validation (great content: "my backtest
+lied, here's how I caught it"), Phase 07 public paper trading.
 
 ## Open questions (user decides)
 
-- Domain: backtestlog.com or another?
-- Folder name for the site (Psalms).
+- Site tool: Eleventy or Astro.
 - Is `leandrodalbo/systematic-trading` public, or a separate public repo for findings scripts?
 - X account: the current one, or a new one for the studio?

@@ -1,12 +1,12 @@
 # YYYY-MM-DD
 
-## 1. Read (at least 1 hour)
+## Read (at least 1 hour)
 
-- Book, pages:
+- Book, chapter / pages:
 - One thing I learned:
 - Idea to test? (also add it to `ideas.md`):
 
-## 2. Market check
+## Market check
 
 - SPY: move %, vs 20-day mean
 - QQQ: move %, vs 20-day mean
@@ -15,17 +15,9 @@
 - Calendar (earnings, Fed, data):
 - What happened (3–5 lines, numbers only):
 
-## 3. Today's interesting thing
+## Today's practical thing
 
-- Question:
-- Why it's interesting (surprising? testable? useful to others?):
+Pick one (or none): X post · website note · script · indicator · trade-plumber feature · idea for later · more reading
 
-## 4. Script (if needed)
-
-- Script: `implementations/data-analysis/scripts/…`
-- Result (number or chart):
-
-## 5. Publish
-
-- Website: none / note / finding
-- X post: none / link
+- What I did:
+- Link (script, note, post):

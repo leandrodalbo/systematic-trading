@@ -4,9 +4,11 @@ A self-directed curriculum from statistics to a validated mean-reversion swing-t
 
 Final project: **Mean Reversion Trading System**, based on Howard Bandy's book of the same name. Read it for the ideas; reimplement the logic yourself instead of using his AmiBroker/AFL code.
 
+This curriculum runs inside the **research studio** ([STUDIO.md](STUDIO.md)): read every day, check the market every day, and build, test or post when something comes up. Daily notes in [journal/](journal/).
+
 ## How to use this folder
 
-One file per phase. Work through it, tick the milestone, move on. Each book has an Amazon search link (pick paperback/Kindle/used yourself); check the library or O'Reilly first.
+One file per phase: the phases are the reading plan, in order. Read a chapter a day; don't wait to finish a book or a phase before building, testing or posting. Tick the milestone when it's done. Each book has an Amazon search link (pick paperback/Kindle/used yourself); check the library or O'Reilly first.
 
 - [00-foundations.md](00-foundations.md) — done
 - [01-market-mechanics.md](01-market-mechanics.md) — done
