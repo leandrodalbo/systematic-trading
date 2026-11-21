@@ -1,0 +1,15 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* "Terminal dark" look (STUDIO.md). */
+@theme {
+  --color-ink: #0b0f14;
+  --color-panel: #11161d;
+  --color-text: #e6edf3;
+  --color-muted: #8b949e;
+  --color-up: #22c55e;
+  --color-down: #f87171;
+
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}

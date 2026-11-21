@@ -2,97 +2,74 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 
 import {
-  addressOf,
-  builtFileExists,
+  allBuiltEntries,
+  builtEntries,
+  cardsIn,
+  dayShownIn,
   descriptionOf,
+  entryPictureAddress,
+  headingOf,
   loadBuiltPage,
-  pictureAddress,
-  postAddress,
-  postPagePath,
   titleOf,
 } from "./support/built-pages.js";
-import { POST_LISTS, POSTS, TITLE_ENDING } from "./support/constants.js";
+import { ISO_DAY, KNOWN_ENTRIES, READABLE_DAY, SECTIONS, TITLE_ENDING } from "./support/constants.js";
 
-test("each post folder becomes a page", () => {
-  for (const post of POSTS) {
-    assert.ok(builtFileExists(postPagePath(post)), `No page for the post "${post.folder}"`);
+test("the known entries are built with their title, description, day and picture", () => {
+  const entries = allBuiltEntries();
+  for (const known of KNOWN_ENTRIES) {
+    const entry = entries.find(({ address }) => address === known.address);
+    assert.ok(entry, `No page for ${known.address}`);
+    assert.equal(headingOf(entry.page), known.title);
+    assert.equal(descriptionOf(entry.page), known.description);
+    assert.deepEqual(dayShownIn(entry.page), { day: known.day, readableDay: known.readableDay });
+    assert.equal(entryPictureAddress(entry), known.picture, `${known.address}: wrong picture`);
   }
 });
 
-test("each post page has the post's title and description", () => {
-  for (const post of POSTS) {
-    const page = loadBuiltPage(postPagePath(post));
-    assert.equal(titleOf(page), `${post.title}${TITLE_ENDING}`);
-    assert.equal(descriptionOf(page), post.description);
+test("every entry page shows its title as the one main heading", () => {
+  for (const { address, page } of allBuiltEntries()) {
+    assert.equal(page("h1").length, 1, `${address}: expected one main heading`);
+    assert.equal(titleOf(page), `${headingOf(page)}${TITLE_ENDING}`, `${address}: the heading and title differ`);
   }
 });
 
-test("each post page shows its title as the one main heading", () => {
-  for (const post of POSTS) {
-    const headings = loadBuiltPage(postPagePath(post))("h1");
-    assert.equal(headings.length, 1, `${post.folder}: expected one main heading`);
-    assert.equal(headings.text().trim(), post.title);
-  }
-});
-
-test("each post page shows the day it was written", () => {
-  for (const post of POSTS) {
-    const day = loadBuiltPage(postPagePath(post))(`time[datetime="${post.day}"]`);
-    assert.equal(day.text().trim(), post.readableDay, `${post.folder}: the day is not shown`);
-  }
-});
-
-test("each post page shows its picture", () => {
-  for (const post of POSTS.filter((post) => post.picture)) {
-    const page = loadBuiltPage(postPagePath(post));
-    const pictures = page("main img")
-      .map((_, image) => addressOf(page(image).attr("src"), postAddress(post)))
-      .get();
-    assert.ok(pictures.includes(pictureAddress(post)), `${post.folder}: the picture is not shown`);
-  }
-});
-
-test("each post's picture is copied next to its page", () => {
-  for (const post of POSTS.filter((post) => post.picture)) {
-    assert.ok(builtFileExists(pictureAddress(post)), `${post.folder}: the picture file is missing`);
+test("every entry page shows the day it was written", () => {
+  for (const { address, page } of allBuiltEntries()) {
+    const { day, readableDay } = dayShownIn(page);
+    assert.match(day ?? "", ISO_DAY, `${address}: no day in the datetime`);
+    assert.match(readableDay, READABLE_DAY, `${address}: the day is not shown like "20 November 2026"`);
   }
 });
 
 test("each list page has its own title and description", () => {
-  for (const list of POST_LISTS) {
-    const page = loadBuiltPage(list.path);
-    assert.equal(titleOf(page), list.title);
-    assert.equal(descriptionOf(page), list.description);
+  for (const section of SECTIONS) {
+    const page = loadBuiltPage(section.path);
+    assert.equal(titleOf(page), section.title);
+    assert.equal(descriptionOf(page), section.description);
   }
 });
 
-test("a card shows a picture only when its post has one", () => {
-  for (const list of POST_LISTS) {
-    const page = loadBuiltPage(list.path);
-    page("main article").each((index, card) => {
-      const post = list.posts[index];
-      const expected = post.picture ? 1 : 0;
-      assert.equal(page(card).find("img").length, expected, `${post.folder}: wrong number of pictures on the card`);
-    });
+test("each list page shows every entry of its section, newest first", () => {
+  for (const section of SECTIONS) {
+    const cards = cardsIn(loadBuiltPage(section.path), section.address);
+    const listed = cards.map((card) => card.address).sort();
+    const built = builtEntries(section).map((entry) => entry.address).sort();
+    assert.deepEqual(listed, built, `${section.address}: not every entry is listed`);
+    const days = cards.map((card) => card.day);
+    assert.deepEqual(days, days.toSorted().reverse(), `${section.address}: not newest first`);
   }
 });
 
-test("each list page shows every post, newest first", () => {
-  for (const list of POST_LISTS) {
-    const page = loadBuiltPage(list.path);
-    const listed = page("main article h2")
-      .map((_, heading) => page(heading).text().trim())
-      .get();
-    assert.deepEqual(listed, list.posts.map((post) => post.title), `${list.address}: wrong posts or order`);
+test("each card shows its entry's day, description and picture", () => {
+  const entries = allBuiltEntries();
+  for (const section of SECTIONS) {
+    for (const card of cardsIn(loadBuiltPage(section.path), section.address)) {
+      const entry = entries.find(({ address }) => address === card.address);
+      assert.ok(entry, `${section.address}: a card links to ${card.address}, which is not an entry`);
+      assert.equal(card.day, dayShownIn(entry.page).day, `${card.address}: wrong day on the card`);
+      assert.ok(card.text.includes(descriptionOf(entry.page)), `${card.address}: no description on the card`);
+      assert.equal(card.picture, entryPictureAddress(entry), `${card.address}: wrong picture on the card`);
+    }
   }
 });
 
-test("each card links to its post", () => {
-  for (const list of POST_LISTS) {
-    const page = loadBuiltPage(list.path);
-    page("main article").each((index, card) => {
-      const link = page(card).find("a").attr("href");
-      assert.equal(addressOf(link, list.address), postAddress(list.posts[index]));
-    });
-  }
-});

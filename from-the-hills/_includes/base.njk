@@ -5,30 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{{ title }} · {{ site.name }}</title>
   <meta name="description" content="{{ description }}">
-  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  {%- if not eleventyExcludeFromCollections %}
+  <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+  {%- endif %}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            ink: '#0b0f14',
-            panel: '#11161d',
-            text: '#e6edf3',
-            muted: '#8b949e',
-            up: '#22c55e',
-            down: '#f87171',
-          },
-          fontFamily: {
-            body: ['"Inter"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          },
-        },
-      },
-    }
-  </script>
+  <link rel="stylesheet" href="/styles/site.css">
 </head>
 <body class="flex min-h-screen flex-col bg-ink font-body text-text antialiased">
 

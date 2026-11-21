@@ -9,7 +9,9 @@ import {
   MENU_BUTTON_LABEL,
   NAV_LINKS,
   ONE_LINE_IDEA,
+  PLAY_CDN_HOST,
   SITE_NAME,
+  STYLESHEET_ADDRESS,
 } from "./support/constants.js";
 
 test("every page's footer shows the disclaimer", () => {
@@ -24,6 +26,15 @@ test("every page's footer links to X and GitHub, marked as the site's own accoun
     page("footer a").each((_, link) => {
       assert.equal(page(link).attr("rel"), "me", `${path}: the ${page(link).text().trim()} link is not marked rel="me"`);
     });
+  }
+});
+
+test("every page loads the built stylesheet, not the Tailwind Play CDN", () => {
+  for (const { path, page } of loadBuiltPages()) {
+    const stylesheets = page('link[rel="stylesheet"]').map((_, link) => page(link).attr("href")).get();
+    assert.ok(stylesheets.includes(STYLESHEET_ADDRESS), `${path}: doesn't load ${STYLESHEET_ADDRESS}`);
+    const scripts = page("script[src]").map((_, script) => page(script).attr("src")).get();
+    assert.ok(!scripts.some((src) => src.includes(PLAY_CDN_HOST)), `${path}: still loads the Tailwind Play CDN`);
   }
 });
 

@@ -136,7 +136,14 @@ Decided (user, 2026-11-21):
   Hosting: Hostinger shared hosting, like the other static sites, with the same `.htaccess`.
   Deploy by hand: `npm run deploy` runs `deploy.sh` (tests first, then `rsync --delete` over
   SSH). Login with an SSH key, no password stored anywhere; connection details only in env vars
-  in `~/.zshrc`, never in the repo.
+  in `~/.zshrc`, never in the repo. Names (user, 2026-11-21): the existing `TRADEWEB_SERVER`,
+  `TRADEWEB_SSHUSER`, `TRADEWEB_PORT`, `TRADEWEB_FOLDER`, plus `TRADEWEB_KEY` (path to the
+  key). A missing one stops the script: "Missing TRADEWEB_SERVER. Set it in ~/.zshrc, then open
+  a new terminal."
+- Ready for Google (user, 2026-11-21): site address `https://quantresearch.studio` (no `www`);
+  404 page "Page not found" / "This page doesn't exist or has moved." / "Back to the home page";
+  sitemap with `lastmod` (entry date) for entries, address only for list pages; Tailwind 4 CLI
+  with the colours and fonts in `styles/site.css` (no Play CDN).
 - **Concepts** (`/concepts/<name>/`): one entry per concept, each its own page (e.g. "What is a
   z-score?" can be found on Google). First three (user, 2026-11-21): the 200-day average, mean vs
   median (from *Naked Statistics*, `knowledge/naked-stats-notes.md`; the notes use medians), and
