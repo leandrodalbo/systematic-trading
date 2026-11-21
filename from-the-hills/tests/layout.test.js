@@ -4,6 +4,7 @@ import assert from "node:assert/strict";
 import { linksIn, loadBuiltPage, loadBuiltPages } from "./support/built-pages.js";
 import {
   DISCLAIMER,
+  FOOTER_LINKS,
   HOME_PAGE_PATH,
   MENU_BUTTON_LABEL,
   NAV_LINKS,
@@ -14,6 +15,15 @@ import {
 test("every page's footer shows the disclaimer", () => {
   for (const { path, page } of loadBuiltPages()) {
     assert.ok(page("footer").text().includes(DISCLAIMER), `${path}: the footer doesn't show "${DISCLAIMER}"`);
+  }
+});
+
+test("every page's footer links to X and GitHub, marked as the site's own accounts", () => {
+  for (const { path, page } of loadBuiltPages()) {
+    assert.deepEqual(linksIn(page, "footer"), FOOTER_LINKS, `${path}: the footer links are not right`);
+    page("footer a").each((_, link) => {
+      assert.equal(page(link).attr("rel"), "me", `${path}: the ${page(link).text().trim()} link is not marked rel="me"`);
+    });
   }
 });
 

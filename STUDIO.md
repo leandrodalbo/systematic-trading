@@ -119,6 +119,24 @@ Decided (user, 2026-11-21):
   day is kept: each X post links to its own day's page, so old links stay right, and each day is a
   real page for Google (about 20 MB a year, fine for free hosts). An entry holds anything the day
   needs: numbers, text, one or more images, links. Each trading day: one X post, by hand.
+- **Launch (user, 2026-11-21):** release planned Monday 2026-11-23 with one market entry: the
+  correction to Friday's close (SPY, QQQ) and BTC under its 200-week average. Folder date = the
+  day of the closing prices. Market titles: short, direct, with numbers. Home: the latest entry
+  from each section (4 cards, labelled); no "who runs it" line. Footer: links to X
+  (x.com/QResearchStudio) and GitHub (leandrodalbo/systematic-trading); no email on the site.
+  Picked (2026-11-21): first entry "SPY −11.5%, BTC under 200-week avg"; Market page "Market",
+  "One short check per trading day: SPY, QQQ, IWM and BTC against their highs and averages.";
+  one-line idea "Checking the markets every day, testing trading ideas on real data, and building
+  the system that trades them."; section label on home cards only; footer links "X", "GitHub".
+  The market entry defines every column under its table (week, from high, vs 200-day, z20,
+  source) and has a "What z20 means" section in four plain steps with SPY's real numbers:
+  20-day average $747.81 → distance −$58.00 → normal wiggle (standard deviation) $20.53 →
+  −58.00 ÷ 20.53 = −2.83; then how to read it (0, ±1, beyond ±2) (user, 2026-11-21: "explain z20
+  with the formula, so anyone can follow it"). Later: a "What is a z-score?" concept page.
+  Hosting: Hostinger shared hosting, like the other static sites, with the same `.htaccess`.
+  Deploy by hand: `npm run deploy` runs `deploy.sh` (tests first, then `rsync --delete` over
+  SSH). Login with an SSH key, no password stored anywhere; connection details only in env vars
+  in `~/.zshrc`, never in the repo.
 - **Concepts** (`/concepts/<name>/`): one entry per concept, each its own page (e.g. "What is a
   z-score?" can be found on Google). First three (user, 2026-11-21): the 200-day average, mean vs
   median (from *Naked Statistics*, `knowledge/naked-stats-notes.md`; the notes use medians), and

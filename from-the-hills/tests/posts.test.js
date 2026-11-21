@@ -6,6 +6,7 @@ import {
   builtFileExists,
   descriptionOf,
   loadBuiltPage,
+  pictureAddress,
   postAddress,
   postPagePath,
   titleOf,
@@ -38,6 +39,22 @@ test("each post page shows the day it was written", () => {
   for (const post of POSTS) {
     const day = loadBuiltPage(postPagePath(post))(`time[datetime="${post.day}"]`);
     assert.equal(day.text().trim(), post.readableDay, `${post.folder}: the day is not shown`);
+  }
+});
+
+test("each post page shows its picture", () => {
+  for (const post of POSTS.filter((post) => post.picture)) {
+    const page = loadBuiltPage(postPagePath(post));
+    const pictures = page("main img")
+      .map((_, image) => addressOf(page(image).attr("src"), postAddress(post)))
+      .get();
+    assert.ok(pictures.includes(pictureAddress(post)), `${post.folder}: the picture is not shown`);
+  }
+});
+
+test("each post's picture is copied next to its page", () => {
+  for (const post of POSTS.filter((post) => post.picture)) {
+    assert.ok(builtFileExists(pictureAddress(post)), `${post.folder}: the picture file is missing`);
   }
 });
 

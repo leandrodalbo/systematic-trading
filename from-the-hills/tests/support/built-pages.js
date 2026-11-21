@@ -2,7 +2,7 @@ import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "cheerio";
 
-import { BUILT_SITE, NOTE_CHART_FILE } from "./constants.js";
+import { BUILT_SITE } from "./constants.js";
 
 const ANY_SITE = "https://site.example";
 
@@ -18,8 +18,8 @@ export function postAddress(post) {
   return `/${post.section}/${post.folder}/`;
 }
 
-export function noteChartAddress(note) {
-  return `${postAddress(note)}${NOTE_CHART_FILE}`;
+export function pictureAddress(post) {
+  return `${postAddress(post)}${post.picture}`;
 }
 
 export function addressOf(link, fromAddress) {
