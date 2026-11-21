@@ -51,8 +51,6 @@ No trading costs. "Rising market" = price above its 200-day average.
 - Why it matters: in a rising market, short sharp dips are the ones to buy. This is the base for
   the RSI(2) idea with a 200-day filter.
 
-![SPY in a rising market: drops last 17 days at 0.49% a day, rises last 56 days at 0.26% a day](images/swings_SPY.png)
-
 **2. Stocks with a high P/E one year tend to have a lower P/E the next year.**
 **Verdict on Apple: loosely true, but the "normal" P/E moved.**
 
@@ -72,7 +70,6 @@ No trading costs. "Rising market" = price above its 200-day average.
 - Now: P/E 38.0 at the end of FY2026 (EPS $8.98). With today's price ($342.56, 20 Nov), about 38.
 - One stock proves nothing. The claim is about many stocks; that test comes later.
 
-![Apple P/E by year, 2007 to 2026, with its median of 19.1](images/aapl_pe.png)
 
 - Why a high P/E can come down: a bad earnings year pushes P/E up; when earnings recover, P/E
   falls back. So part of it is just earnings bouncing around.

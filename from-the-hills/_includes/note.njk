@@ -1,0 +1,9 @@
+---
+layout: base.njk
+---
+<article>
+  <h1>{{ title }}</h1>
+  <p class="text-muted"><time datetime="{{ page.date | isoDay }}">{{ page.date | readableDay }}</time></p>
+  <img src="{{ chart }}" alt="{{ chartAlt }}" width="{{ chartWidth }}" height="{{ chartHeight }}" class="rounded-lg ring-1 ring-white/10">
+  {{ content | safe }}
+</article>

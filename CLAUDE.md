@@ -29,6 +29,8 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 - Names a person can read: no `$` or other library habits as names (e.g. a loaded HTML page is
   `page`, not `$`) (user, 2026-11-21).
 - Site text is plain and short, never marketing-sounding (user, 2026-11-21).
+- Claudio plans: few cycles, one per section or feature, numbered 1, 2, 3… with no a/b cycles
+  (user, 2026-11-21).
 - When content or wording needs deciding (site text, titles, descriptions), give options to pick
   from, not one fixed proposal (user, 2026-11-21).
 - The user makes all commits. At COMMIT, suggest the files and a message; never run `git commit` or `git push`.

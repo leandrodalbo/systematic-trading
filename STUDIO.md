@@ -76,6 +76,25 @@ Decided (user, 2026-11-21):
   Layout `_includes/base.njk` (each page: `layout: base.njk`); site name and nav links in
   `_data/site.json`; logo = small line-chart icon; footer = site name, disclaimer, "© 2026 Quant
   Research Studio · This site uses no cookies or tracking." Tests read HTML with cheerio.
+- **The software side is as visible as the markets side** (user, 2026-11-21: "in the end I am a
+  backend guy exploring this"). Nav: Home · Market · Notes · System · Concepts. **System** =
+  one overview page (the parts, how data flows, Kotlin vs Python, "the code we backtest is the
+  code that trades") + build entries, newest first, one folder each like notes. Home shows the
+  latest note and the latest system entry.
+- Charts on the site use a dark version (site background and colours); knowledge notes keep the
+  white ones (user, 2026-11-21).
+- One folder per note (user, 2026-11-21): `notes/<name>/index.md` with its charts next to it
+  (`chart.png`…); the page is `/notes/<name>/`. Moving or deleting a note = one folder.
+- Notes page `/notes/` (user, 2026-11-21): cards with the note's chart, date, title and
+  description, newest first. Each note's front matter has the date **and time** it was written;
+  pages show only the day, the time sets the order. Page title "Notes", description "Short
+  research notes: one question, one chart, what the data said."
+- Notes have no script link until the scripts are public in `implementations/data-analysis/scripts/`
+  (user, 2026-11-21).
+- First note (user, 2026-11-21): "Drops vs rises in SPY, 1993–2026", description "SPY above its
+  200-day average, 1993–2026: drops lasted 17 days, rises 56. Drops moved about twice as fast."
+  Second note: "Apple P/E, 2007–2026", description "Apple, 2007–2026: after a high-P/E year, P/E
+  fell the next year 6 times out of 9. After a low year, 3 out of 10." Both built in cycle 3.
 - Page titles: each page writes its own part, the layout adds " · Quant Research Studio"
   (max 60 characters in total); each page has its own description (max 160). Titles and
   descriptions are never repeated across pages. Home (user, 2026-11-21): title "Trading
@@ -90,6 +109,9 @@ Decided (user, 2026-11-21):
   stays small; the X posts are the record). One file holds anything the day needs: numbers, text,
   one or more images, links. Each trading day: one X post, by hand, linking to it.
 - Later, once we know what we look for: a script that fills the Market file, and its link on the page.
+- Later: the two note charts (SPY swings, Apple P/E) as scripts in
+  `implementations/data-analysis/scripts/`, so anyone can redraw them; today they were drawn by
+  one-off steps (2026-11-21).
 
 Needs:
 - The scripts must be public on GitHub (today `systematic-trading` is the repo; to check: is it

@@ -24,3 +24,29 @@ export const NAV_LINKS = Object.freeze([
   Object.freeze({ text: "Notes", href: "/notes/" }),
   Object.freeze({ text: "Concepts", href: "/concepts/" }),
 ]);
+
+export const NOTES_PAGE_PATH = "notes/index.html";
+export const NOTES_PAGE_ADDRESS = "/notes/";
+export const NOTES_PAGE_TITLE = `Notes${TITLE_ENDING}`;
+export const NOTES_PAGE_DESCRIPTION = "Short research notes: one question, one chart, what the data said.";
+export const NOTE_CHART_FILE = "chart.png";
+
+// Newest first.
+export const NOTES = Object.freeze([
+  Object.freeze({
+    folder: "apple-pe",
+    title: "Apple P/E, 2007–2026",
+    description:
+      "Apple, 2007–2026: after a high-P/E year, P/E fell the next year 6 times out of 9. After a low year, 3 out of 10.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+  Object.freeze({
+    folder: "spy-drops-vs-rises",
+    title: "Drops vs rises in SPY, 1993–2026",
+    description:
+      "SPY above its 200-day average, 1993–2026: drops lasted 17 days, rises 56. Drops moved about twice as fast.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+]);

@@ -1,8 +1,30 @@
-import { readdirSync, readFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { join } from "node:path";
 import { load } from "cheerio";
 
-import { BUILT_SITE } from "./constants.js";
+import { BUILT_SITE, NOTE_CHART_FILE } from "./constants.js";
+
+const ANY_SITE = "https://site.example";
+
+export function builtFileExists(path) {
+  return existsSync(join(BUILT_SITE, path));
+}
+
+export function notePagePath(note) {
+  return `notes/${note.folder}/index.html`;
+}
+
+export function noteAddress(note) {
+  return `/notes/${note.folder}/`;
+}
+
+export function noteChartAddress(note) {
+  return `${noteAddress(note)}${NOTE_CHART_FILE}`;
+}
+
+export function addressOf(link, fromAddress) {
+  return new URL(link, `${ANY_SITE}${fromAddress}`).pathname;
+}
 
 export function loadBuiltPage(path) {
   return load(readFileSync(join(BUILT_SITE, path), "utf8"));
