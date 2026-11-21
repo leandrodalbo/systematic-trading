@@ -1,11 +1,6 @@
 ---
-layout: base.njk
+layout: list.njk
+section: notes
 title: Notes
 description: "Short research notes: one question, one chart, what the data said."
 ---
-<h1>{{ title }}</h1>
-<div class="not-prose grid gap-6 md:grid-cols-2">
-  {%- for post in collections.notes | reverse %}
-  {% include "card.njk" %}
-  {%- endfor %}
-</div>

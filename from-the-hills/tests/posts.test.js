@@ -41,6 +41,25 @@ test("each post page shows the day it was written", () => {
   }
 });
 
+test("each list page has its own title and description", () => {
+  for (const list of POST_LISTS) {
+    const page = loadBuiltPage(list.path);
+    assert.equal(titleOf(page), list.title);
+    assert.equal(descriptionOf(page), list.description);
+  }
+});
+
+test("a card shows a picture only when its post has one", () => {
+  for (const list of POST_LISTS) {
+    const page = loadBuiltPage(list.path);
+    page("main article").each((index, card) => {
+      const post = list.posts[index];
+      const expected = post.picture ? 1 : 0;
+      assert.equal(page(card).find("img").length, expected, `${post.folder}: wrong number of pictures on the card`);
+    });
+  }
+});
+
 test("each list page shows every post, newest first", () => {
   for (const list of POST_LISTS) {
     const page = loadBuiltPage(list.path);

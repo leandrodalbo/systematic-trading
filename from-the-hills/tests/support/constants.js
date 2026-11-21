@@ -37,6 +37,7 @@ export const NOTES = Object.freeze([
   Object.freeze({
     section: "notes",
     folder: "apple-pe",
+    picture: NOTE_CHART_FILE,
     title: "Apple P/E, 2007–2026",
     description:
       "Apple, 2007–2026: after a high-P/E year, P/E fell the next year 6 times out of 9. After a low year, 3 out of 10.",
@@ -46,6 +47,7 @@ export const NOTES = Object.freeze([
   Object.freeze({
     section: "notes",
     folder: "spy-drops-vs-rises",
+    picture: NOTE_CHART_FILE,
     title: "Drops vs rises in SPY, 1993–2026",
     description:
       "SPY above its 200-day average, 1993–2026: drops lasted 17 days, rises 56. Drops moved about twice as fast.",
@@ -73,11 +75,66 @@ export const SYSTEM_ENTRIES = Object.freeze([
   }),
 ]);
 
-// Notes and system entries share one post layout, so one set of tests covers both.
-export const POSTS = Object.freeze([...NOTES, ...SYSTEM_ENTRIES]);
+export const CONCEPTS_PAGE_PATH = "concepts/index.html";
+export const CONCEPTS_PAGE_ADDRESS = "/concepts/";
+export const CONCEPTS_PAGE_TITLE = `Concepts${TITLE_ENDING}`;
+export const CONCEPTS_PAGE_DESCRIPTION =
+  "The words used in the notes and the market check, each in a few plain lines.";
+
+// Newest first.
+export const CONCEPTS = Object.freeze([
+  Object.freeze({
+    section: "concepts",
+    folder: "pe-ratio",
+    title: "What is the P/E ratio?",
+    description: "Price ÷ earnings per share: how much you pay for each $1 a company earns in a year.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+  Object.freeze({
+    section: "concepts",
+    folder: "mean-vs-median",
+    title: "Mean vs median",
+    description:
+      "Mean = the average, median = the middle value. A few extreme values pull the mean, so the notes use the median.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+  Object.freeze({
+    section: "concepts",
+    folder: "200-day-average",
+    title: "What is the 200-day average?",
+    description:
+      "The average closing price of the last 200 trading days. Above it = rising market, below it = falling market.",
+    day: "2026-11-21",
+    readableDay: "21 November 2026",
+  }),
+]);
+
+// Notes, system entries and concepts share one post layout, so one set of tests covers them all.
+export const POSTS = Object.freeze([...NOTES, ...SYSTEM_ENTRIES, ...CONCEPTS]);
 
 // Each page that lists posts as cards, with its posts newest first.
 export const POST_LISTS = Object.freeze([
-  Object.freeze({ path: NOTES_PAGE_PATH, address: NOTES_PAGE_ADDRESS, posts: NOTES }),
-  Object.freeze({ path: SYSTEM_PAGE_PATH, address: SYSTEM_PAGE_ADDRESS, posts: SYSTEM_ENTRIES }),
+  Object.freeze({
+    path: NOTES_PAGE_PATH,
+    address: NOTES_PAGE_ADDRESS,
+    title: NOTES_PAGE_TITLE,
+    description: NOTES_PAGE_DESCRIPTION,
+    posts: NOTES,
+  }),
+  Object.freeze({
+    path: SYSTEM_PAGE_PATH,
+    address: SYSTEM_PAGE_ADDRESS,
+    title: SYSTEM_PAGE_TITLE,
+    description: SYSTEM_PAGE_DESCRIPTION,
+    posts: SYSTEM_ENTRIES,
+  }),
+  Object.freeze({
+    path: CONCEPTS_PAGE_PATH,
+    address: CONCEPTS_PAGE_ADDRESS,
+    title: CONCEPTS_PAGE_TITLE,
+    description: CONCEPTS_PAGE_DESCRIPTION,
+    posts: CONCEPTS,
+  }),
 ]);

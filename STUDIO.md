@@ -111,10 +111,26 @@ Decided (user, 2026-11-21):
   `green-pastures/from-the-hills/`** and run `/claudio:init` there. Claudio guards the folder the
   session starts in, so never init from `firm-heart/` or `green-pastures/`.
 - Posts: X only.
-- **Market** section (`/market/`): today's check only, replaced every day, no history (hosting
-  stays small; the X posts are the record). One file holds anything the day needs: numbers, text,
-  one or more images, links. Each trading day: one X post, by hand, linking to it.
+- **Every section is a list of entries** (user, 2026-11-21, replaces "Market: today only"):
+  Market, Notes, System and Concepts all use one folder per entry, the same post layout and card.
+  The folder decides the section (one section per entry; link between entries when needed). Each
+  section page lists its entries newest first; home shows the latest from all sections.
+- **Market** (`/market/<YYYY-MM-DD>/`): one entry on a day with a check, none on other days. Every
+  day is kept: each X post links to its own day's page, so old links stay right, and each day is a
+  real page for Google (about 20 MB a year, fine for free hosts). An entry holds anything the day
+  needs: numbers, text, one or more images, links. Each trading day: one X post, by hand.
+- **Concepts** (`/concepts/<name>/`): one entry per concept, each its own page (e.g. "What is a
+  z-score?" can be found on Google). First three (user, 2026-11-21): the 200-day average, mean vs
+  median (from *Naked Statistics*, `knowledge/naked-stats-notes.md`; the notes use medians), and
+  the P/E ratio. Only what is understood well enough to explain plainly; more as learning goes on.
+  Titles: "What is the 200-day average?", "Mean vs median", "What is the P/E ratio?". Each entry:
+  What it is, How to read it, Example (a real number from our data), Where it's used (link to the
+  note). List page: title "Concepts", description "The words used in the notes and the market
+  check, each in a few plain lines." The three list pages (Notes, System, Concepts) share one
+  list layout; each page says its section with `section: notes` (user, 2026-11-21).
 - Later, once we know what we look for: a script that fills the Market file, and its link on the page.
+- Later, first in the next website plan (v2): search in the navbar with Pagefind (static index
+  built after Eleventy, no server), once there are about 30+ pages (user asked, 2026-11-21).
 - Later: the two note charts (SPY swings, Apple P/E) as scripts in
   `implementations/data-analysis/scripts/`, so anyone can redraw them; today they were drawn by
   one-off steps (2026-11-21).

@@ -1,10 +1,9 @@
 ---
-layout: base.njk
+layout: list.njk
+section: system
 title: "System: Kotlin + Python for trading"
 description: "A backend view of a trading system: Spring Boot for data and orders, Python for research and signals, one set of files between them."
 ---
-<h1>{{ title }}</h1>
-
 <p>I build the trading system next to the research. Two parts: trade-plumber (Kotlin + Spring Boot) fetches prices and will send the orders. data-analysis (Python) tests the ideas and decides the trades.</p>
 
 <svg role="img" aria-label="How the parts talk: Alpaca sends prices to trade-plumber (Kotlin). trade-plumber writes them to CSV files. data-analysis (Python) reads the CSV files. Later: data-analysis sends signals back to trade-plumber, and trade-plumber sends paper orders to Alpaca." viewBox="0 0 800 230" class="not-prose my-10 w-full" font-family="Inter, sans-serif" font-size="14">
@@ -54,9 +53,3 @@ description: "A backend view of a trading system: Spring Boot for data and order
 </svg>
 
 <h2>Build log</h2>
-
-<div class="not-prose grid gap-6 md:grid-cols-2">
-  {%- for post in collections.system | reverse %}
-  {% include "card.njk" %}
-  {%- endfor %}
-</div>

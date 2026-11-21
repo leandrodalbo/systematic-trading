@@ -4,20 +4,12 @@ import assert from "node:assert/strict";
 import {
   addressOf,
   builtFileExists,
-  descriptionOf,
   loadBuiltPage,
   noteChartAddress,
   postAddress,
   postPagePath,
-  titleOf,
 } from "./support/built-pages.js";
-import {
-  NOTES,
-  NOTES_PAGE_ADDRESS,
-  NOTES_PAGE_DESCRIPTION,
-  NOTES_PAGE_PATH,
-  NOTES_PAGE_TITLE,
-} from "./support/constants.js";
+import { NOTES, NOTES_PAGE_ADDRESS, NOTES_PAGE_PATH } from "./support/constants.js";
 
 test("each note page shows its chart", () => {
   for (const note of NOTES) {
@@ -33,12 +25,6 @@ test("each note's chart is copied next to its page", () => {
   for (const note of NOTES) {
     assert.ok(builtFileExists(noteChartAddress(note)), `${note.folder}: the chart file is missing`);
   }
-});
-
-test("the notes page has its own title and description", () => {
-  const page = loadBuiltPage(NOTES_PAGE_PATH);
-  assert.equal(titleOf(page), NOTES_PAGE_TITLE);
-  assert.equal(descriptionOf(page), NOTES_PAGE_DESCRIPTION);
 });
 
 test("each card shows the note's chart, day and description", () => {
