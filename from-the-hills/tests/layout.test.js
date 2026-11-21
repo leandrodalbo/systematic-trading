@@ -12,35 +12,35 @@ import {
 } from "./support/constants.js";
 
 test("every page's footer shows the disclaimer", () => {
-  for (const { path, $ } of loadBuiltPages()) {
-    assert.ok($("footer").text().includes(DISCLAIMER), `${path}: the footer doesn't show "${DISCLAIMER}"`);
+  for (const { path, page } of loadBuiltPages()) {
+    assert.ok(page("footer").text().includes(DISCLAIMER), `${path}: the footer doesn't show "${DISCLAIMER}"`);
   }
 });
 
 test("every page's header shows the site name", () => {
-  for (const { path, $ } of loadBuiltPages()) {
-    assert.ok($("header").text().includes(SITE_NAME), `${path}: the header doesn't show "${SITE_NAME}"`);
+  for (const { path, page } of loadBuiltPages()) {
+    assert.ok(page("header").text().includes(SITE_NAME), `${path}: the header doesn't show "${SITE_NAME}"`);
   }
 });
 
 test("every page has the desktop and mobile nav, each with the four links", () => {
-  for (const { path, $ } of loadBuiltPages()) {
-    const navs = $("header nav").toArray();
+  for (const { path, page } of loadBuiltPages()) {
+    const navs = page("header nav").toArray();
     assert.equal(navs.length, 2, `${path}: expected a desktop and a mobile nav in the header`);
     for (const nav of navs) {
-      assert.deepEqual(linksIn($, nav), NAV_LINKS, `${path}: the nav links are not right`);
+      assert.deepEqual(linksIn(page, nav), NAV_LINKS, `${path}: the nav links are not right`);
     }
   }
 });
 
 test("every page has the mobile menu button", () => {
-  for (const { path, $ } of loadBuiltPages()) {
-    const button = $(`header button[aria-label="${MENU_BUTTON_LABEL}"]`);
+  for (const { path, page } of loadBuiltPages()) {
+    const button = page(`header button[aria-label="${MENU_BUTTON_LABEL}"]`);
     assert.equal(button.length, 1, `${path}: no "${MENU_BUTTON_LABEL}" button in the header`);
   }
 });
 
 test("the home page shows its own content inside the layout", () => {
-  const $ = loadBuiltPage(HOME_PAGE_PATH);
-  assert.ok($("main").text().includes(ONE_LINE_IDEA), "The home page's main part doesn't show the one-line idea");
+  const page = loadBuiltPage(HOME_PAGE_PATH);
+  assert.ok(page("main").text().includes(ONE_LINE_IDEA), "The home page's main part doesn't show the one-line idea");
 });

@@ -11,12 +11,24 @@ export function loadBuiltPage(path) {
 export function loadBuiltPages() {
   return readdirSync(BUILT_SITE, { recursive: true })
     .filter((path) => path.endsWith(".html"))
-    .map((path) => ({ path, $: loadBuiltPage(path) }));
+    .map((path) => ({ path, page: loadBuiltPage(path) }));
 }
 
-export function linksIn($, nav) {
-  return $(nav)
+export function titleOf(page) {
+  return page("title").text();
+}
+
+export function descriptionOf(page) {
+  return page('meta[name="description"]').attr("content");
+}
+
+export function repeatedValues(values) {
+  return values.filter((value, index) => values.indexOf(value) !== index);
+}
+
+export function linksIn(page, nav) {
+  return page(nav)
     .find("a")
-    .map((_, link) => ({ text: $(link).text().trim(), href: $(link).attr("href") }))
+    .map((_, link) => ({ text: page(link).text().trim(), href: page(link).attr("href") }))
     .get();
 }

@@ -1,5 +1,7 @@
 ---
 layout: base.njk
+title: Trading Enquiries & Market Research
+description: Daily market numbers and trading ideas tested on real data. Research only, not financial advice.
 ---
 
 # Quant Research Studio

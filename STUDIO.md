@@ -76,6 +76,11 @@ Decided (user, 2026-11-21):
   Layout `_includes/base.njk` (each page: `layout: base.njk`); site name and nav links in
   `_data/site.json`; logo = small line-chart icon; footer = site name, disclaimer, "© 2026 Quant
   Research Studio · This site uses no cookies or tracking." Tests read HTML with cheerio.
+- Page titles: each page writes its own part, the layout adds " · Quant Research Studio"
+  (max 60 characters in total); each page has its own description (max 160). Titles and
+  descriptions are never repeated across pages. Home (user, 2026-11-21): title "Trading
+  Enquiries & Market Research"; description "Daily market numbers and trading ideas tested on
+  real data. Research only, not financial advice."
 - Plain static HTML, no server; nothing that hides content from Google (no React app).
 - Built with the Claudio plugin (TDCG): open a Claude Code session **in
   `green-pastures/from-the-hills/`** and run `/claudio:init` there. Claudio guards the folder the
