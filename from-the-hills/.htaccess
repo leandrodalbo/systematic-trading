@@ -1,0 +1,17 @@
+# www.quantresearch.studio → quantresearch.studio, so Google sees one copy of each page.
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+# Unknown addresses show the site's own 404 page (menu and footer included).
+ErrorDocument 404 /404.html
+
+# no-store (not just no-cache): no-cache still lets the browser serve a
+# stale snapshot from bfcache on back/forward navigation, skipping the
+# network entirely. This is a small, frequently-updated static site, so
+# freshness matters more than the conditional-GET savings no-store gives up.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|js)$">
+    Header set Cache-Control "no-store"
+  </FilesMatch>
+</IfModule>

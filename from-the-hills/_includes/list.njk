@@ -1,0 +1,10 @@
+---
+layout: base.njk
+---
+<h1>{{ title }}</h1>
+{{ content | safe }}
+<div class="not-prose grid gap-6 md:grid-cols-2">
+  {%- for post in collections[section] | reverse %}
+  {% include "card.njk" %}
+  {%- endfor %}
+</div>

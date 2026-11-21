@@ -1,0 +1,17 @@
+{
+  "name": "Quant Research Studio",
+  "url": "https://quantresearch.studio",
+  "disclaimer": "Research only. Not financial advice.",
+  "privacy": "This site uses no cookies or tracking.",
+  "nav": [
+    { "text": "Home", "href": "/" },
+    { "text": "Market", "href": "/market/", "section": "market" },
+    { "text": "Notes", "href": "/notes/", "section": "notes" },
+    { "text": "System", "href": "/system/", "section": "system" },
+    { "text": "Concepts", "href": "/concepts/", "section": "concepts" }
+  ],
+  "links": [
+    { "text": "X", "href": "https://x.com/QResearchStudio" },
+    { "text": "GitHub", "href": "https://github.com/leandrodalbo/systematic-trading" }
+  ]
+}

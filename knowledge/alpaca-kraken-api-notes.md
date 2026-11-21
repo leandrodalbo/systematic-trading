@@ -9,7 +9,7 @@
 - Orders: market and limit (`gtc`, `ioc`), stop_limit (`gtc` only). Max $200k per order. No shorting, no leverage.
 - Fees: 0.15% maker / 0.25% taker at low volume, charged in the asset received, calculated end of day.
 - Data: `GET /v1beta3/crypto/us/bars?symbols=BTC/USD&timeframe=1Day`, up to 10,000 bars/page, paginate with `next_page_token`. Bars come from **quote midpoints**, so a bar can show a price with zero volume.
-- **Check how far back history goes**: the docs give no start date. Phase 04 wants 5+ years; if short, bring in Kraken's CSV history.
+- **History:** the docs give no start date, but bars cover our 2021-01-01 start (checked 2026-10-14, about 5.8 years). Enough for Phase 04.
 
 ## Accounts & keys
 

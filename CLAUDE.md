@@ -26,11 +26,18 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 - Use each tool's standard configuration (default folders and file names, no config file until a
   cycle really needs it), and add to the repo's existing files (e.g. this repo's `.gitignore`)
   instead of creating new ones (user, 2026-11-21).
+- Names a person can read: no `$` or other library habits as names (e.g. a loaded HTML page is
+  `page`, not `$`) (user, 2026-11-21).
+- Site text is plain and short, never marketing-sounding (user, 2026-11-21).
+- Claudio plans: few cycles, one per section or feature, numbered 1, 2, 3… with no a/b cycles
+  (user, 2026-11-21).
+- When content or wording needs deciding (site text, titles, descriptions), give options to pick
+  from, not one fixed proposal (user, 2026-11-21).
 - The user makes all commits. At COMMIT, suggest the files and a message; never run `git commit` or `git push`.
 
 ## Project
 
-A trading **research studio** (the only active project, 2026-11-20): read every day, check the market every day, and do one practical thing when the day gives one (a post, a website note, a script, an indicator, a trade-plumber feature). Plan: `STUDIO.md`. Underneath: a self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only. Reading never blocks the practical work.
+**Quant Research Studio** (quantresearch.studio, the only active project, 2026-11-20): read every day, check the market every day, and do one practical thing when the day gives one (a post, a website note, a script, an indicator, a trade-plumber feature). Plan: `STUDIO.md`. Underneath: a self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only. Reading never blocks the practical work.
 
 - `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
 - `knowledge/` — notes and cheat sheets. Architecture: `knowledge/architecture.md`.
@@ -38,14 +45,15 @@ A trading **research studio** (the only active project, 2026-11-20): read every 
 - `implementations/trade-plumber` — Kotlin + Spring Boot: fetch/store data, call the Python service, place orders, scheduling, alerts.
 - Price data: trade-plumber writes one CSV per ticker under `~/.local/share/trade-plumber` (`storage.baseDir`). There is no `data/` folder in the repo.
 - Data folder setting: `TRADE_PLUMBER_DATA_DIR` is the only variable for it, in Kotlin and Python alike. No fallbacks (no `XDG_DATA_HOME`, no defaults): if it's missing, fail with a clear error. Set in `~/.zshrc`.
-- `STUDIO.md` — the research studio plan: a day, content series, website, domain.
+- `STUDIO.md` — the studio plan: content series, website (how to add an entry, deploy), a day.
+- `from-the-hills/` — the website (Eleventy 3). `npm test`, `npm run deploy`.
 - `journal/` — one file per day (`journal/YYYY-MM-DD.md` from `TEMPLATE.md`); ideas to test in `ideas.md`.
 - Broker: Alpaca (paper first) for stocks and crypto. Kraken is parked for later.
 
 Golden rule: the Python code we backtest is the same code that makes live signals. Kotlin never decides a trade.
 
 Roadmap: `README.md`
-Social posts (LinkedIn/X): follow `../fruit-of-hands/POSTS-GUIDE.md`.
+Social posts (X only): follow `../fruit-of-hands/POSTS-GUIDE.md`.
 Method reference: the ClaudioXP plugin (`../will-not-slumber/`), used when needed.
 
 ## Code style (mandatory)

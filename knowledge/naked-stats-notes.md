@@ -41,7 +41,3 @@
 ## Why it matters (Phase 00 milestone)
 
 A backtest Sharpe can mislead: small samples inflate apparent significance, testing many variants manufactures spurious correlation (data snooping), and survivorship/selection bias overstates results.
-
-## Next
-
-Chan's *Quantitative Trading* chapter 3 (Sharpe, backtest significance): recompute a couple of its example stats by hand.

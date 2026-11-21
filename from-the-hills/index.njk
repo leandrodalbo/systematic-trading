@@ -1,0 +1,18 @@
+---
+layout: base.njk
+title: Trading Enquiries & Market Research
+description: Daily market numbers and known trading methods studied on real data. Research only, not financial advice.
+---
+<h1>{{ title }}</h1>
+
+<p>Checking the markets every day, studying known trading methods, and using them to build a real trading system.</p>
+
+<div class="not-prose mt-10 grid gap-6 md:grid-cols-2">
+  {%- for link in site.nav %}
+  {%- set post = collections[link.section] | last if link.section %}
+  {%- if post %}
+  {%- set label = link.text %}
+  {% include "card.njk" %}
+  {%- endif %}
+  {%- endfor %}
+</div>

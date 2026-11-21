@@ -1,0 +1,13 @@
+<article class="overflow-hidden rounded-lg bg-panel ring-1 ring-white/10">
+  {%- if post.data.picture %}
+  <img src="{{ post.url }}{{ post.data.picture }}" alt="{{ post.data.pictureAlt }}" width="{{ post.data.pictureWidth }}" height="{{ post.data.pictureHeight }}" loading="lazy">
+  {%- endif %}
+  <div class="p-5">
+    {%- if label %}
+    <p class="mb-1 text-xs font-semibold uppercase tracking-wide text-up">{{ label }}</p>
+    {%- endif %}
+    <p class="text-sm text-muted"><time datetime="{{ post.date | isoDay }}">{{ post.date | readableDay }}</time></p>
+    <h2 class="mt-1 text-lg font-bold"><a href="{{ post.url }}" class="hover:text-up">{{ post.data.title }}</a></h2>
+    <p class="mt-2 text-sm text-muted">{{ post.data.description }}</p>
+  </div>
+</article>

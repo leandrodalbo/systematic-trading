@@ -30,7 +30,7 @@ Cloud backtesting + live trading platform on LEAN, their open-source (Apache 2.0
 1. Implement the signal generator from the Phase 03 rules on the Phase 02 data.
 2. Build a backtest engine: bar-by-bar, fees/slippage applied, every trade logged.
 3. Report: equity curve, drawdown curve, win rate, average win/loss, Sharpe.
-4. Run on one stock and one crypto pair, 5+ years. If Alpaca's crypto history is too short, bring in Kraken's CSVs first (see the architecture note).
+4. Run on one stock and one crypto pair, 5+ years (Alpaca's crypto history from 2021 is enough).
 5. Sanity-check the equity curve against what you know about the instrument. Suspicious spikes usually mean a bug (look-ahead, data gap, fee error).
 
 ## Milestone

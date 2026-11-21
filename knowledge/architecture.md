@@ -32,5 +32,5 @@ Golden rule: the Python code we backtest is the **same code** that makes live si
 
 ## Later
 
-- **Kraken crypto history:** if Alpaca's is too short (Phase 04 needs 5+ years), download Kraken's OHLCVT CSVs, convert to our format, replace the whole file for that ticker. See [alpaca-kraken-api-notes.md](alpaca-kraken-api-notes.md).
+- **Kraken crypto history:** only if we ever need more than Alpaca's (from 2021): download Kraken's OHLCVT CSVs, convert to our format, replace the whole file for that ticker. See [alpaca-kraken-api-notes.md](alpaca-kraken-api-notes.md).
 - **Bigger data:** if CSVs get slow or messy, move to SQLite or Postgres.

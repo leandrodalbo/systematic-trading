@@ -11,5 +11,5 @@ backtested well.
       why, rather than shrugging and re-optimizing.
 - [ ] Every trade has a written reason attached — the journal, not memory,
       is the record you trust.
-- [ ] You'd be comfortable explaining the system to another engineer and
+- [ ] You'd be comfortable explaining the system to another person and
       defending every parameter choice.
