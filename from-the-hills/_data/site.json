@@ -1,0 +1,11 @@
+{
+  "name": "Quant Research Studio",
+  "disclaimer": "Research only. Not financial advice.",
+  "privacy": "This site uses no cookies or tracking.",
+  "nav": [
+    { "text": "Home", "href": "/" },
+    { "text": "Market", "href": "/market/" },
+    { "text": "Notes", "href": "/notes/" },
+    { "text": "Concepts", "href": "/concepts/" }
+  ]
+}

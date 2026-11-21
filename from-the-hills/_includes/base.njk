@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ site.name }}</title>
+  <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            ink: '#0b0f14',
+            panel: '#11161d',
+            text: '#e6edf3',
+            muted: '#8b949e',
+            up: '#22c55e',
+            down: '#f87171',
+          },
+          fontFamily: {
+            body: ['"Inter"', 'sans-serif'],
+          },
+        },
+      },
+    }
+  </script>
+</head>
+<body class="flex min-h-screen flex-col bg-ink font-body text-text antialiased">
+
+  <header class="sticky top-0 z-50 border-b border-white/10 bg-panel/95 backdrop-blur">
+    <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3">
+      <a href="/" class="flex items-center gap-3">
+        <span class="flex h-10 w-10 items-center justify-center rounded bg-ink ring-1 ring-white/10">
+          <svg class="h-6 w-6 text-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 3 8-8M15 7h5v5"/></svg>
+        </span>
+        <span class="text-lg font-extrabold tracking-tight">{{ site.name }}</span>
+      </a>
+      <nav class="hidden items-center gap-7 text-sm font-semibold tracking-wide md:flex">
+        {%- for link in site.nav %}
+        <a href="{{ link.href }}" class="transition hover:text-up">{{ link.text }}</a>
+        {%- endfor %}
+      </nav>
+      <button id="navToggle" aria-label="Open menu" aria-expanded="false" class="md:hidden">
+        <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"/></svg>
+      </button>
+    </div>
+    <nav id="mobileNav" class="hidden flex-col border-t border-white/10 bg-panel px-5 pb-5 pt-2 text-sm font-semibold tracking-wide md:hidden">
+      {%- for link in site.nav %}
+      <a href="{{ link.href }}" class="py-3">{{ link.text }}</a>
+      {%- endfor %}
+    </nav>
+  </header>
+
+  <main class="prose prose-invert mx-auto w-full max-w-6xl flex-1 px-5 py-16">
+    {{ content | safe }}
+  </main>
+
+  <footer class="border-t border-white/10 bg-panel py-10 text-center text-sm text-muted">
+    <div class="mx-auto max-w-6xl px-5">
+      <p class="text-lg font-bold text-text">{{ site.name }}</p>
+      <p class="mt-2 font-semibold text-text">{{ site.disclaimer }}</p>
+      <p class="mt-4 text-xs">&copy; {{ build.year }} {{ site.name }} &middot; {{ site.privacy }}</p>
+    </div>
+  </footer>
+
+  <script>
+    const toggle = document.getElementById('navToggle');
+    const mobileNav = document.getElementById('mobileNav');
+    toggle.addEventListener('click', () => {
+      const open = mobileNav.classList.toggle('hidden') === false;
+      mobileNav.classList.toggle('flex', open);
+      toggle.setAttribute('aria-expanded', String(open));
+    });
+    mobileNav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileNav.classList.add('hidden'); mobileNav.classList.remove('flex');
+    }));
+  </script>
+</body>
+</html>

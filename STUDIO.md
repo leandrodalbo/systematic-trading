@@ -57,7 +57,7 @@ A static site, the place where findings live (X posts link to it).
   link to the script.
 - **Concepts:** short plain cards (z-score, drawdown, look-ahead bias…), linked from findings.
 - **Build log:** the system, step by step.
-- **Footer on every page:** "Education and research only. Not financial advice." (UK: don't
+- **Footer on every page:** "Research only. Not financial advice." (user, 2026-11-21; UK: don't
   tell people what to buy.)
 
 Decided (user, 2026-11-21):
@@ -68,8 +68,14 @@ Decided (user, 2026-11-21):
   `green-pastures/.gitignore`, like `node_modules/`). No README in the site folder: every `.md`
   there becomes a page; this section explains the site. `npm test` = build, then Node's built-in tests (`tests/*.test.js`) on the built
   HTML. `package.json` is private and uses ES modules.
-- Look: the home page follows the Dal Bo consulting site
-  (`../still-waters/consulting/static-websites/dalboconsultancy/`).
+- Structure from the Dal Bo consulting site
+  (`../still-waters/consulting/static-websites/dalboconsultancy/`): sticky header with logo box,
+  nav, mobile menu, dark footer. Its own look (user, 2026-11-21): **"Terminal dark"**: near-black
+  background `#0b0f14`, white text `#e6edf3`, green accent `#22c55e`, red for falls `#f87171`;
+  Inter for text, JetBrains Mono for numbers. Tailwind via CDN, like the Dal Bo site.
+  Layout `_includes/base.njk` (each page: `layout: base.njk`); site name and nav links in
+  `_data/site.json`; logo = small line-chart icon; footer = site name, disclaimer, "© 2026 Quant
+  Research Studio · This site uses no cookies or tracking." Tests read HTML with cheerio.
 - Plain static HTML, no server; nothing that hides content from Google (no React app).
 - Built with the Claudio plugin (TDCG): open a Claude Code session **in
   `green-pastures/from-the-hills/`** and run `/claudio:init` there. Claudio guards the folder the
