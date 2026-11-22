@@ -11,19 +11,15 @@ date: 2026-11-21T19:10:00Z
 
 ## How to read it
 
-- When the two are close, the values are spread evenly.
-- When the mean is much bigger than the median, a few very big values are pulling it up.
-- The median tells you what a **normal** case looks like.
+- Extreme values pull the mean: very big ones up, very small ones down.
+- The median barely moves. It shows a **normal** case.
 
 ## Example
 
-SPY in a rising market, 1993–2026: 32 rises of 5% or more.
+SPY above its 200-day average, 1993–2026: 32 rises of 5% or more.
 
-- **Median length:** 56 trading days.
-- **Mean length:** 82 trading days.
-
-One rise lasted 637 days. That one alone pulls the mean up by about 18 days. The median doesn't
-move: a normal rise is still about 56 days.
+- **Median:** 56 trading days.
+- **Mean:** 82 trading days. One rise of 637 days pulls it up.
 
 ## Where it's used
 

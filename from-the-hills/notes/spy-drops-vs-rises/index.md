@@ -10,35 +10,31 @@ pictureAlt: "Bar chart. SPY above its 200-day average: drops last 17 days at 0.4
 
 ## The question
 
-Howard Bandy writes that prices act differently when they rise than when they fall: in a rising
-market, drops are steeper and shorter. Is that true for SPY?
+Bandy: in an uptrend, drops are shorter and steeper than rises. True for SPY?
 
-## How I checked
+## Checked
 
-- SPY daily prices from 1993 to 2026 (Yahoo).
-- "Rising market" = price above its 200-day average.
-- I cut the prices into swings of 5% or more, up or down, and measured each one: how many days
-  it lasted and how much it moved per day.
+- SPY daily prices, 1993–2026 (Yahoo).
+- Uptrend = price above its [200-day average](/concepts/200-day-average/).
+- Every move of 5% or more, up or down: its length in days, and its move per day.
 
 ## What the data said
 
-In a rising market (medians):
+In an uptrend ([medians](/concepts/mean-vs-median/)):
 
-- **Drops:** 17 trading days, −0.49% a day.
-- **Rises:** 56 trading days, +0.26% a day.
+- **Drops:** 17 days, −0.49% a day.
+- **Rises:** 56 days, +0.26% a day.
 
-So drops are about **3× shorter** and **2× faster** than rises. QQQ shows the same (drops 14.5
-days, rises 28).
+QQQ is the same: drops 14.5 days, rises 28.
 
-In a falling market (price below its 200-day average), daily moves are about twice as big:
-1.89% a day against 0.86%.
+Below the 200-day, moves are about twice as fast: 1.89% a day, against 0.86% above it.
 
 ## What it means
 
-In a rising market, dips are short and sharp. That is the idea behind mean reversion systems
-that buy quick dips, but only while price is above its 200-day average.
+In an uptrend, a drop is usually short. So is "buy the dip" a good idea, while price is above
+the 200-day average? That needs its own test.
 
 ## Limits
 
-- No trading costs.
-- One fund, past data.
+- Only SPY and QQQ were checked.
+- Past data. The future may differ.
