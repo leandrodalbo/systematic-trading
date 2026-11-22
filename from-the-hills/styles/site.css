@@ -13,3 +13,18 @@
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
 }
+
+/* Phones: wide tables scroll sideways inside themselves, the page stays put. */
+@media (width < 48rem) {
+  .prose table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    font-size: 0.75rem;
+  }
+
+  .prose th,
+  .prose td {
+    padding: 0.4rem 0.6rem;
+  }
+}

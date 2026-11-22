@@ -13,10 +13,9 @@ pictureAlt: "Bar chart of Apple's P/E by fiscal year, 2007 to 2026, with a media
 Howard Bandy writes that stocks with a high P/E one year tend to have a lower P/E the next year.
 Does Apple show it?
 
-P/E = price ÷ earnings per share. A P/E of 38 means you pay $38 for each $1 the company earns in
-a year.
+P/E = price ÷ earnings per share ([what it means](/concepts/pe-ratio/)).
 
-## How I checked
+## Checking
 
 - Apple's fiscal years 2007–2026 (each ends in late September).
 - Earnings per share from SEC EDGAR, Apple's own filings, adjusted for the 2014 and 2020 stock
@@ -25,24 +24,32 @@ a year.
 
 ## What the data said
 
-Apple's median P/E over these years is 19.1.
+Apple's median P/E over these years is 19.1. At the end of fiscal 2026 it was about 38.
 
 - After a **high** year (above 19.1), P/E fell the next year **6 times out of 9**.
 - After a **low** year, P/E fell only **3 times out of 10**.
 
-P/E can fall in two ways: the price drops, or the earnings catch up.
+P/E can fall in two ways: the price drops, or the earnings grow faster than the price.
 
-- **2007 → 2008:** 39 → 19. The price fell 16% (the 2008 crash) and earnings grew 71%.
-- **2020 → 2021:** 34 → 26, even though the price went **up** 31%. Earnings grew 71%.
+**2007 → 2008: P/E 39 → 19**
+
+- The price fell 16% (the 2008 crash).
+- Earnings grew 71% (strong iPhone and Mac sales).
+- Both pushed P/E down.
+
+**2020 → 2021: P/E 34 → 26**
+
+- The price went **up** 31% (pandemic: iPhone 12, Macs and iPads for working from home).
+- Earnings grew 71%, faster than the price.
+- So P/E still fell.
+
+A falling P/E doesn't always mean the share went down. Sometimes earnings just caught up.
 
 ## The catch
 
-Apple's "normal" P/E moved. It was 12–19 from 2011 to 2019, and 25–38 since 2020. Anyone who
-sold in 2020 because "34 is too high, it will come back to 19" missed a big rise.
-
-Mean reversion needs a mean that stays put. Here, it didn't.
+Apple's normal P/E moved up, from 12–19 (2011–2019) to 25–38 (since 2020). A high P/E
+didn't come back down, because normal itself changed.
 
 ## Limits
 
 - One company proves nothing. The claim is about many stocks; that test comes later.
-- P/E at the end of fiscal 2026: about 38.

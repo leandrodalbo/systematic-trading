@@ -25,34 +25,19 @@ pictureAlt: "Line chart of Bitcoin's weekly close from 2020 to November 2026 wit
 
 ## What happened
 
-- All four are below their 200-day average: a falling market by that rule.
-- SPY closed at its lowest point since its 6 October high.
-- **BTC closed the week of 15 November under its 200-week average** (−3.9%). On Friday it was
-  13.7% under. Earlier this year it dipped below for single weeks only (once in June, twice in
-  August); before that, the last time was 2023.
-- For scale: SPY and QQQ are still about 21% above their 200-week averages. The drop is big, but
-  their long trend is not broken.
+- All four are below their 200-day average: long-term trend down.
+- SPY closed at its lowest since its 6 October high.
+- **BTC is 13.7% under its 200-week average** (about 4 years). The last time it stayed
+  under was 2023.
+- SPY and QQQ are still about 21% above their 200-week averages. A big drop, but the long trend
+  holds.
 
 ## What z20 means
 
-**z20 = (today's close − 20-day average) ÷ 20-day standard deviation**
+How far today's price is from its 20-day average, measured in "normal moves".
 
-Step by step, with SPY on Friday:
-
-1. **The normal price:** the average of the last 20 closes. **$747.81**
-2. **How far today is from normal:** today's close minus that average.
-   $689.81 − $747.81 = **−$58.00**
-3. **The normal wiggle:** on a normal day, how far the price sits from its average (the
-   *standard deviation* of those 20 closes). **$20.53**
-4. **Divide 2 by 3:** how many normal wiggles away today is.
-   −58.00 ÷ 20.53 = **−2.83**
-
-How to read it:
-
-- **0:** right at its 20-day average.
 - **Between −1 and +1:** a normal day.
-- **Below −2 or above +2:** unusual. On a bell curve only about 1 day in 20 lands that far out;
-  markets get extremes a bit more often.
+- **Below −2 or above +2:** unusual, about 1 day in 20.
 
-SPY at −2.83 is an unusually sharp drop for one month. It is a short-term reading: it says
-nothing about the long trend. For that, look at "vs 200-day".
+SPY at −2.83: a sharp drop for one month. It's short-term only. For the long trend, look at
+"vs 200-day".

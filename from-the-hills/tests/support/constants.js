@@ -96,7 +96,7 @@ export const KNOWN_ENTRIES = Object.freeze([
     picture: "/notes/apple-pe/chart.png",
   }),
   Object.freeze({
-    address: "/system/one-system-two-languages/",
+    address: "/system/system-intro/",
     title: "One system, two languages",
     description:
       "Kotlin for the plumbing, Python for the research. Each language picked as the right tool for its job.",
@@ -106,7 +106,7 @@ export const KNOWN_ENTRIES = Object.freeze([
   Object.freeze({
     address: "/concepts/pe-ratio/",
     title: "What is the P/E ratio?",
-    description: "Price ÷ earnings per share: how much you pay for each $1 a company earns in a year.",
+    description: "Share price ÷ profit per share. High = people expect growth, low = they expect little or see a risk.",
     day: "2026-11-21",
     readableDay: "21 November 2026",
   }),
