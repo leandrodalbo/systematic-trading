@@ -139,4 +139,6 @@ export const ROBOTS_LINES = Object.freeze([
 ]);
 
 export const STYLESHEET_ADDRESS = "/styles/site.css";
+export const LOGO_ADDRESS = "/logo.png";
+export const FAVICON_ADDRESS = "/favicon.ico";
 export const PLAY_CDN_HOST = "cdn.tailwindcss.com";
