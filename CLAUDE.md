@@ -30,7 +30,7 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
   `page`, not `$`) (user, 2026-11-21).
 - Site text is plain and short, never marketing-sounding (user, 2026-11-21).
 - Site text is not personal: no "I", "my" or "me". Say what the system or the data does
-  (user, 2026-11-22). X posts are different: they use "I" (see POSTS-GUIDE.md).
+  (user, 2026-11-22). X posts too (see POSTS-GUIDE.md).
 - Claudio plans: few cycles, one per section or feature, numbered 1, 2, 3… with no a/b cycles
   (user, 2026-11-21).
 - When content or wording needs deciding (site text, titles, descriptions), give options to pick
