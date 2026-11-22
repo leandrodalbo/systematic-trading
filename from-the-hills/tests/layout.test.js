@@ -1,18 +1,36 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 
-import { linksIn, loadBuiltPage, loadBuiltPages } from "./support/built-pages.js";
+import { builtFileExists, builtFileFor, linksIn, loadBuiltPage, loadBuiltPages } from "./support/built-pages.js";
 import {
   DISCLAIMER,
+  FAVICON_ADDRESS,
   FOOTER_LINKS,
   HOME_PAGE_PATH,
+  LOGO_ADDRESS,
   MENU_BUTTON_LABEL,
   NAV_LINKS,
   ONE_LINE_IDEA,
   PLAY_CDN_HOST,
   SITE_NAME,
+  SITE_URL,
   STYLESHEET_ADDRESS,
 } from "./support/constants.js";
+
+test("every page shares the logo as its picture when its link is posted", () => {
+  assert.ok(builtFileExists(builtFileFor(LOGO_ADDRESS)), `${LOGO_ADDRESS} is not built`);
+  for (const { path, page } of loadBuiltPages()) {
+    const shared = page('meta[property="og:image"]').attr("content");
+    assert.equal(shared, `${SITE_URL}${LOGO_ADDRESS}`, `${path}: doesn't share the logo`);
+  }
+});
+
+test("every page shows the logo in the browser tab", () => {
+  assert.ok(builtFileExists(builtFileFor(FAVICON_ADDRESS)), `${FAVICON_ADDRESS} is not built`);
+  for (const { path, page } of loadBuiltPages()) {
+    assert.equal(page('link[rel="icon"]').attr("href"), FAVICON_ADDRESS, `${path}: no tab icon`);
+  }
+});
 
 test("every page's footer shows the disclaimer", () => {
   for (const { path, page } of loadBuiltPages()) {

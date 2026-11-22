@@ -6,4 +6,6 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("isoDay", (date) => date.toISOString().slice(0, ISO_DAY_LENGTH));
   eleventyConfig.addPassthroughCopy("{market,notes,system,concepts}/**/*.png");
   eleventyConfig.addPassthroughCopy(".htaccess");
+  eleventyConfig.addPassthroughCopy("logo.png");
+  eleventyConfig.addPassthroughCopy("favicon.ico");
 }
