@@ -87,7 +87,8 @@ One journal file per day: `journal/YYYY-MM-DD.md`, from [journal/TEMPLATE.md](jo
 
 1. **Read (at least 1 hour).** The next chapter in the reading plan (Bandy now; Storelli for
    fundamentals). Notes in `knowledge/`.
-2. **Check the market (20–30 min).** The same checklist, so days can be compared:
+2. **Check the market (20–30 min), in the morning (user, 2026-11-23),** on the last US close. The
+   same checklist, so days can be compared:
    - SPY, QQQ, IWM, BTC: the week's move, from the high, vs 200-day, z20.
    - Anything unusual (big move, very oversold, very overbought).
    - The calendar: earnings, Fed, big data.

@@ -6,7 +6,7 @@
 - One thing I learned:
 - Idea to test/Research?
 
-## Market check
+## Market check (morning, on the last US close)
 
 - SPY: move %, vs 20-day mean
 - QQQ: move %, vs 20-day mean
