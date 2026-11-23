@@ -118,3 +118,94 @@ No trading costs. "Rising market" = price above its 200-day average.
 ### KISS
 
 Keep it simple and straightforward.
+
+## Day 2 (2026-11-23): chapter 2
+
+### Technical vs quantitative
+
+- Both believe some patterns come before good trades.
+- Technical: reads charts by eye.
+- Quantitative: exact rules, testable, results checked with statistics.
+
+### Model + data
+
+- Model: the rules and parameters. It finds the pattern.
+- Data: the prices. Signal + noise.
+- The model is fixed, the market changes. While they stay in sync, the system works.
+
+### Objective function
+
+- One number to rank systems from best to worst.
+
+### The steps
+
+1. In-sample: data to build and tune the model. Short.
+2. Optimise: try options, keep the best. Best in-sample can be luck.
+3. Out-of-sample: new data the model never saw. The honest test.
+4. Walk-forward: repeat 1–3, moving forward in time.
+5. Best estimate trades: all out-of-sample trades together. Used to judge the system.
+6. Position size: a separate step, from the best estimate trades.
+7. Trade the signals.
+8. Monitor: results drop → trade smaller or stop.
+9. Resync: run the walk-forward again.
+
+
+### Distributions
+
+- Use distributions, not single numbers.
+- Population: all future trades. Can't be known in advance.
+- Sample: the trades we have (backtest). Used to estimate the population.
+- Goal: learn as much as possible about the future trades and estimate performance.
+- List of trades: gain/loss per trade, holding days, intra-trade drawdown, how often it trades.
+- Distribution from any trade metric:
+  - put each trade in a bin (e.g. 0% to +1%)
+  - count trades per bin
+  - chart: bins vs count (histogram)
+
+### Four moments (the shape)
+
+- Mean: the average trade.
+- Variance: spread around the mean. Std dev = √variance, same units as the trades.
+- Skewness: how asymmetric (lopsided) the distribution is around the mean. Long left tail = rare big losses.
+- Kurtosis: "tailedness", how prone to extreme values (outliers) vs a normal distribution. High = rare big surprises. Bandy says "peakedness": old view, it's about the tails.
+
+- Mean and std dev: the usual way to describe trade results.
+
+### Monte Carlo
+
+- Build thousands of random trade sequences from the best estimate trades.
+- Get distributions of: account growth, max drawdown, win-to-loss ratio.
+
+### Validation
+
+- Walk-forward gives the best estimate trades: the best guess of future performance.
+
+### Risk
+
+- Risk = % drawdown from the account's highest balance.
+- Intra-trade drawdown counts too, not only closed trades.
+- Every trade has an exit rule that closes it.
+- Risk tolerance is personal. Bandy's form: "5% chance of a 20% drawdown over 2 years".
+
+### Position size and profit
+
+- Position size: separate from the system, from the best estimate trades + risk tolerance.
+- safe-f: biggest fraction of the account per trade that stays inside the risk tolerance.
+- CAR25: yearly growth at the 25th percentile with safe-f. Bandy's objective function.
+
+### System health
+
+- Health changes as the data changes and the model drifts in or out of sync.
+- Dynamic: add each new trade to the set, reassess risk, adjust position size.
+
+### Iterative design
+
+- Change logic and parameters → test → repeat.
+
+
+
+
+
+
+
+
