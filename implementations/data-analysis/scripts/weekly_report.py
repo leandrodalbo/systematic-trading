@@ -1,6 +1,8 @@
-"""Daily market report: one row of numbers per watch list ticker, saved as CSV in journal/reports/.
+"""Weekly market report (Saturdays, on Friday's close).
 
-Run after the close and after ./update_watchlist.sh. The latest candle counts as closed.
+One row of numbers per watch list ticker, saved as CSV in journal/reports/.
+
+Run after ./update_watchlist.sh. The latest candle counts as closed.
 """
 
 from pathlib import Path
