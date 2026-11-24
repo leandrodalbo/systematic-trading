@@ -10,10 +10,13 @@ import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.post
+import trade_plumber.error.BatchUpdateFailedException
 import trade_plumber.error.ErrorMessage
 import trade_plumber.error.UpdateInProgressException
 import trade_plumber.model.AssetClass
 import trade_plumber.model.Timeframe
+import trade_plumber.requests.UpdateListRequest
+import trade_plumber.requests.UpdateRequest
 import trade_plumber.service.MarketDataService
 import trade_plumber.testutils.TestErrors
 
@@ -80,15 +83,64 @@ class MarketDataControllerTest {
         }
     }
 
+    @Test
+    fun `valid batch request returns 204 and updates the whole list`() {
+        justRun { service.updateAll(any()) }
+
+        postBatch(BATCH_BODY).andExpect {
+            status { isNoContent() }
+        }
+
+        verify(exactly = 1) { service.updateAll(BATCH) }
+    }
+
+    @Test
+    fun `batch that stops at a failure returns 502 with the error detail`() {
+        val failure = BatchUpdateFailedException(CRYPTO_SYMBOL, TestErrors.unreachable())
+        every { service.updateAll(any()) } throws failure
+
+        postBatch(BATCH_BODY).andExpect {
+            status { isBadGateway() }
+            jsonPath(DETAIL_PATH) { value(failure.message) }
+        }
+    }
+
+    @Test
+    fun `unreadable batch body returns 400 and never calls the service`() {
+        postBatch(UNKNOWN_ASSET_CLASS_BATCH_BODY).andExpect {
+            status { isBadRequest() }
+        }
+
+        verify(exactly = 0) { service.updateAll(any()) }
+    }
+
     private fun postUpdate(body: String) =
         mockMvc.post(UPDATES_PATH) {
             contentType = MediaType.APPLICATION_JSON
             content = body
         }
 
+    private fun postBatch(body: String) =
+        mockMvc.post(BATCH_PATH) {
+            contentType = MediaType.APPLICATION_JSON
+            content = body
+        }
+
     private companion object {
         const val UPDATES_PATH = "/market-data/updates"
+        const val BATCH_PATH = "/market-data/updates/batch"
         const val CRYPTO_SYMBOL = "BTC/USD"
+        const val STOCK_SYMBOL = "SPY"
+        const val BATCH_BODY = """{"updates":[{"symbol":"SPY","assetClass":"STOCK","timeframe":"DAY"},""" +
+            """{"symbol":"BTC/USD","assetClass":"CRYPTO","timeframe":"DAY"}]}"""
+        const val UNKNOWN_ASSET_CLASS_BATCH_BODY =
+            """{"updates":[{"symbol":"BTC/USD","assetClass":"FOREX","timeframe":"DAY"}]}"""
+        val BATCH = UpdateListRequest(
+            listOf(
+                UpdateRequest(STOCK_SYMBOL, AssetClass.STOCK, Timeframe.DAY),
+                UpdateRequest(CRYPTO_SYMBOL, AssetClass.CRYPTO, Timeframe.DAY),
+            ),
+        )
         const val UPDATE_BODY = """{"symbol":"BTC/USD","assetClass":"CRYPTO","timeframe":"DAY"}"""
         const val UNKNOWN_ASSET_CLASS_BODY = """{"symbol":"BTC/USD","assetClass":"FOREX","timeframe":"DAY"}"""
         const val DETAIL_PATH = "$.detail"

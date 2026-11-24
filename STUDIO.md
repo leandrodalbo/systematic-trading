@@ -49,6 +49,8 @@ Static site in `from-the-hills/` (Eleventy 3, Tailwind 4, "terminal dark" look).
 page: "Research only. Not financial advice." No email, no cookies, no tracking.
 
 - **Sections:** Market, Notes, System, Concepts. Home shows the latest entry from each.
+- **Search** (`/search/`, Pagefind): every entry is indexed on each `npm test` and deploy. Built
+  in the site's own files, no outside service.
 - **Market:** one entry per trading day with a check (`market/<YYYY-MM-DD>/`, the day of the
   closing prices). Every day is kept, so each X post links to its own day. Titles short, with
   numbers.
@@ -67,11 +69,9 @@ page: "Research only. Not financial advice." No email, no cookies, no tracking.
 (`TRADEWEB_SERVER`, `TRADEWEB_SSHUSER`, `TRADEWEB_PORT`, `TRADEWEB_FOLDER`, `TRADEWEB_KEY`).
 
 **Later:**
-- A "What is a z-score?" concept.
 - A script that fills the market check, linked from the page.
 - The two note charts (SPY swings, Apple P/E) as scripts in
   `implementations/data-analysis/scripts/`, then script links on notes.
-- Website v2: search with Pagefind, at about 30+ pages.
 
 ## What "research" means here
 
@@ -93,6 +93,12 @@ One journal file per day: `journal/YYYY-MM-DD.md`, from [journal/TEMPLATE.md](jo
    - Anything unusual (big move, very oversold, very overbought).
    - The calendar: earnings, Fed, big data.
    - 3–5 lines in the journal, numbers only, no guesses.
+   - The flow (user, 2026-11-24): fetch by hand (`./update_watchlist.sh`) → the report (numbers
+     to read) → scan and analysis → only then AI makes a **card** (an image) for the one
+     interesting thing found, to catch attention on X. No fixed daily card.
+   - The report: `uv run scripts/daily_report.py` in `implementations/data-analysis/`, after the
+     fetch. One row per watch list ticker, saved as `journal/reports/YYYY-MM-DD.csv`. It only
+     calculates; finding what's unusual is the daily work on that file.
 
 **Then one practical thing, whatever the day gives:**
 
@@ -113,7 +119,6 @@ tests happen when they're ready, not on a set day.
 ## Next practical things (any order)
 
 - RSI(2) and z-score on SPY in a script, on trade-plumber's CSVs.
-- The daily check as a script (5 minutes, not 30).
 - trade-plumber: fetch the watch list every day by itself.
 - First "Does it work?": RSI(2) on SPY vs buy-and-hold.
 - First trap: look-ahead bias.
