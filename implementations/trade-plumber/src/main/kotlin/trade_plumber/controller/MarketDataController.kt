@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import trade_plumber.requests.UpdateListRequest
 import trade_plumber.requests.UpdateRequest
 import trade_plumber.service.MarketDataService
 
@@ -20,8 +21,14 @@ class MarketDataController(
     fun update(@RequestBody request: UpdateRequest) =
         service.update(request.symbol, request.assetClass, request.timeframe)
 
+    @PostMapping(BATCH_PATH)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun updateAll(@RequestBody batch: UpdateListRequest) =
+        service.updateAll(batch)
+
     companion object {
         const val BASE_PATH = "/market-data"
         const val UPDATES_PATH = "/updates"
+        const val BATCH_PATH = "/updates/batch"
     }
 }

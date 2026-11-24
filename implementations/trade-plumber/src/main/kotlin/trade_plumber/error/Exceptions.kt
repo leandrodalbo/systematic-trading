@@ -1,12 +1,5 @@
 package trade_plumber.error
 
-enum class ErrorMessage(val message: String) {
-    ALPACA_HTTP_ERROR("Alpaca returned an error status"),
-    ALPACA_UNREACHABLE("Alpaca could not be reached"),
-    ALPACA_EMPTY_RESPONSE("Empty response from Alpaca"),
-    UPDATE_IN_PROGRESS("A market data update is already in progress"),
-}
-
 class AlpacaApiFailedException(
     val symbol: String,
     val error: ErrorMessage,
@@ -20,6 +13,7 @@ class AlpacaApiFailedException(
             ErrorMessage.ALPACA_HTTP_ERROR -> isRetryableStatus(status)
             ErrorMessage.ALPACA_EMPTY_RESPONSE -> false
             ErrorMessage.UPDATE_IN_PROGRESS -> false
+            ErrorMessage.BATCH_UPDATE_STOPPED -> false
         }
 
     private fun isRetryableStatus(status: Int?) =
@@ -32,3 +26,8 @@ class AlpacaApiFailedException(
 }
 
 class UpdateInProgressException : RuntimeException(ErrorMessage.UPDATE_IN_PROGRESS.message)
+
+class BatchUpdateFailedException(
+    val failedSymbol: String,
+    cause: Throwable,
+) : RuntimeException("${ErrorMessage.BATCH_UPDATE_STOPPED.message} $failedSymbol: ${cause.message}", cause)

@@ -13,6 +13,10 @@ class ApiExceptionHandler {
     fun alpacaFailed(ex: AlpacaApiFailedException): ProblemDetail =
         ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.message)
 
+    @ExceptionHandler(BatchUpdateFailedException::class)
+    fun batchUpdateFailed(ex: BatchUpdateFailedException): ProblemDetail =
+        ProblemDetail.forStatusAndDetail(HttpStatus.BAD_GATEWAY, ex.message)
+
     @ExceptionHandler(UpdateInProgressException::class)
     fun updateInProgress(ex: UpdateInProgressException): ProblemDetail =
         ProblemDetail.forStatusAndDetail(HttpStatus.CONFLICT, ex.message)
