@@ -12,7 +12,7 @@ date: 2026-11-24T19:00:00Z
 3. z = (today's close − mean) ÷ std dev.
 
 The answer is in std devs, not percent. "z −2" means the price is 2 typical moves below its
-average. The daily market check uses z20.
+average. The weekly market check uses z20.
 
 ## How to read it
 
@@ -40,4 +40,4 @@ Closing prices on 20 November 2026:
 
 ## Where it's used
 
-- The daily market check: the z20 number ([20 November 2026](/market/2026-11-20/)).
+- The weekly market check: the z20 number ([20 November 2026](/market/2026-11-20/)).

@@ -25,4 +25,4 @@ its 6 October high. By this rule, the long-term trend is down.
 
 - [Drops vs rises in SPY, 1993–2026](/notes/spy-drops-vs-rises/): "rising market" means price
   above its 200-day average.
-- The daily market check: the "vs 200-day" number.
+- The weekly market check: the "vs 200-day" number.

@@ -6,8 +6,8 @@ date: 2026-11-21T18:00:00Z
 
 ## Two jobs, two languages
 
-- **Kotlin + Spring Boot (trade-plumber):** the plumbing. Fetch prices, store them, run on a
-  schedule, later send orders to the broker (Alpaca). Spring Boot is mature for this: HTTP
+- **Kotlin + Spring Boot (trade-plumber):** the plumbing. Fetch prices and store them. Later:
+  send orders to the broker (Alpaca). Spring Boot is mature for this: HTTP
   calls, scheduling, error handling and tests are all built in.
 - **Python (data-analysis):** the research. Test ideas on years of past prices and decide what
   to trade. Python is mature for this: pandas, NumPy and most trading research tools.
@@ -16,8 +16,3 @@ date: 2026-11-21T18:00:00Z
 
 The Python part that tests an idea on past prices is the same one that picks the real trades. Kotlin
 just carries them out. Two copies would drift apart, and the tests would check the wrong thing.
-
-## Who does what
-
-- **trade-plumber:** updates the data, coordinates, places the orders.
-- **Python:** analysis, backtesting, signals.

@@ -8,13 +8,13 @@ export const BUILT_HOME_PAGE = join(BUILT_SITE, HOME_PAGE_PATH);
 
 export const SITE_NAME = "Quant Research Studio";
 export const ONE_LINE_IDEA =
-  "Checking the markets every day, studying known trading methods, and using them to build a real trading system.";
+  "A weekly look at the markets, known trading methods tested on real data, and a real trading system built from them.";
 
 export const TITLE_ENDING = ` · ${SITE_NAME}`;
 export const HOME_HEADING = "Trading Enquiries & Market Research";
 export const HOME_TITLE = `${HOME_HEADING}${TITLE_ENDING}`;
 export const HOME_DESCRIPTION =
-  "Daily market numbers and known trading methods studied on real data. Research only, not financial advice.";
+  "Weekly market numbers and known trading methods studied on real data. Research only, not financial advice.";
 export const MAX_TITLE_LENGTH = 60;
 export const MAX_DESCRIPTION_LENGTH = 160;
 
@@ -42,7 +42,7 @@ export const SECTIONS = Object.freeze([
     path: "market/index.html",
     address: "/market/",
     title: `Market${TITLE_ENDING}`,
-    description: "One short check per trading day: SPY, QQQ, IWM and BTC against their highs and averages.",
+    description: "One check a week: SPY, QQQ, IWM, BTC and the watch list, on Friday's close.",
   }),
   Object.freeze({
     section: "notes",

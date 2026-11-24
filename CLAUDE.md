@@ -39,7 +39,7 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 
 ## Project
 
-**Quant Research Studio** (quantresearch.studio, the only active project, 2026-11-20): read every day, check the market every day, and do one practical thing when the day gives one (a post, a website note, a script, an indicator, a trade-plumber feature). Plan: `STUDIO.md`. Underneath: a self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only. Reading never blocks the practical work.
+**Quant Research Studio** (quantresearch.studio, the only active project, 2026-11-20): read every day, check the market every week (Saturdays, on Friday's close; a really big day can get its own check), and do one practical thing when the day gives one (a post, a website note, a script, an indicator, a trade-plumber feature). Plan: `STUDIO.md`. Underneath: a self-directed curriculum from statistics to a validated mean-reversion swing-trading system, for US stocks and crypto. Free tools only. Reading never blocks the practical work.
 
 - `0X-*.md` — one file per phase (00–09). Progress is tracked by the milestone checkbox and a `Status` line.
 - `knowledge/` — notes and cheat sheets. Architecture: `knowledge/architecture.md`.
@@ -67,18 +67,16 @@ Method reference: the ClaudioXP plugin (`../will-not-slumber/`), used when neede
   `error/` (user, 2026-11-24).
 - Kotlin tests: use MockK (`mockk`, `every`, `verify`) for test doubles. No hand-written fakes.
 - Kotlin: use `runCatching { }.onFailure { }` instead of try/catch. It catches every `Throwable`, so always rethrow (`throw it`) unless swallowing is truly intended.
-- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data. Later: `indicators/`, `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
+- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data, `indicators/` = one module per kind (`trend`, `mean_reversion`, `performance`). Later: `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
 - Python: all error classes live in `core/errors.py`. No empty classes (`pass`): each error has an `__init__` that builds its own message from its arguments. No enum of messages.
 - Python: env var names and the functions that read them live in `core/config.py`.
 - Python: fixed values (column names, timezones, separators, file extensions, defaults) live in `core/constants.py`. No inline literals for them, not even small pieces inside f-strings (e.g. `_`, `.csv`).
-- Python: domain types (enums, data classes) live in `domain/`, one module per type (e.g. `domain/asset_class.py`). Types that belong
-  together share one module (e.g. `Cross` and `LastCross` in `domain/cross.py`) (user, 2026-11-24). Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
+- Python: domain types (enums, data classes) live in `domain/`, one module per type (e.g. `domain/asset_class.py`). Types that belong together share one module (e.g. `Cross` and `LastCross` in `domain/cross.py`) (user, 2026-11-24). Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
 - Python: helpers used only inside a module start with `_` (private by convention). Only the module's real entry points are public.
 - Python: keep functions short and single-purpose; pull a step out into a private helper when a function does two jobs.
-- Python: one job per module. One-off checks go in `scripts/`, never in the package.
-- Tests: short names a person reads at a glance (`test_golden_cross`, `test_week_move_on_friday`),
-  not full sentences (user, 2026-11-24).
-- Python tests: pytest, one `test_<module>.py` per module, mirroring the package folders (`tests/core/`, `tests/data/`).
+- Python: one job per module. One-off checks and the weekly report go in `scripts/`, never in the package.
+- Tests: short names a person reads at a glance (`test_golden_cross`, `test_move_from_high`), not full sentences (user, 2026-11-24).
+- Python tests: pytest, one `test_<module>.py` per module, mirroring the package folders (`tests/core/`, `tests/data/`, `tests/indicators/`).
 
 ## Writing notes
 
