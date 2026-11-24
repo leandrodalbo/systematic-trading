@@ -30,6 +30,7 @@ export const NAV_LINKS = Object.freeze([
   Object.freeze({ text: "Notes", href: "/notes/" }),
   Object.freeze({ text: "System", href: "/system/" }),
   Object.freeze({ text: "Concepts", href: "/concepts/" }),
+  Object.freeze({ text: "Search", href: "/search/" }),
 ]);
 
 // Each section and its list page. Entries are found in the built site, so a new entry needs no
@@ -119,6 +120,22 @@ export const NOT_FOUND_TITLE = `Page not found${TITLE_ENDING}`;
 export const NOT_FOUND_HEADING = "Page not found";
 export const NOT_FOUND_TEXT = "This page doesn't exist or has moved.";
 export const NOT_FOUND_HOME_LINK = Object.freeze({ text: "Back to the home page", href: "/" });
+
+export const SEARCH_PAGE_PATH = "search/index.html";
+export const SEARCH_ADDRESS = "/search/";
+export const SEARCH_NO_SCRIPT_TEXT = "Search needs JavaScript. All entries are in the menu sections.";
+export const SEARCH_TITLE = `Search${TITLE_ENDING}`;
+export const SEARCH_HEADING = "Search";
+export const SEARCH_DESCRIPTION = "Search every market check, note and concept on the site.";
+export const SEARCH_PLACEHOLDER = "Search entries";
+export const SEARCH_BOX = "#search";
+export const SEARCH_INDEX_PATH = "pagefind/pagefind.js";
+export const SEARCH_SCRIPT_ADDRESS = "/pagefind/pagefind-ui.js";
+export const SEARCH_STYLESHEET_ADDRESS = "/pagefind/pagefind-ui.css";
+export const INDEXED_PART = "[data-pagefind-body]";
+
+// Pages with nothing for Google to show: not in the sitemap, no canonical link.
+export const PAGES_KEPT_FROM_GOOGLE = Object.freeze([NOT_FOUND_PAGE_PATH, SEARCH_PAGE_PATH]);
 
 export const HTACCESS_PATH = ".htaccess";
 export const HTACCESS_NOT_FOUND_RULE = "ErrorDocument 404 /404.html";

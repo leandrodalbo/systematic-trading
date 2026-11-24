@@ -8,9 +8,10 @@
   },
   "scripts": {
     "css": "tailwindcss -i styles/site.css -o _site/styles/site.css --minify",
-    "build": "eleventy && npm run css",
-    "start": "npm run css -- --watch & eleventy --serve",
-    "test": "eleventy --quiet && npm run css --silent && node --test",
+    "search": "pagefind --site _site --quiet",
+    "build": "eleventy && npm run search && npm run css",
+    "start": "npm run css -- --watch & eleventy --quiet && npm run search && eleventy --serve",
+    "test": "eleventy --quiet && npm run search --silent && npm run css --silent && node --test",
     "deploy": "./deploy.sh"
   },
   "devDependencies": {
@@ -18,6 +19,7 @@
     "@tailwindcss/cli": "^4.3.5",
     "@tailwindcss/typography": "^0.5.20",
     "cheerio": "^1.2.0",
+    "pagefind": "^1.6.0",
     "tailwindcss": "^4.3.5"
   }
 }

@@ -12,16 +12,16 @@ import {
 import {
   HTACCESS_PATH,
   HTACCESS_WWW_RULES,
-  NOT_FOUND_PAGE_PATH,
+  PAGES_KEPT_FROM_GOOGLE,
   ROBOTS_LINES,
   ROBOTS_PATH,
   SITE_URL,
 } from "./support/constants.js";
 
-test("the sitemap lists every page by its full address, except the 404 page", () => {
+test("the sitemap lists every page by its full address, except the 404 and search pages", () => {
   const expected = loadBuiltPages()
     .map(({ path }) => path)
-    .filter((path) => path !== NOT_FOUND_PAGE_PATH)
+    .filter((path) => !PAGES_KEPT_FROM_GOOGLE.includes(path))
     .map((path) => `${SITE_URL}${pageAddress(path)}`)
     .sort();
   const listed = sitemapEntries().map((entry) => entry.address).sort();
@@ -42,10 +42,10 @@ test("robots.txt allows everything and points to the sitemap", () => {
   }
 });
 
-test("every page except the 404 page names its full address as the one true copy", () => {
+test("every page except the 404 and search pages names its full address as the one true copy", () => {
   for (const { path, page } of loadBuiltPages()) {
     const canonical = page('link[rel="canonical"]').attr("href");
-    const expected = path === NOT_FOUND_PAGE_PATH ? undefined : `${SITE_URL}${pageAddress(path)}`;
+    const expected = PAGES_KEPT_FROM_GOOGLE.includes(path) ? undefined : `${SITE_URL}${pageAddress(path)}`;
     assert.equal(canonical, expected, `${path}: wrong canonical link`);
   }
 });

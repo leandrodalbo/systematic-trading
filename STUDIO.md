@@ -49,6 +49,8 @@ Static site in `from-the-hills/` (Eleventy 3, Tailwind 4, "terminal dark" look).
 page: "Research only. Not financial advice." No email, no cookies, no tracking.
 
 - **Sections:** Market, Notes, System, Concepts. Home shows the latest entry from each.
+- **Search** (`/search/`, Pagefind): every entry is indexed on each `npm test` and deploy. Built
+  in the site's own files, no outside service.
 - **Market:** one entry per trading day with a check (`market/<YYYY-MM-DD>/`, the day of the
   closing prices). Every day is kept, so each X post links to its own day. Titles short, with
   numbers.
@@ -67,11 +69,9 @@ page: "Research only. Not financial advice." No email, no cookies, no tracking.
 (`TRADEWEB_SERVER`, `TRADEWEB_SSHUSER`, `TRADEWEB_PORT`, `TRADEWEB_FOLDER`, `TRADEWEB_KEY`).
 
 **Later:**
-- A "What is a z-score?" concept.
 - A script that fills the market check, linked from the page.
 - The two note charts (SPY swings, Apple P/E) as scripts in
   `implementations/data-analysis/scripts/`, then script links on notes.
-- Website v2: search with Pagefind, at about 30+ pages.
 
 ## What "research" means here
 

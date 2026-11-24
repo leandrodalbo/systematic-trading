@@ -14,6 +14,16 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+/* Search box (Pagefind) in the same colours. */
+#search {
+  --pagefind-ui-primary: var(--color-up);
+  --pagefind-ui-text: var(--color-text);
+  --pagefind-ui-background: var(--color-panel);
+  --pagefind-ui-border: #ffffff1a;
+  --pagefind-ui-tag: var(--color-ink);
+  --pagefind-ui-font: var(--font-body);
+}
+
 /* Phones: wide tables scroll sideways inside themselves, the page stays put. */
 @media (width < 48rem) {
   .prose table {

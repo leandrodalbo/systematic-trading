@@ -8,7 +8,8 @@
     { "text": "Market", "href": "/market/", "section": "market" },
     { "text": "Notes", "href": "/notes/", "section": "notes" },
     { "text": "System", "href": "/system/", "section": "system" },
-    { "text": "Concepts", "href": "/concepts/", "section": "concepts" }
+    { "text": "Concepts", "href": "/concepts/", "section": "concepts" },
+    { "text": "Search", "href": "/search/" }
   ],
   "links": [
     { "text": "X", "href": "https://x.com/QResearchStudio" },
