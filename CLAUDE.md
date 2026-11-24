@@ -61,16 +61,23 @@ Method reference: the ClaudioXP plugin (`../will-not-slumber/`), used when neede
 ## Code style (mandatory)
 
 - Kotlin: define constant values (query params, paths, headers, fixed values) as `const val` in a `companion object`. No inline string literals for them.
+- Kotlin: a request body is always an object. A list goes inside a request class
+  (`UpdateListRequest(val updates: List<UpdateRequest>)`), never a bare JSON array (user, 2026-11-24).
+- Kotlin errors: the `ErrorMessage` enum in one file, the exception classes in another, both in
+  `error/` (user, 2026-11-24).
 - Kotlin tests: use MockK (`mockk`, `every`, `verify`) for test doubles. No hand-written fakes.
 - Kotlin: use `runCatching { }.onFailure { }` instead of try/catch. It catches every `Throwable`, so always rethrow (`throw it`) unless swallowing is truly intended.
 - Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data. Later: `indicators/`, `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
 - Python: all error classes live in `core/errors.py`. No empty classes (`pass`): each error has an `__init__` that builds its own message from its arguments. No enum of messages.
 - Python: env var names and the functions that read them live in `core/config.py`.
 - Python: fixed values (column names, timezones, separators, file extensions, defaults) live in `core/constants.py`. No inline literals for them, not even small pieces inside f-strings (e.g. `_`, `.csv`).
-- Python: domain types (enums, data classes) live in `domain/`, one module per type (e.g. `domain/asset_class.py`). Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
+- Python: domain types (enums, data classes) live in `domain/`, one module per type (e.g. `domain/asset_class.py`). Types that belong
+  together share one module (e.g. `Cross` and `LastCross` in `domain/cross.py`) (user, 2026-11-24). Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
 - Python: helpers used only inside a module start with `_` (private by convention). Only the module's real entry points are public.
 - Python: keep functions short and single-purpose; pull a step out into a private helper when a function does two jobs.
 - Python: one job per module. One-off checks go in `scripts/`, never in the package.
+- Tests: short names a person reads at a glance (`test_golden_cross`, `test_week_move_on_friday`),
+  not full sentences (user, 2026-11-24).
 - Python tests: pytest, one `test_<module>.py` per module, mirroring the package folders (`tests/core/`, `tests/data/`).
 
 ## Writing notes
