@@ -1,5 +1,5 @@
 from data_analysis.data.bars import load_bars
-from data_analysis.domain.asset_class import AssetClass
+from data_analysis.domain.market import AssetClass
 
 TICKERS = [
     ("AAPL", AssetClass.STOCK),

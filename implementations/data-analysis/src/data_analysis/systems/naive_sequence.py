@@ -1,6 +1,6 @@
 import pandas as pd
 
-from data_analysis.domain.market_direction import MarketDirection
+from data_analysis.domain.market import MarketDirection
 
 
 def consecutive_days(closes: pd.Series, days: int, direction: MarketDirection) -> pd.Series:

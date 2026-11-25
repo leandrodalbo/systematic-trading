@@ -1,5 +1,5 @@
-from data_analysis.domain.market_direction import MarketDirection
-from data_analysis.rules.consecutive_days import consecutive_days
+from data_analysis.domain.market import MarketDirection
+from data_analysis.systems.naive_sequence import consecutive_days
 
 
 def test_falling_run(daily):

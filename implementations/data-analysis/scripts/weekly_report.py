@@ -11,8 +11,7 @@ import pandas as pd
 
 from data_analysis.core.errors import BarsFileNotFoundError
 from data_analysis.data.bars import load_bars
-from data_analysis.domain.asset_class import AssetClass
-from data_analysis.domain.since import Since
+from data_analysis.domain.market import AssetClass, Since
 from data_analysis.indicators.mean_reversion import z_score
 from data_analysis.indicators.performance import move
 from data_analysis.indicators.trend import average_gap, last_cross, vs_average
