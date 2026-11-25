@@ -67,7 +67,7 @@ Method reference: the ClaudioXP plugin (`../will-not-slumber/`), used when neede
   `error/` (user, 2026-11-24).
 - Kotlin tests: use MockK (`mockk`, `every`, `verify`) for test doubles. No hand-written fakes.
 - Kotlin: use `runCatching { }.onFailure { }` instead of try/catch. It catches every `Throwable`, so always rethrow (`throw it`) unless swallowing is truly intended.
-- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data, `indicators/` = one module per kind (`trend`, `mean_reversion`, `performance`). Later: `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
+- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data, `indicators/` = one module per kind (`trend`, `mean_reversion`, `performance`). `rules/` = one module per rule (`consecutive_days`, `holding_days`, `profit_target`), so each test file stays small (user, 2026-11-25). Later: `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
 - Python: all error classes live in `core/errors.py`. No empty classes (`pass`): each error has an `__init__` that builds its own message from its arguments. No enum of messages.
 - Python: env var names and the functions that read them live in `core/config.py`.
 - Python: fixed values (column names, timezones, separators, file extensions, defaults) live in `core/constants.py`. No inline literals for them, not even small pieces inside f-strings (e.g. `_`, `.csv`).
