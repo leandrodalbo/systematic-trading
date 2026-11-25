@@ -3,7 +3,7 @@ import math
 import pandas as pd
 import pytest
 
-from data_analysis.domain.since import Since
+from data_analysis.domain.market import Since
 from data_analysis.indicators.performance import move
 
 

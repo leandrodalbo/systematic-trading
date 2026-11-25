@@ -36,6 +36,8 @@ Every feature or behavior change follows this loop. Do not skip steps. Ask befor
 - When content or wording needs deciding (site text, titles, descriptions), give options to pick
   from, not one fixed proposal (user, 2026-11-21).
 - The user makes all commits. At COMMIT, suggest the files and a message; never run `git commit` or `git push`.
+- Commit messages name the plan and cycle(s) and the test status (e.g. "Tests: 39 passed"), so a
+  PR shows each commit is a working step even when the plan isn't finished (XP) (user, 2026-11-25).
 
 ## Project
 
@@ -67,11 +69,11 @@ Method reference: the ClaudioXP plugin (`../will-not-slumber/`), used when neede
   `error/` (user, 2026-11-24).
 - Kotlin tests: use MockK (`mockk`, `every`, `verify`) for test doubles. No hand-written fakes.
 - Kotlin: use `runCatching { }.onFailure { }` instead of try/catch. It catches every `Throwable`, so always rethrow (`throw it`) unless swallowing is truly intended.
-- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data, `indicators/` = one module per kind (`trend`, `mean_reversion`, `performance`). Later: `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file.
+- Python layout: folders by area. `core/` = shared pieces (`config`, `constants`, `errors`), `domain/` = types, `data/` = reading price data, `indicators/` = one module per kind (`trend`, `mean_reversion`, `performance`). `systems/` = one module per system with its own entry rules (`naive_sequence`); it may start with one file, since each new system adds one (user, 2026-11-25). Later: `backtest/`, `api/` (FastAPI, Phase 07). Dependencies point inward only: `api` → others → `data` → `domain`/`core`. No folder for a single file (except `systems/`).
 - Python: all error classes live in `core/errors.py`. No empty classes (`pass`): each error has an `__init__` that builds its own message from its arguments. No enum of messages.
 - Python: env var names and the functions that read them live in `core/config.py`.
 - Python: fixed values (column names, timezones, separators, file extensions, defaults) live in `core/constants.py`. No inline literals for them, not even small pieces inside f-strings (e.g. `_`, `.csv`).
-- Python: domain types (enums, data classes) live in `domain/`, one module per type (e.g. `domain/asset_class.py`). Types that belong together share one module (e.g. `Cross` and `LastCross` in `domain/cross.py`) (user, 2026-11-24). Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
+- Python: domain types (enums, data classes) live in `domain/`, one module per topic, several classes per file (user, 2026-11-25): `domain/market.py` (`AssetClass`, `MarketDirection`, `Since`, `Cross`, `LastCross`), `domain/trade.py` (`SystemTradeSetup`, `OpenTrade`). A type's own small checks and factory methods live on the class (e.g. `OpenTrade.from_entry`, `trade.stop_reached(low)`), as long as `domain` depends only on `core`. Enum names match the Kotlin ones (e.g. `AssetClass.STOCK`, `CRYPTO`), since the two services talk to each other.
 - Python: helpers used only inside a module start with `_` (private by convention). Only the module's real entry points are public.
 - Python: keep functions short and single-purpose; pull a step out into a private helper when a function does two jobs.
 - Python: one job per module. One-off checks and the weekly report go in `scripts/`, never in the package.

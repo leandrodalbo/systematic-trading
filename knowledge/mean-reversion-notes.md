@@ -202,10 +202,63 @@ Keep it simple and straightforward.
 
 - Change logic and parameters → test → repeat.
 
+## Day 3 (2026-11-25): chapter 3
 
+### Naive system: buy after an n-day sequence
 
+- Traded: SPY.
+- Data: 1 Jan 1999 to 1 Jan 2012.
+- Indicator: a run of rising or falling days.
+- Action: at the close of the signal bar.
+- Long only.
+- Objective function: CAR/MDD.
+  - CAR: compound annual return, the yearly growth rate.
+  - MDD: maximum drawdown, the biggest drop from a high.
+  - CAR/MDD: growth per unit of worst drop. Higher is better.
+- Initial equity: 100,000.
+- Open positions: 1 at most (10,000 each).
 
+### Parameters
 
+- `n_days_consecutive`: how many days in a row.
+- `direction`: rising or falling.
+- `holding_days`: most days to hold.
+- `profit_target`: % gain that closes the trade.
+- Example: (3, 0, 7, 05).
 
+### Rules
 
+- Buy: N days in a row in the same direction.
+- Sell: after the max holding days, or at the profit target.
 
+### Discussion
+
+- Long after rising days: trend following.
+- Long after falling days: mean reversion.
+
+### Summary
+
+**Account**
+
+- Initial capital.
+- Ending capital.
+- Net profit, net profit %.
+- Exposure: % of time in the market.
+- Net risk-adjusted return: net profit % ÷ exposure.
+- Annual return.
+
+**All trades**
+
+- Avg profit/loss, avg profit/loss %.
+
+**Winners**
+
+- Total profit.
+- Avg profit, avg profit %.
+- Largest win.
+
+**Losers**
+
+- Total loss.
+- Avg loss, avg loss %.
+- Largest loss.

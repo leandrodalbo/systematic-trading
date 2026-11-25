@@ -1,7 +1,7 @@
 import pandas as pd
 
 from data_analysis.core.constants import PERCENT
-from data_analysis.domain.cross import Cross, LastCross
+from data_analysis.domain.market import Cross, LastCross
 
 
 def vs_average(closes: pd.Series, window: int) -> pd.Series:

@@ -1,7 +1,7 @@
 import pandas as pd
 
 from data_analysis.core.constants import PERCENT
-from data_analysis.domain.since import Since
+from data_analysis.domain.market import Since
 
 
 def move(closes: pd.Series, since: Since, days: int) -> pd.Series:

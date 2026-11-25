@@ -14,7 +14,7 @@ from data_analysis.core.constants import (
     TIME_COLUMN,
 )
 from data_analysis.core.errors import BarsFileNotFoundError
-from data_analysis.domain.asset_class import AssetClass
+from data_analysis.domain.market import AssetClass
 
 
 def load_bars(symbol: str, asset_class: AssetClass, timeframe: str = DEFAULT_TIMEFRAME) -> pd.DataFrame:

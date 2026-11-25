@@ -4,7 +4,7 @@ import pytest
 from data_analysis.core.config import DATA_DIR_ENV
 from data_analysis.core.errors import BarsFileNotFoundError
 from data_analysis.data.bars import load_bars
-from data_analysis.domain.asset_class import AssetClass
+from data_analysis.domain.market import AssetClass
 
 HEADER = "time,open,high,low,close,volume\n"
 

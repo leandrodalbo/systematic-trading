@@ -2,7 +2,7 @@ import math
 
 import pytest
 
-from data_analysis.domain.cross import Cross, LastCross
+from data_analysis.domain.market import Cross, LastCross
 from data_analysis.indicators.trend import average_gap, last_cross, vs_average
 
 FAST = 2
