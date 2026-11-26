@@ -1,6 +1,9 @@
 # Secrets — never commit API keys
 .env
 *.env
+.CLAUDE
+CLAUDE
+CLAUDE.md
 
 # Personal social-media drafts — local only
 posts/
