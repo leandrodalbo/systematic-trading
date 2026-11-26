@@ -1,3 +1,5 @@
+import pytest
+
 from data_analysis.domain.trade import ClosedTrade, Exit, ExitReason, OpenTrade
 
 
@@ -20,7 +22,7 @@ def test_exit_at_target(backtest, bars, setup):
         ClosedTrade(
             open_trade=OpenTrade.from_entry("SPY", entry_day, 100, setup),
             exit=Exit(date=exit_day, price=105, reason=ExitReason.TARGET),
-            shares=100,
+            quantity=100,
             days_held=1,
         )
     ]
@@ -43,7 +45,16 @@ def test_buy_again_same_day(backtest, bars):
     trades, equity = backtest(days, entries=[True, True, False])
 
     assert [trade.exit.reason for trade in trades] == [ExitReason.STOP]
-    assert list(equity) == [100_000, 99_800, 99_901]
+    assert list(equity) == pytest.approx([100_000, 99_800, 99_901.0101], abs=0.0001)
+
+
+def test_buy_above_trade_size(backtest, bars):
+    days = bars([(20_000, 20_000, 20_000, 20_000), (20_000, 20_200, 20_000, 20_200)])
+
+    trades, equity = backtest(days, entries=[True, False])
+
+    assert trades == []
+    assert list(equity) == [100_000, 100_100]
 
 
 def test_days_held(backtest, bars):

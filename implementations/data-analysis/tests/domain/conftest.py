@@ -7,13 +7,13 @@ from data_analysis.domain.trade import ClosedTrade, Exit, OpenTrade
 
 @pytest.fixture
 def closed_trade(setup):
-    """Builds a closed SPY trade: 100 shares bought at 100 (10,000), sold at `exit_price` after `days_held` bars."""
+    """Builds a closed SPY trade: quantity 100 bought at 100 (10,000), sold at `exit_price` after `days_held` bars."""
     def build(exit_price, days_held):
         entry_date = pd.Timestamp("2026-01-05")
         return ClosedTrade(
             open_trade=OpenTrade.from_entry("SPY", entry_date, 100, setup),
             exit=Exit.at_close(entry_date + pd.Timedelta(days=days_held), exit_price),
-            shares=100,
+            quantity=100,
             days_held=days_held,
         )
     return build

@@ -111,8 +111,14 @@ def net_profit(equity: pd.Series, initial_equity: float) -> float:
     return ending_capital(equity) - initial_equity
 
 
+def return_percent(equity: pd.Series, initial_equity: float) -> pd.Series:
+    """Each day's growth of the account since the start, as a %."""
+    return (equity - initial_equity) / initial_equity * PERCENT
+
+
 def net_profit_percent(equity: pd.Series, initial_equity: float) -> float:
-    return net_profit(equity, initial_equity) / initial_equity * PERCENT
+    """The growth on the last day."""
+    return return_percent(equity, initial_equity).iloc[-1]
 
 
 def exposure_percent(trades: list[ClosedTrade], equity: pd.Series) -> float:
@@ -127,10 +133,15 @@ def annual_return_percent(equity: pd.Series, initial_equity: float) -> float:
     return ((ending_capital(equity) / initial_equity) ** (1 / years) - 1) * PERCENT
 
 
+def drawdown_percent(equity: pd.Series) -> pd.Series:
+    """Each day's fall from the highest equity so far, as a positive %; 0 on a new high."""
+    peaks = equity.cummax()
+    return (peaks - equity) / peaks * PERCENT
+
+
 def max_drawdown_percent(equity: pd.Series) -> float:
     """MDD: the largest fall from a peak, as a positive %. Falls inside a trade count."""
-    peaks = equity.cummax()
-    return ((peaks - equity) / peaks).max() * PERCENT
+    return drawdown_percent(equity).max()
 
 
 def _mean(values: list[float]) -> float | None:
