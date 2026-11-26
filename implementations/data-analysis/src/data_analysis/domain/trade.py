@@ -78,14 +78,41 @@ class OpenTrade:
         return days_held >= self.setup.holding_days
 
     def exit_on(self, date: pd.Timestamp, bar: pd.Series, days_held: int) -> Exit | None:
-        """The stop wins, then the target, then holding days; `None` means nothing was hit, keep the trade."""
+        """The exit for this bar at its fill price; `None` means nothing was hit, keep the trade."""
+        match self._exit_reason(bar, days_held):
+            case ExitReason.STOP:
+                return Exit.at_stop(date, bar[BarColumn.OPEN], self.stop_price)
+            case ExitReason.TARGET:
+                return Exit.at_target(date, self.target_price)
+            case ExitReason.HOLDING_DAYS:
+                return Exit.at_close(date, bar[BarColumn.CLOSE])
+            case None:
+                return None
+
+    def _exit_reason(self, bar: pd.Series, days_held: int) -> ExitReason | None:
+        """The stop wins, then the target, then holding days; `None` when nothing was hit."""
         if self.stop_reached(bar[BarColumn.LOW]):
-            return Exit.at_stop(date, bar[BarColumn.OPEN], self.stop_price)
+            return ExitReason.STOP
         if self.target_reached(bar[BarColumn.HIGH]):
-            return Exit.at_target(date, self.target_price)
+            return ExitReason.TARGET
         if self.holding_days_reached(days_held):
-            return Exit.at_close(date, bar[BarColumn.CLOSE])
+            return ExitReason.HOLDING_DAYS
         return None
+
+    def profit_at(self, price: float, shares: int) -> float:
+        """What the trade makes (or loses, when negative) if it is sold at `price`."""
+        return (price - self.entry_price) * shares
+
+
+@dataclass(frozen=True)
+class ClosedTrade:
+    open_trade: OpenTrade
+    exit: Exit
+    shares: int
+
+    @property
+    def profit(self) -> float:
+        return self.open_trade.profit_at(self.exit.price, self.shares)
 
 
 def _stop_price(entry_close: float, stop_percent: float) -> float:

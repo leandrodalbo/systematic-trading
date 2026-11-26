@@ -9,13 +9,12 @@ import numpy as np
 import pandas as pd
 
 from data_analysis.data.bars import load_bars
-from data_analysis.domain.market import AssetClass
+from data_analysis.domain.market import AssetClass, BarColumn
 
 TICKERS = [
     ("SPY", AssetClass.STOCK),
     ("BTC/USD", AssetClass.CRYPTO),
 ]
-CLOSE_COLUMN = "close"
 PERCENT = 100
 
 MEAN = "mean"
@@ -55,7 +54,7 @@ def _output_dir() -> Path:
 
 
 def _daily_returns(symbol: str, asset_class: AssetClass) -> pd.Series:
-    closes = load_bars(symbol, asset_class)[CLOSE_COLUMN]
+    closes = load_bars(symbol, asset_class)[BarColumn.CLOSE]
     finished = closes[closes.index < pd.Timestamp.today().normalize()]
     return finished.pct_change().dropna() * PERCENT
 
