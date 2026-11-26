@@ -21,6 +21,7 @@ def test_exit_at_target(backtest, bars, setup):
             open_trade=OpenTrade.from_entry("SPY", entry_day, 100, setup),
             exit=Exit(date=exit_day, price=105, reason=ExitReason.TARGET),
             shares=100,
+            days_held=1,
         )
     ]
     assert trades[0].profit == 500
@@ -43,6 +44,14 @@ def test_buy_again_same_day(backtest, bars):
 
     assert [trade.exit.reason for trade in trades] == [ExitReason.STOP]
     assert list(equity) == [100_000, 99_800, 99_901]
+
+
+def test_days_held(backtest, bars):
+    days = bars([(100, 100, 100, 100), (100, 101, 99, 100), (99, 100, 97, 99)])
+
+    trades, _ = backtest(days, entries=[True, False, False])
+
+    assert [(trade.exit.reason, trade.days_held) for trade in trades] == [(ExitReason.STOP, 2)]
 
 
 def test_entry_while_holding(backtest, bars):

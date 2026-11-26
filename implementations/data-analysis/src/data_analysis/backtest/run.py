@@ -12,6 +12,10 @@ class _Holding:
     shares: int
     entry_number: int
 
+    def days_held(self, number: int) -> int:
+        """Bars since the entry bar (day 0), at bar `number`."""
+        return number - self.entry_number
+
 
 def run_backtest(
     bars: pd.DataFrame,
@@ -34,7 +38,14 @@ def run_backtest(
     for number, (date, bar) in enumerate(bars.loc[start:end].iterrows()):
         sold = _exit(holding, date, bar, number)
         if sold is not None:
-            trades.append(ClosedTrade(open_trade=holding.trade, exit=sold, shares=holding.shares))
+            trades.append(
+                ClosedTrade(
+                    open_trade=holding.trade,
+                    exit=sold,
+                    shares=holding.shares,
+                    days_held=holding.days_held(number),
+                )
+            )
             holding = None
         if holding is None and entries[date]:
             close = bar[BarColumn.CLOSE]
@@ -48,7 +59,7 @@ def _exit(holding: _Holding | None, date: pd.Timestamp, bar: pd.Series, number: 
     """`None` when nothing is held or nothing was hit."""
     if holding is None:
         return None
-    return holding.trade.exit_on(date, bar, days_held=number - holding.entry_number)
+    return holding.trade.exit_on(date, bar, days_held=holding.days_held(number))
 
 
 def _shares(trade_size: float, close: float) -> int:

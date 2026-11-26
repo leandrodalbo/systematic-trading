@@ -109,10 +109,16 @@ class ClosedTrade:
     open_trade: OpenTrade
     exit: Exit
     shares: int
+    days_held: int
 
     @property
     def profit(self) -> float:
         return self.open_trade.profit_at(self.exit.price, self.shares)
+
+    @property
+    def profit_percent(self) -> float:
+        """The profit as a % of what the shares cost at the entry."""
+        return self.profit / (self.open_trade.entry_price * self.shares) * PERCENT
 
 
 def _stop_price(entry_close: float, stop_percent: float) -> float:

@@ -28,3 +28,4 @@ def backtest(setup):
             trade_size=10_000,
         )
     return run
+
