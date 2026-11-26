@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from enum import Enum
+from enum import Enum, StrEnum
 
 import pandas as pd
 
@@ -18,6 +18,13 @@ class Since(Enum):
     CLOSE = "close"
     HIGH = "high"
     LOW = "low"
+
+
+class BarColumn(StrEnum):
+    OPEN = "open"
+    HIGH = "high"
+    LOW = "low"
+    CLOSE = "close"
 
 
 class Cross(Enum):

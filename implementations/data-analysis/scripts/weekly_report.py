@@ -11,7 +11,7 @@ import pandas as pd
 
 from data_analysis.core.errors import BarsFileNotFoundError
 from data_analysis.data.bars import load_bars
-from data_analysis.domain.market import AssetClass, Since
+from data_analysis.domain.market import AssetClass, BarColumn, Since
 from data_analysis.indicators.mean_reversion import z_score
 from data_analysis.indicators.performance import move
 from data_analysis.indicators.trend import average_gap, last_cross, vs_average
@@ -19,7 +19,6 @@ from data_analysis.indicators.trend import average_gap, last_cross, vs_average
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 WATCHLIST = PROJECT_DIR / "watchlist.csv"
 REPORTS_DIR = PROJECT_DIR.parents[1] / "journal" / "reports"
-CLOSE_COLUMN = "close"
 DATE_FORMAT = "%Y-%m-%d"
 DECIMALS = "%.2f"
 
@@ -38,7 +37,7 @@ def main() -> None:
     rows, missing = [], []
     for symbol, asset_class in pd.read_csv(WATCHLIST).itertuples(index=False):
         try:
-            closes = load_bars(symbol, AssetClass[asset_class])[CLOSE_COLUMN]
+            closes = load_bars(symbol, AssetClass[asset_class])[BarColumn.CLOSE]
         except BarsFileNotFoundError:
             missing.append(symbol)
             continue
