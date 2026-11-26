@@ -19,6 +19,20 @@ def setup():
 
 
 @pytest.fixture
+def bar():
+    """Builds one daily bar, like a row of the bars table."""
+    def build(open, high, low, close):
+        return pd.Series({"open": open, "high": high, "low": low, "close": close}, dtype=float)
+    return build
+
+
+@pytest.fixture
+def exit_date():
+    """A day a few bars after the `trade` fixture's entry."""
+    return pd.Timestamp("2026-01-08")
+
+
+@pytest.fixture
 def trade(setup):
     """SPY bought at 100: stop 98, target 105, 7 holding days."""
     return OpenTrade(

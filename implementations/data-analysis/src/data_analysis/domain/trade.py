@@ -1,9 +1,11 @@
 from dataclasses import dataclass
+from enum import Enum
 from typing import Self
 
 import pandas as pd
 
 from data_analysis.core.constants import PERCENT
+from data_analysis.domain.market import BarColumn
 
 
 @dataclass(frozen=True)
@@ -12,6 +14,34 @@ class SystemTradeSetup:
     stop_percent: float
     target_percent: float
     holding_days: int
+
+
+class ExitReason(Enum):
+    STOP = "stop"
+    TARGET = "target"
+    HOLDING_DAYS = "holding_days"
+
+
+@dataclass(frozen=True)
+class Exit:
+    date: pd.Timestamp
+    price: float
+    reason: ExitReason
+
+    @classmethod
+    def at_stop(cls, date: pd.Timestamp, open_price: float, stop_price: float) -> Self:
+        """The stop is a market order: on a gap down it fills at the open, below the stop."""
+        return cls(date=date, price=min(open_price, stop_price), reason=ExitReason.STOP)
+
+    @classmethod
+    def at_target(cls, date: pd.Timestamp, target_price: float) -> Self:
+        """The target fills at its own price, even on a gap up."""
+        return cls(date=date, price=target_price, reason=ExitReason.TARGET)
+
+    @classmethod
+    def at_close(cls, date: pd.Timestamp, close: float) -> Self:
+        """Holding days reached: the trade sells at the bar's close."""
+        return cls(date=date, price=close, reason=ExitReason.HOLDING_DAYS)
 
 
 @dataclass(frozen=True)
@@ -46,6 +76,16 @@ class OpenTrade:
     def holding_days_reached(self, days_held: int) -> bool:
         """`days_held` counts bars since the entry bar, which is day 0."""
         return days_held >= self.setup.holding_days
+
+    def exit_on(self, date: pd.Timestamp, bar: pd.Series, days_held: int) -> Exit | None:
+        """The stop wins, then the target, then holding days; `None` means nothing was hit, keep the trade."""
+        if self.stop_reached(bar[BarColumn.LOW]):
+            return Exit.at_stop(date, bar[BarColumn.OPEN], self.stop_price)
+        if self.target_reached(bar[BarColumn.HIGH]):
+            return Exit.at_target(date, self.target_price)
+        if self.holding_days_reached(days_held):
+            return Exit.at_close(date, bar[BarColumn.CLOSE])
+        return None
 
 
 def _stop_price(entry_close: float, stop_percent: float) -> float:
